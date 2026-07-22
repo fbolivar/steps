@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Grupo Steps Seguros Ltda. — Protege lo que más amas</title>
+<meta name="description" content="Agencia de seguros en Colombia. Soluciones personalizadas para personas, familias, empresas y cooperativas."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{gold:'#E8A020',gold2:'#F5D76E',ink:'#06090F',surface:'#0B1120',card:'rgba(255,255,255,0.04)',primary:'#0B2545',secondary:'#1B4F8A'},fontFamily:{heading:['"Playfair Display"','serif'],body:['"DM Sans"','sans-serif']}}}};
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#06090F;color:#EEF2FF;font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Playfair Display',serif}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#06090F}
+::-webkit-scrollbar-thumb{background:#E8A020;border-radius:2px}
+
+/* ─── Scroll bar ─── */
+#sp{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#E8A020,#1B4F8A);z-index:9999;width:0;transition:width .08s}
+
+/* ─── Cursor glow ─── */
+#cg{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,.07) 0%,transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .4s ease,top .4s ease}
+
+/* ─── Noise overlay ─── */
+.noise::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.032;pointer-events:none;z-index:1}
+
+/* ─── Glass ─── */
+.glass{background:rgba(255,255,255,.045);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08)}
+
+/* ─── Gradient text ─── */
+.gt{background:linear-gradient(135deg,#E8A020,#F5D76E 50%,#E8A020);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gt-blue{background:linear-gradient(135deg,#4A90D9,#7BB5F0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ─── Tag pill ─── */
+.tag{display:inline-flex;align-items:center;gap:7px;background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.25);padding:5px 16px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#E8A020;font-family:'DM Sans',sans-serif}
+.tag-dot{width:6px;height:6px;border-radius:50%;background:#E8A020;display:inline-block;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ─── Buttons ─── */
+.btn-gold{position:relative;overflow:hidden;background:linear-gradient(135deg,#E8A020,#C87010);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;padding:14px 32px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(232,160,32,.35)}
+.btn-gold::after{content:'';position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-200%);animation:sh 2.8s ease infinite}
+@keyframes sh{0%{transform:translateX(-200%)}55%,100%{transform:translateX(350%)}}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;padding:14px 32px;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{border-color:rgba(232,160,32,.5);color:#E8A020;transform:translateY(-2px)}
+
+/* ─── Section label ─── */
+.sec-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#E8A020;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sec-label::before{content:'';width:32px;height:1px;background:#E8A020}
+
+/* ─── Card hover ─── */
+.ch{transition:transform .38s cubic-bezier(.25,.46,.45,.94),box-shadow .38s ease,border-color .3s}
+.ch:hover{transform:translateY(-8px);box-shadow:0 32px 64px rgba(0,0,0,.5),0 0 0 1px rgba(232,160,32,.15)}
+
+/* ─── Marquee ─── */
+@keyframes mql{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mqr{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.mql{animation:mql 40s linear infinite;display:flex;width:max-content;gap:16px}
+.mqr{animation:mqr 40s linear infinite;display:flex;width:max-content;gap:16px}
+.mq-wrap:hover .mql,.mq-wrap:hover .mqr{animation-play-state:paused}
+
+/* ─── Reveal ─── */
+@keyframes ru{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0}.fu.vis{animation:ru .7s cubic-bezier(.22,1,.36,1) forwards}
+.fu.vis.d1{animation-delay:.08s}.fu.vis.d2{animation-delay:.18s}.fu.vis.d3{animation-delay:.28s}.fu.vis.d4{animation-delay:.38s}.fu.vis.d5{animation-delay:.48s}
+
+/* ─── Hero text anim ─── */
+@keyframes hru{from{opacity:0;transform:translateY(50px) skewY(2deg)}to{opacity:1;transform:translateY(0) skewY(0)}}
+.hrv{animation:hru .9s cubic-bezier(.22,1,.36,1) both;opacity:0}
+.hrv.d1{animation-delay:.1s}.hrv.d2{animation-delay:.28s}.hrv.d3{animation-delay:.46s}.hrv.d4{animation-delay:.64s}.hrv.d5{animation-delay:.82s}
+
+/* ─── Orb ─── */
+@keyframes od{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(30px,-20px) scale(1.05)}70%{transform:translate(-20px,15px) scale(.96)}}
+.orb{position:absolute;border-radius:50%;pointer-events:none;animation:od ease-in-out infinite}
+
+/* ─── Float ─── */
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* ─── Border gradient trick ─── */
+.bg-border{position:relative}
+.bg-border::before{content:'';position:absolute;inset:0;padding:1px;background:linear-gradient(135deg,rgba(232,160,32,.35),rgba(27,79,138,.2));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;border-radius:inherit}
+
+/* ─── Tab ─── */
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:10px 24px;border-radius:100px;cursor:pointer;transition:all .25s;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:transparent}
+.tab-btn.active{background:rgba(232,160,32,.12);border-color:rgba(232,160,32,.4);color:#E8A020}
+.tab-btn:hover:not(.active){border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.8)}
+
+/* ─── Grid line bg ─── */
+.grid-bg{background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px}
+
+/* ─── Nav ─── */
+.nav-bg{-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);background:rgba(6,9,15,.8);border-bottom:1px solid rgba(255,255,255,.07)}
+
+/* ─── Modal ─── */
+.modal-bkg{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+
+/* ─── Prod card image overlay ─── */
+.prod-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,9,15,.95) 0%,rgba(6,9,15,.4) 50%,transparent 100%);transition:opacity .3s}
+
+/* ─── Glow accent ─── */
+.gold-glow{box-shadow:0 0 60px rgba(232,160,32,.2),0 0 120px rgba(232,160,32,.07)}
+
+/* ─── Divider diagonal ─── */
+.diag-top{clip-path:polygon(0 6%,100% 0,100% 100%,0 100%)}
+.diag-bot{clip-path:polygon(0 0,100% 0,100% 94%,0 100%)}
+
+/* ─── Counter section ─── */
+.count-line{position:relative}
+.count-line::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:#E8A020;transition:width .6s ease}
+.count-line:hover::after{width:100%}
+</style>
+</head>
+<body>
+<div id="sp"></div>
+<div id="cg"></div>
+<div id="root"></div>
+
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback}=React;
+
+const EMAILJS_SERVICE_ID='YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID='YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY='YOUR_PUBLIC_KEY';
+
+/* ── Observer ── */
+function useFU(){
+  useEffect(()=>{
+    const els=document.querySelectorAll('.fu');
+    const obs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});},{threshold:.08});
+    els.forEach(e=>obs.observe(e));
+    return()=>obs.disconnect();
+  });
+}
+
+/* ── Cursor + progress ── */
+function Ambient(){
+  useEffect(()=>{
+    const cg=document.getElementById('cg');
+    const sp=document.getElementById('sp');
+    const move=e=>{if(cg){cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';}};
+    const scroll=()=>{if(sp){const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;sp.style.width=(s/h*100)+'%';}};
+    window.addEventListener('mousemove',move);
+    window.addEventListener('scroll',scroll,{passive:true});
+    return()=>{window.removeEventListener('mousemove',move);window.removeEventListener('scroll',scroll);};
+  },[]);
+  return null;
+}
+
+/* ── Icons ── */
+const I={
+  phone:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 010 2.12 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>,
+  mail:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+  menu:()=><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>,
+  x:()=><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
+  arr:()=><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>,
+  arrup:()=><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>,
+  chevR:()=><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>,
+  chevL:()=><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6"/></svg>,
+  check:()=><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>,
+  clock:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+  wa:()=><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.372 0 0 5.373 0 12c0 2.117.554 4.103 1.522 5.832L.057 23.999l6.304-1.654A11.94 11.94 0 0011.997 24C18.622 24 24 18.628 24 12c0-6.627-5.378-12-12.003-12zm0 21.818a9.815 9.815 0 01-5.007-1.373l-.36-.213-3.722.977.994-3.631-.236-.374A9.798 9.798 0 012.182 12c0-5.422 4.394-9.818 9.815-9.818 5.422 0 9.816 4.396 9.816 9.818 0 5.423-4.394 9.818-9.816 9.818z"/></svg>,
+  fb:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>,
+  ig:()=><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>,
+};
+
+const SvcIcon=({type,size=32,color='currentColor'})=>{
+  const s={width:size,height:size,viewBox:"0 0 48 48",fill:"none",stroke:color,strokeWidth:"1.8",strokeLinecap:"round",strokeLinejoin:"round"};
+  if(type==='vida') return <svg {...s}><path d="M24 43s-16-8-16-20V10l16-6 16 6v13c0 12-16 20-16 20z"/><path d="M18 24l4 4 8-8"/></svg>;
+  if(type==='salud') return <svg {...s}><rect x="8" y="8" width="32" height="32" rx="3"/><line x1="24" y1="16" x2="24" y2="32"/><line x1="16" y1="24" x2="32" y2="24"/></svg>;
+  if(type==='hogar') return <svg {...s}><path d="M6 18l18-14 18 14v22a2 2 0 01-2 2H8a2 2 0 01-2-2z"/><path d="M18 44V28h12v16"/></svg>;
+  if(type==='auto') return <svg {...s}><rect x="4" y="16" width="40" height="20" rx="3"/><circle cx="14" cy="36" r="5"/><circle cx="34" cy="36" r="5"/><path d="M4 26h40M14 16l4-8h12l4 8"/></svg>;
+  if(type==='empresa') return <svg {...s}><rect x="6" y="10" width="36" height="32" rx="2"/><path d="M16 42V28h16v14M6 22h36M16 10V6h16v4"/></svg>;
+  if(type==='viaje') return <svg {...s}><path d="M8 36l8-8 6 6 10-14 8 6"/><circle cx="40" cy="12" r="6"/></svg>;
+  if(type==='cyber') return <svg {...s}><rect x="6" y="8" width="36" height="26" rx="2"/><path d="M16 42h16M24 34v8M18 22l4 4 8-8"/></svg>;
+  if(type==='cumplimiento') return <svg {...s}><path d="M10 8h28l4 8v20a4 4 0 01-4 4H10a4 4 0 01-4-4V16z"/><path d="M4 16h40M18 28l4 4 8-8"/></svg>;
+  if(type==='ambiental') return <svg {...s}><path d="M24 44V24M24 24C24 14 34 4 44 4c0 10-10 20-20 20zM24 24C24 14 14 4 4 4c0 10 10 20 20 20z"/></svg>;
+  if(type==='ingenieria') return <svg {...s}><rect x="4" y="28" width="40" height="16" rx="2"/><path d="M12 28V20l12-8 12 8v8M20 44V32h8v12"/></svg>;
+  if(type==='transporte') return <svg {...s}><rect x="2" y="14" width="30" height="22" rx="2"/><path d="M32 20l8 4v12H32V20z"/><circle cx="12" cy="38" r="4"/><circle cx="38" cy="38" r="4"/></svg>;
+  if(type==='rc') return <svg {...s}><circle cx="18" cy="14" r="8"/><path d="M4 44v-4a12 12 0 0124 0v4"/><path d="M32 10l4 4 8-8"/></svg>;
+  if(type==='do') return <svg {...s}><path d="M8 8h32v28H8z"/><path d="M16 20h16M16 28h10M20 44l4-8 4 8"/></svg>;
+  if(type==='arl') return <svg {...s}><path d="M24 4l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z"/><circle cx="24" cy="28" r="8"/></svg>;
+  if(type==='agropecuario') return <svg {...s}><path d="M4 44h40M8 44V28l16-16 16 16v16M20 44v-8h8v8"/></svg>;
+  if(type==='credito') return <svg {...s}><rect x="4" y="10" width="40" height="28" rx="3"/><line x1="4" y1="20" x2="44" y2="20"/><line x1="12" y1="30" x2="20" y2="30"/><line x1="28" y1="30" x2="36" y2="30"/></svg>;
+  return <svg {...s}><circle cx="24" cy="24" r="16"/><path d="M24 16v8l6 4"/></svg>;
+};
+
+const Logo=({size=1})=>(
+  <svg width={148*size} height={50*size} viewBox="0 0 148 50" fill="none">
+    <text x="0" y="34" fontFamily="'Playfair Display',serif" fontSize="30" fontWeight="800" fill="#FFFFFF" letterSpacing=".5">STEPS</text>
+    <text x="2" y="47" fontFamily="'DM Sans',sans-serif" fontSize="9.5" fontWeight="500" fill="rgba(255,255,255,.55)" letterSpacing="5">SEGUROS</text>
+    <line x1="0" y1="36" x2="128" y2="36" stroke="#E8A020" strokeWidth="1.5" opacity=".8"/>
+  </svg>
+);
+
+/* ════════════════════ DATA ════════════════════ */
+const NAV=[{l:'Inicio',h:'#inicio'},{l:'Nosotros',h:'#nosotros'},{l:'Personas',h:'#personas'},{l:'Empresas',h:'#empresas'},{l:'Aliados',h:'#aliados'},{l:'Contacto',h:'#contacto'}];
+
+const PERSONAS_PROD=[
+  {key:'vida',img:'https://picsum.photos/seed/family01/400/240',titulo:'Seguro de Vida',desc:'Beneficio financiero a los beneficiarios en caso de fallecimiento. Protege ingresos y cubre deudas.'},
+  {key:'salud',img:'https://picsum.photos/seed/medic02/400/240',titulo:'Seguro de Salud',desc:'Cobertura médica integral: hospitalización, emergencias, medicamentos y atención preventiva.'},
+  {key:'hogar',img:'https://picsum.photos/seed/house03/400/240',titulo:'Seguro de Hogar',desc:'Tu vivienda y contenidos contra incendios, robos, daños por agua y desastres naturales.'},
+  {key:'auto',img:'https://picsum.photos/seed/carauto04/400/240',titulo:'Seguro de Automóvil',desc:'Cobertura total para vehículos: accidentes, robo, vandalismo y responsabilidad civil.'},
+  {key:'viaje',img:'https://picsum.photos/seed/travel05/400/240',titulo:'Seguro de Viaje',desc:'Cancelaciones, equipaje perdido, asistencia médica y evacuación de emergencia en tus viajes.'},
+  {key:'cumplimiento',img:'https://picsum.photos/seed/legal06/400/240',titulo:'Responsabilidad Civil',desc:'Protección cuando eres legalmente responsable de lesiones o daños a terceros.'},
+  {key:'empresa',img:'https://picsum.photos/seed/school07/400/240',titulo:'Seguro Educativo',desc:'Financia la educación de tus hijos: matrícula, libros y gastos educativos garantizados.'},
+  {key:'hogar',img:'https://picsum.photos/seed/memorial08/400/240',titulo:'Seguro de Exequias',desc:'Servicios asistenciales ante fallecimiento: apoyo económico y logístico a la familia.'},
+  {key:'auto',img:'https://picsum.photos/seed/pets09/400/240',titulo:'Seguro de Mascotas',desc:'Cubre gastos veterinarios por enfermedad o lesión. Algunos planes incluyen responsabilidad civil.'},
+  {key:'salud',img:'https://picsum.photos/seed/health10/400/240',titulo:'Seguro de Discapacidad',desc:'Fuente de ingresos cuando no puedes trabajar por enfermedad o lesión.'},
+  {key:'empresa',img:'https://picsum.photos/seed/apart11/400/240',titulo:'Fianza de Arrendamiento',desc:'Cubre incumplimiento de pago, gastos de restitución y servicios públicos del inquilino.'},
+  {key:'cumplimiento',img:'https://picsum.photos/seed/contract12/400/240',titulo:'Fianza de Cumplimiento',desc:'Garantiza el cumplimiento de un contrato o prestación de servicios de persona natural.'},
+];
+
+const EMPRESAS_PROD=[
+  {key:'vida',img:'https://picsum.photos/seed/biz01/400/240',titulo:'Vida para Empresas',desc:'Protege la continuidad del negocio ante la pérdida de una persona clave.'},
+  {key:'salud',img:'https://picsum.photos/seed/team02/400/240',titulo:'Salud Colectiva',desc:'Hospitalización, cáncer, infarto, vida y enfermedades de alto costo para tus colaboradores.'},
+  {key:'cumplimiento',img:'https://picsum.photos/seed/build03/400/240',titulo:'Seguro CENAL',desc:'Póliza que cubre riesgos en un período de diez años según Decreto 282 de 2019.'},
+  {key:'ambiental',img:'https://picsum.photos/seed/nature04/400/240',titulo:'Responsabilidad Ambiental',desc:'Costos de limpieza y restauración tras daños ambientales. Esencial para manejo de sustancias peligrosas.'},
+  {key:'cyber',img:'https://picsum.photos/seed/cyber05/400/240',titulo:'Ciberseguridad',desc:'Protección ante violaciones de seguridad digital y pérdida de información confidencial.'},
+  {key:'ingenieria',img:'https://picsum.photos/seed/engineer06/400/240',titulo:'Riesgos de Ingeniería',desc:'Proyectos de construcción e ingeniería: daños materiales y pérdidas durante la obra.'},
+  {key:'transporte',img:'https://picsum.photos/seed/fleet07/400/240',titulo:'Vehículos Comerciales',desc:'Seguro adaptado a vehículos comerciales: responsabilidad civil, daños y lesiones.'},
+  {key:'rc',img:'https://picsum.photos/seed/corp08/400/240',titulo:'Responsabilidad Civil Emp.',desc:'Protección contra reclamaciones por lesiones o daños a terceros en operaciones comerciales.'},
+  {key:'do',img:'https://picsum.photos/seed/exec09/400/240',titulo:'D&O — Directivos',desc:'Protege directores y ejecutivos contra reclamaciones por decisiones de gestión.'},
+  {key:'arl',img:'https://picsum.photos/seed/work10/400/240',titulo:'Riesgos Laborales (ARL)',desc:'Beneficios a empleados por lesiones laborales y protección empresarial ante demandas.'},
+  {key:'transporte',img:'https://picsum.photos/seed/logist11/400/240',titulo:'Seguro de Transportes',desc:'Mercancías en movilización fluvial, férrea, aérea, marítima y almacenamiento temporal.'},
+  {key:'agropecuario',img:'https://picsum.photos/seed/farm12/400/240',titulo:'Seguro Agropecuario',desc:'Ampara agricultores y ganaderos frente a riesgos que afecten cultivos o generen pérdidas.'},
+  {key:'credito',img:'https://picsum.photos/seed/finance13/400/240',titulo:'Seguro DIAN',desc:'Garantiza el cumplimiento de obligaciones ante la DIAN según disposiciones legales.'},
+  {key:'cumplimiento',img:'https://picsum.photos/seed/payment14/400/240',titulo:'Garantía de Pagos',desc:'Garantiza el cumplimiento del pago del distribuidor para facilitar el desarrollo de su negocio.'},
+  {key:'credito',img:'https://picsum.photos/seed/credit15/400/240',titulo:'Fianza de Crédito',desc:'Indemniza a empresarios por el no pago de créditos otorgados a clientes en ventas.'},
+  {key:'empresa',img:'https://picsum.photos/seed/office16/400/240',titulo:'Propiedad Empresarial',desc:'Edificios, inventario y equipo contra incendios, robos o desastres naturales.'},
+  {key:'empresa',img:'https://picsum.photos/seed/tribute17/400/240',titulo:'Exequias Empresarial',desc:'Beneficios ante el fallecimiento de colaboradores clave. Apoya a las familias.'},
+  {key:'cumplimiento',img:'https://picsum.photos/seed/comply18/400/240',titulo:'Fianza de Cumplimiento',desc:'Protege el patrimonio ante perjuicios por incumplimiento imputable al contratista.'},
+];
+
+const ALIADOS=[
+  {id:'bolivar',name:'Seguros Bolívar',img:'https://images.seeklogo.com/logo-png/36/1/seguros-bolivar-logo-png_seeklogo-364597.png'},
+  {id:'hdi',name:'HDI Seguros',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/HDI_Seguros_Brasil_-_Logo_2020.png/250px-HDI_Seguros_Brasil_-_Logo_2020.png'},
+  {id:'axa',name:'AXA Colpatria',img:'https://www.elempleo.com/co/sitio-empresarial/CompanySites/axa-colpatria/resources/images/logo-social.png'},
+  {id:'assistcard',name:'Assist Card',img:'https://images.seeklogo.com/logo-png/52/2/assist-card-logo-png_seeklogo-523136.png'},
+  {id:'solidaria',name:'Solidaria Seguros',img:'https://static.wikia.nocookie.net/logopedia/images/a/a2/AseguradoraSolidaria2004.png/revision/latest?cb=20180822181119'},
+  {id:'colmena',name:'Colmena Seguros',img:'https://static.wikia.nocookie.net/logopedia/images/1/12/Colmena_seguros_2015.png/revision/latest?cb=20170817014142'},
+  {id:'sbs',name:'SBS Seguros',img:'https://www.greatplacetowork.com.co/images/CompaniesCertification/Fotos/SBS/2023/SBS_-_LOGO.jpeg'},
+  {id:'sura',name:'Seguros SURA',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Seguros_SURA_Logo.svg/3840px-Seguros_SURA_Logo.svg.png'},
+  {id:'zurich',name:'Zurich Seguros',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Zurich_Insurance_Group_Logo_Horizontal.svg/3840px-Zurich_Insurance_Group_Logo_Horizontal.svg.png'},
+  {id:'mundial',name:'Mundial Seguros',img:'https://upload.wikimedia.org/wikipedia/commons/7/77/Logo_mundial_seguros.png'},
+  {id:'positiva',name:'Positiva',img:'https://iconape.com/wp-content/files/kw/261834/svg/261834.svg'},
+  {id:'estado',name:'Seguros del Estado',img:'https://clickautos.co/wp-content/uploads/2024/10/Logo-Seguros-del-Estado.png'},
+  {id:'chubb',name:'Chubb',img:'https://news.chubb.com/image/CHUBB.jpg'},
+  {id:'continental',name:'Continental Seguros',img:'https://consejeriaivs.com/wp-content/uploads/2016/12/LOGO-CONTINENTAL-PNG.png'},
+  {id:'liberty',name:'Liberty Seguros',img:'https://www.logotypes101.com/logos/541/D309F9CC13FA295C1F40470845298644/liberty_seguros.png'},
+  {id:'afiancol',name:'Afiancol',img:'https://ii.ct-stc.com/1/logos/empresas/2017/05/12/compania-interamericana-de-fianzas-sa-68EC72D37BC5EB12211252thumbnail.png'},
+];
+
+const TESTI=[
+  {q:'Gracias a Steps Seguros encontré la póliza de vida perfecta para mi familia. Asesoramiento claro, sin letra pequeña y proceso rapidísimo.',name:'Carlos Andrés Rueda',role:'Gerente General',co:'Rueda & Asociados S.A.S.'},
+  {q:'Llevamos tres años con Steps para la cobertura de nuestra flota y seguro colectivo. Siempre atentos, resuelven cualquier novedad en tiempo récord.',name:'Marcela Torres Jiménez',role:'Directora Administrativa',co:'Transportes Cundinamarca Ltda.'},
+  {q:'Cuando tuve un siniestro con mi vehículo, Paula y el equipo me guiaron en todo momento. El respaldo de las aseguradoras que manejan es excelente.',name:'Juan Pablo Herrera',role:'Arquitecto independiente',co:'Bogotá, Colombia'},
+];
+
+/* ════════════════════ HEADER ════════════════════ */
+function Header({onCotiza}){
+  const [sc,setSc]=useState(false);
+  const [mo,setMo]=useState(false);
+  useEffect(()=>{
+    const fn=()=>setSc(window.scrollY>40);
+    window.addEventListener('scroll',fn,{passive:true});
+    return()=>window.removeEventListener('scroll',fn);
+  },[]);
+  return(
+    <header style={{position:'fixed',top:0,left:0,right:0,zIndex:50,transition:'all .35s'}}
+      className={sc?'nav-bg shadow-2xl':'bg-transparent'}>
+      <div style={{maxWidth:1280,margin:'0 auto',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:sc?64:80,transition:'height .35s'}}>
+        <a href="#inicio"><Logo size={.88}/></a>
+        {/* Desktop nav */}
+        <nav style={{display:'flex',alignItems:'center',gap:4}} className="hidden md:flex">
+          {NAV.map(n=>(
+            <a key={n.h} href={n.h} style={{padding:'8px 14px',fontSize:13,fontWeight:500,color:'rgba(255,255,255,.6)',fontFamily:"'DM Sans',sans-serif",transition:'color .2s',textDecoration:'none',borderRadius:8}}
+              onMouseEnter={e=>e.target.style.color='#EEF2FF'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,.6)'}>
+              {n.l}
+            </a>
+          ))}
+        </nav>
+        <div style={{display:'flex',alignItems:'center',gap:12}}>
+          <a href="tel:3016876767" className="hidden md:flex" style={{alignItems:'center',gap:6,color:'rgba(255,255,255,.5)',fontSize:12,fontFamily:"'DM Sans',sans-serif",textDecoration:'none',transition:'color .2s'}}
+            onMouseEnter={e=>e.target.style.color='#E8A020'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,.5)'}>
+            <I.phone/> 301 687 6767
+          </a>
+          <button onClick={onCotiza} className="btn-gold hidden md:flex" style={{padding:'10px 22px',fontSize:13}}>
+            Cotiza ahora <I.arrup/>
+          </button>
+          <button onClick={()=>setMo(!mo)} style={{background:'none',border:'none',cursor:'pointer',color:'#EEF2FF',padding:8}} className="md:hidden">
+            {mo?<I.x/>:<I.menu/>}
+          </button>
+        </div>
+      </div>
+      {mo&&(
+        <div style={{background:'rgba(6,9,15,.97)',borderTop:'1px solid rgba(255,255,255,.06)',padding:'12px 24px 20px'}}>
+          {NAV.map(n=>(
+            <a key={n.h} href={n.h} onClick={()=>setMo(false)}
+              style={{display:'block',padding:'12px 0',fontSize:15,color:'rgba(255,255,255,.7)',borderBottom:'1px solid rgba(255,255,255,.06)',fontFamily:"'DM Sans',sans-serif",textDecoration:'none'}}>
+              {n.l}
+            </a>
+          ))}
+          <button onClick={()=>{setMo(false);onCotiza();}} className="btn-gold" style={{marginTop:16,width:'100%',justifyContent:'center'}}>
+            Cotiza ahora <I.arrup/>
+          </button>
+        </div>
+      )}
+    </header>
+  );
+}
+
+/* ════════════════════ HERO ════════════════════ */
+function Hero({onCotiza}){
+  const [mx,setMx]=useState(0);
+  const [my,setMy]=useState(0);
+  const ref=useRef(null);
+  const onMm=useCallback(e=>{
+    if(!ref.current)return;
+    const r=ref.current.getBoundingClientRect();
+    setMx((e.clientX-r.left-r.width/2)/r.width);
+    setMy((e.clientY-r.top-r.height/2)/r.height);
+  },[]);
+  return(
+    <section id="inicio" ref={ref} onMouseMove={onMm}
+      className="noise grid-bg"
+      style={{position:'relative',minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',overflow:'hidden',background:'radial-gradient(ellipse 80% 60% at 20% 40%,rgba(27,79,138,.35) 0%,transparent 55%),radial-gradient(ellipse 60% 50% at 80% 60%,rgba(232,160,32,.06) 0%,transparent 50%),#06090F'}}>
+
+      {/* Orbs */}
+      <div className="orb" style={{width:700,height:700,left:'-15%',top:'-10%',background:'radial-gradient(circle,rgba(27,79,138,.4) 0%,transparent 70%)',animationDuration:'16s',transform:`translate(${mx*35}px,${my*25}px)`,transition:'transform .7s ease-out'}}/>
+      <div className="orb" style={{width:500,height:500,right:'-8%',bottom:'5%',background:'radial-gradient(circle,rgba(232,160,32,.12) 0%,transparent 70%)',animationDuration:'20s',animationDirection:'reverse',transform:`translate(${-mx*25}px,${-my*18}px)`,transition:'transform .9s ease-out'}}/>
+      <div className="orb" style={{width:300,height:300,left:'55%',top:'15%',background:'radial-gradient(circle,rgba(74,144,217,.15) 0%,transparent 70%)',animationDuration:'24s',transform:`translate(${mx*15}px,${my*12}px)`,transition:'transform 1.1s ease-out'}}/>
+
+      {/* Decorative big text bg */}
+      <div style={{position:'absolute',bottom:'-5%',left:'50%',transform:'translateX(-50%)',fontFamily:"'Playfair Display',serif",fontSize:'30vw',fontWeight:800,color:'rgba(255,255,255,.018)',lineHeight:1,whiteSpace:'nowrap',pointerEvents:'none',userSelect:'none',letterSpacing:'-.03em'}}>
+        STEPS
+      </div>
+
+      {/* Accent vertical line */}
+      <div style={{position:'absolute',left:0,top:'20%',bottom:'20%',width:2,background:'linear-gradient(to bottom,transparent,#E8A020,transparent)',opacity:.5}}/>
+
+      {/* Content */}
+      <div style={{position:'relative',zIndex:2,maxWidth:860,padding:'0 24px',textAlign:'center',paddingTop:100}}>
+        <div className="hrv d1" style={{marginBottom:24}}>
+          <span className="tag"><span className="tag-dot"/>Agencia autorizada · Colombia</span>
+        </div>
+
+        <h1 style={{fontFamily:"'Playfair Display',serif",fontWeight:800,lineHeight:1.02,letterSpacing:'-.02em',marginBottom:28}}>
+          <span className="hrv d2" style={{display:'block',fontSize:'clamp(3.2rem,7.5vw,6.5rem)',color:'#EEF2FF'}}>Protege lo que</span>
+          <span className="hrv d3" style={{display:'block',fontSize:'clamp(3.2rem,7.5vw,6.5rem)'}}>
+            <span className="gt">más amas.</span>
+          </span>
+        </h1>
+
+        <p className="hrv d4" style={{fontSize:'clamp(15px,1.8vw,18px)',color:'rgba(238,242,255,.55)',fontFamily:"'DM Sans',sans-serif",lineHeight:1.7,maxWidth:560,margin:'0 auto 36px'}}>
+          Seguros personalizados para personas, familias, empresas y cooperativas. Respaldados por más de 14 aseguradoras líderes de Colombia.
+        </p>
+
+        <div className="hrv d5" style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',marginBottom:56}}>
+          <button onClick={onCotiza} className="btn-gold gold-glow">Cotiza ahora <I.arrup/></button>
+          <a href="#nosotros" className="btn-outline">Conoce más <I.arr/></a>
+        </div>
+
+        {/* Stats */}
+        <div className="hrv d5" style={{display:'flex',flexWrap:'wrap',gap:2,justifyContent:'center',animationDelay:'.95s'}}>
+          {[{n:'+500',l:'Clientes'},{n:'+15',l:'Años'},{n:'+1.200',l:'Pólizas'},{n:'+14',l:'Aseguradoras'}].map((s,i)=>(
+            <div key={s.l} className="glass" style={{padding:'16px 24px',textAlign:'center',minWidth:110}}>
+              <div className="gt" style={{fontFamily:"'Playfair Display',serif",fontSize:'1.6rem',fontWeight:800}}>{s.n}</div>
+              <div style={{color:'rgba(238,242,255,.4)',fontSize:11,fontFamily:"'DM Sans',sans-serif",marginTop:3,letterSpacing:'.06em',textTransform:'uppercase'}}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div style={{position:'absolute',bottom:32,left:'50%',transform:'translateX(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:8,opacity:.4,animation:'fl 3s ease-in-out infinite'}}>
+        <div style={{fontSize:10,fontFamily:"'DM Sans',sans-serif",letterSpacing:'.2em',textTransform:'uppercase',color:'#EEF2FF'}}>scroll</div>
+        <div style={{width:1,height:40,background:'linear-gradient(to bottom,#E8A020,transparent)'}}/>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════ ABOUT (Bento) ════════════════════ */
+const COLOMBIA_IMGS=[
+  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=900&fit=crop&q=85',
+  'https://images.unsplash.com/photo-1583394293214-0b5aa56c6c8e?w=1200&h=900&fit=crop&q=85',
+  'https://images.unsplash.com/photo-1527942559765-906b97197e54?w=1200&h=900&fit=crop&q=85',
+];
+function AboutPhoto(){
+  const [src,setSrc]=useState(0);
+  const [failed,setFailed]=useState(false);
+  const handleErr=()=>{
+    const next=src+1;
+    if(next<COLOMBIA_IMGS.length){setSrc(next);}
+    else{setFailed(true);}
+  };
+  return(
+    <div className="fu d1" style={{gridColumn:'1/8',gridRow:'1/3',position:'relative',overflow:'hidden',minHeight:420,background:'linear-gradient(145deg,#091828 0%,#0D2244 60%,#091828 100%)'}}>
+      {!failed&&(
+        <img key={src} src={COLOMBIA_IMGS[src]} alt="Colombia"
+          style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',objectPosition:'center',display:'block',transition:'transform .7s'}}
+          onError={handleErr}
+          onMouseEnter={e=>e.target.style.transform='scale(1.04)'}
+          onMouseLeave={e=>e.target.style.transform='scale(1)'}/>
+      )}
+      {/* Overlays always visible */}
+      <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(6,9,15,.75) 0%,rgba(6,9,15,.2) 50%,transparent 100%)'}}/>
+      <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(6,9,15,.4) 0%,transparent 60%)'}}/>
+      <div style={{position:'absolute',top:0,left:0,right:0,height:2,background:'linear-gradient(90deg,#E8A020,transparent)'}}/>
+      <div style={{position:'absolute',bottom:20,left:24}}>
+        <span style={{fontFamily:"'DM Sans',sans-serif",fontSize:11,color:'rgba(238,242,255,.5)',letterSpacing:'.12em',textTransform:'uppercase',fontWeight:600}}>📍 Colombia</span>
+      </div>
+    </div>
+  );
+}
+
+function About(){
+  useFU();
+  return(
+    <section id="nosotros" style={{background:'#0B1120',padding:'100px 0',position:'relative',overflow:'hidden'}}>
+      <div style={{position:'absolute',right:0,top:0,bottom:0,width:'40%',background:'radial-gradient(ellipse at right,rgba(232,160,32,.04) 0%,transparent 70%)',pointerEvents:'none'}}/>
+      <div style={{maxWidth:1280,margin:'0 auto',padding:'0 24px'}}>
+
+        <div className="fu" style={{marginBottom:56}}>
+          <div className="sec-label">Quiénes somos</div>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(2rem,4vw,3.2rem)',fontWeight:800,color:'#EEF2FF',lineHeight:1.1,maxWidth:540}}>
+            Más de 15 años<br/><span className="gt-blue">protegiendo Colombia.</span>
+          </h2>
+        </div>
+
+        {/* Bento grid */}
+        <div style={{display:'grid',gridTemplateColumns:'repeat(12,1fr)',gridTemplateRows:'auto',gap:16}}>
+
+          {/* Colombia photo — col 1-7, row 1-2 */}
+          <AboutPhoto/>
+
+          {/* Stat card 1 */}
+          <div className="fu d2 glass ch" style={{gridColumn:'8/11',gridRow:'1/2',padding:'32px 28px',cursor:'default'}}>
+            <div className="gt" style={{fontFamily:"'Playfair Display',serif",fontSize:'3.5rem',fontWeight:800,lineHeight:1}}>+15</div>
+            <div style={{color:'rgba(238,242,255,.5)',fontSize:13,fontFamily:"'DM Sans',sans-serif",marginTop:8}}>Años de experiencia en el mercado colombiano</div>
+          </div>
+
+          {/* Stat card 2 */}
+          <div className="fu d3 glass ch" style={{gridColumn:'11/13',gridRow:'1/2',padding:'32px 20px',cursor:'default',textAlign:'center'}}>
+            <div className="gt" style={{fontFamily:"'Playfair Display',serif",fontSize:'3rem',fontWeight:800,lineHeight:1}}>14+</div>
+            <div style={{color:'rgba(238,242,255,.5)',fontSize:12,fontFamily:"'DM Sans',sans-serif",marginTop:8}}>Aseguradoras aliadas</div>
+          </div>
+
+          {/* Quote card */}
+          <div className="fu d2" style={{gridColumn:'8/13',gridRow:'2/3',background:'rgba(232,160,32,.08)',border:'1px solid rgba(232,160,32,.2)',padding:'28px'}}>
+            <div style={{fontSize:'3rem',color:'rgba(232,160,32,.3)',fontFamily:"'Playfair Display',serif",lineHeight:.8,marginBottom:12}}>"</div>
+            <p style={{color:'rgba(238,242,255,.8)',fontStyle:'italic',fontFamily:"'Playfair Display',serif",fontSize:15,lineHeight:1.6,marginBottom:16}}>
+              Estamos emocionados de embarcarnos en este viaje contigo, construyendo un futuro más seguro y protegido, juntos.
+            </p>
+            <div style={{display:'flex',alignItems:'center',gap:12}}>
+              <div style={{width:32,height:1,background:'#E8A020'}}/>
+              <div>
+                <div style={{color:'#E8A020',fontSize:12,fontWeight:700,fontFamily:"'DM Sans',sans-serif",letterSpacing:'.08em'}}>PAULA ANDREA MORENO</div>
+                <div style={{color:'rgba(238,242,255,.4)',fontSize:11,fontFamily:"'DM Sans',sans-serif"}}>Directora · Grupo Steps Seguros</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Features row */}
+          {[
+            {icon:'vida',title:'Asesoría experta',desc:'Analizamos tu situación y te presentamos las mejores coberturas.'},
+            {icon:'cumplimiento',title:'Transparencia total',desc:'Sin letra pequeña. Información clara en cada paso del camino.'},
+            {icon:'salud',title:'Gestión de siniestros',desc:'Te acompañamos desde la cotización hasta la resolución.'},
+            {icon:'empresa',title:'Multiramo completo',desc:'Desde vida y salud hasta seguros empresariales y fianzas.'},
+          ].map((f,i)=>(
+            <div key={f.title} className={`fu d${i+1} glass ch`} style={{gridColumn:`${1+i*3}/${Math.min(4+i*3,14)}`,gridRow:'3/4',padding:'24px 20px',cursor:'default'}}>
+              <div style={{color:'#E8A020',marginBottom:12}}><SvcIcon type={f.icon} size={28} color="currentColor"/></div>
+              <div style={{color:'#EEF2FF',fontSize:13,fontWeight:700,fontFamily:"'DM Sans',sans-serif",marginBottom:6}}>{f.title}</div>
+              <div style={{color:'rgba(238,242,255,.45)',fontSize:12,fontFamily:"'DM Sans',sans-serif",lineHeight:1.5}}>{f.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════ PRODUCTS ════════════════════ */
+function Products({onCotiza}){
+  const [tab,setTab]=useState('persona');
+  useFU();
+  const [expanded,setExpanded]=useState(false);
+  const list=tab==='persona'?PERSONAS_PROD:EMPRESAS_PROD;
+  const shown=expanded?list:list.slice(0,8);
+
+  return(
+    <section style={{background:'#06090F',padding:'100px 0',position:'relative',overflow:'hidden'}}>
+      <div className="noise" style={{position:'absolute',inset:0,pointerEvents:'none'}}/>
+      <div className="grid-bg" style={{position:'absolute',inset:0,pointerEvents:'none',opacity:.5}}/>
+      <div style={{position:'absolute',top:'30%',left:'50%',transform:'translate(-50%,-50%)',width:'80%',height:400,background:'radial-gradient(ellipse,rgba(27,79,138,.18) 0%,transparent 70%)',pointerEvents:'none'}}/>
+
+      <div style={{maxWidth:1280,margin:'0 auto',padding:'0 24px',position:'relative',zIndex:1}}>
+        <div className="fu" style={{display:'flex',flexWrap:'wrap',alignItems:'flex-end',justifyContent:'space-between',gap:20,marginBottom:48}}>
+          <div>
+            <div className="sec-label">Soluciones de seguros</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.8rem,3.5vw,2.8rem)',fontWeight:800,color:'#EEF2FF',lineHeight:1.15}}>
+              Tu cobertura, <span className="gt">a la medida.</span>
+            </h2>
+          </div>
+          <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+            {[{v:'persona',l:'Personas y Familias'},{v:'empresa',l:'Empresas'}].map(t=>(
+              <button key={t.v} onClick={()=>{setTab(t.v);setExpanded(false);}} className={`tab-btn${tab===t.v?' active':''}`}>{t.l}</button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))',gap:16}}>
+          {shown.map((p,i)=>(
+            <div key={p.titulo+i} className={`fu d${(i%4)+1}`}>
+              <ProdCard p={p} onCotiza={()=>onCotiza({tipo:tab,seguro:p.titulo})}/>
+            </div>
+          ))}
+        </div>
+
+        {!expanded&&list.length>8&&(
+          <div style={{textAlign:'center',marginTop:36}}>
+            <button onClick={()=>setExpanded(true)} className="btn-outline">
+              Ver todos los seguros <I.arr/>
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function ProdCard({p,onCotiza}){
+  const [hov,setHov]=useState(false);
+  return(
+    <div onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+      style={{
+        position:'relative',background:'#0D1825',border:`1px solid ${hov?'rgba(232,160,32,.25)':'rgba(255,255,255,.06)'}`,
+        overflow:'hidden',cursor:'pointer',transition:'transform .38s cubic-bezier(.25,.46,.45,.94),box-shadow .38s,border-color .3s',
+        transform:hov?'translateY(-8px)':'translateY(0)',
+        boxShadow:hov?'0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(232,160,32,.12)':'none',
+        display:'flex',flexDirection:'column',
+      }}>
+      {/* Image */}
+      {p.img&&(
+        <div style={{height:160,overflow:'hidden',position:'relative'}}>
+          <img src={p.img} alt={p.titulo} style={{width:'100%',height:'100%',objectFit:'cover',transition:'transform .6s',transform:hov?'scale(1.08)':'scale(1)'}}/>
+          <div className="prod-img-overlay"/>
+          {/* Icon badge */}
+          <div style={{position:'absolute',bottom:12,left:12,width:36,height:36,background:'#E8A020',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <SvcIcon type={p.key} size={18} color="#fff"/>
+          </div>
+          {/* Top gradient accent */}
+          <div style={{position:'absolute',top:0,left:0,right:0,height:2,background:'linear-gradient(90deg,#E8A020,transparent)',opacity:hov?1:0,transition:'opacity .3s'}}/>
+        </div>
+      )}
+      <div style={{padding:'20px 20px 20px',flex:1,display:'flex',flexDirection:'column'}}>
+        <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:15,fontWeight:700,color:'#EEF2FF',marginBottom:8,lineHeight:1.3}}>{p.titulo}</h3>
+        <p style={{color:'rgba(238,242,255,.45)',fontSize:12,fontFamily:"'DM Sans',sans-serif",lineHeight:1.6,flex:1,marginBottom:16}}>{p.desc}</p>
+        <button onClick={onCotiza}
+          style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 14px',
+            background:hov?'rgba(232,160,32,.12)':'rgba(255,255,255,.04)',
+            border:`1px solid ${hov?'rgba(232,160,32,.3)':'rgba(255,255,255,.08)'}`,
+            color:hov?'#E8A020':'rgba(238,242,255,.6)',fontSize:12,fontWeight:700,
+            fontFamily:"'DM Sans',sans-serif",cursor:'pointer',transition:'all .3s',letterSpacing:'.04em'}}>
+          <span>COTIZAR AHORA</span><I.arrup/>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════ STATS ════════════════════ */
+function useCount(n,active){
+  const [v,setV]=useState(0);
+  useEffect(()=>{
+    if(!active)return;
+    let s=null;
+    const step=ts=>{
+      if(!s)s=ts;
+      const p=Math.min((ts-s)/2200,1);
+      const e=1-Math.pow(1-p,3);
+      setV(Math.floor(e*n));
+      if(p<1)requestAnimationFrame(step);else setV(n);
+    };
+    requestAnimationFrame(step);
+  },[active]);
+  return v;
+}
+
+function Stats(){
+  const [on,setOn]=useState(false);
+  const ref=useRef(null);
+  useEffect(()=>{
+    const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){setOn(true);obs.disconnect();}},{threshold:.3});
+    if(ref.current)obs.observe(ref.current);
+    return()=>obs.disconnect();
+  },[]);
+  const items=[{n:500,pre:'+',suf:'',l:'Clientes satisfechos'},{n:15,pre:'+',suf:'',l:'Años de trayectoria'},{n:1200,pre:'+',suf:'',l:'Pólizas activas'},{n:14,pre:'+',suf:'',l:'Aseguradoras aliadas'}];
+  return(
+    <section ref={ref} style={{background:'linear-gradient(135deg,#0a0e0a 0%,#0d1a0d 50%,#0a0e12 100%)',padding:'80px 0',position:'relative',overflow:'hidden'}}>
+      <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse 80% 50% at 50% 50%,rgba(232,160,32,.05) 0%,transparent 70%)',pointerEvents:'none'}}/>
+      <div style={{maxWidth:1280,margin:'0 auto',padding:'0 24px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:0}}>
+          {items.map((it,i)=>{
+            const v=useCount(it.n,on);
+            return(
+              <div key={it.l} className="count-line" style={{padding:'32px 20px',textAlign:'center',borderRight:i<3?'1px solid rgba(255,255,255,.05)':'none'}}>
+                <div className="gt" style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(2.5rem,4vw,3.8rem)',fontWeight:800,lineHeight:1}}>
+                  {it.pre}{v.toLocaleString('es-CO')}{it.suf}
+                </div>
+                <div style={{color:'rgba(238,242,255,.4)',fontSize:12,fontFamily:"'DM Sans',sans-serif",marginTop:10,letterSpacing:'.1em',textTransform:'uppercase'}}>{it.l}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════ ALIADOS ════════════════════ */
+function AliadoTile({a}){
+  const [hov,setHov]=useState(false);
+  const [imgErr,setImgErr]=useState(false);
+  return(
+    <div style={{flexShrink:0,width:160,height:80,background:hov?'rgba(232,160,32,.07)':'rgba(255,255,255,.04)',border:`1px solid ${hov?'rgba(232,160,32,.35)':'rgba(255,255,255,.07)'}`,display:'flex',alignItems:'center',justifyContent:'center',padding:'10px 14px',transition:'all .3s',cursor:'default'}}
+      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}>
+      {(!imgErr&&a.img)
+        ?<img src={a.img} alt={a.name}
+            style={{maxWidth:'100%',maxHeight:52,objectFit:'contain',filter:'brightness(0) invert(1)',opacity:hov?.88:.55,transition:'opacity .3s'}}
+            onError={()=>setImgErr(true)}/>
+        :<span style={{fontFamily:"'DM Sans',sans-serif",fontSize:11,fontWeight:700,letterSpacing:'.05em',textAlign:'center',color:hov?'#E8A020':'rgba(238,242,255,.55)',textTransform:'uppercase',lineHeight:1.35,transition:'color .3s'}}>{a.name}</span>
+      }
+    </div>
+  );
+}
+
+function Aliados(){
+  useFU();
+  const d1=[...ALIADOS,...ALIADOS];
+  const d2=[...ALIADOS.slice(8),...ALIADOS.slice(0,8),...ALIADOS.slice(8),...ALIADOS.slice(0,8)];
+  return(
+    <section id="aliados" style={{background:'#0B1120',padding:'80px 0',overflow:'hidden'}}>
+      <div style={{maxWidth:1280,margin:'0 auto',padding:'0 24px',textAlign:'center',marginBottom:48}} className="fu">
+        <div className="sec-label" style={{justifyContent:'center'}}>Nuestros aliados</div>
+        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.8rem,3vw,2.6rem)',fontWeight:800,color:'#EEF2FF'}}>
+          Respaldados por <span className="gt">los mejores.</span>
+        </h2>
+        <p style={{color:'rgba(238,242,255,.4)',fontSize:14,fontFamily:"'DM Sans',sans-serif",marginTop:10,maxWidth:480,margin:'10px auto 0'}}>
+          Las principales aseguradoras del mercado colombiano respaldan nuestro portafolio
+        </p>
+      </div>
+      <div className="mq-wrap" style={{marginBottom:16}}>
+        <div className="mql">
+          {d1.map((a,i)=>(
+            <AliadoTile key={i} a={a}/>
+          ))}
+        </div>
+      </div>
+      <div className="mq-wrap">
+        <div className="mqr">
+          {d2.map((a,i)=>(
+            <AliadoTile key={i} a={a}/>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════ TESTIMONIALS ════════════════════ */
+function Testi(){
+  const [idx,setIdx]=useState(0);
+  const [fade,setFade]=useState(true);
+  useFU();
+  const go=useCallback(n=>{
+    setFade(false);
+    setTimeout(()=>{setIdx(n);setFade(true);},320);
+  },[]);
+  useEffect(()=>{
+    const t=setInterval(()=>go((idx+1)%TESTI.length),6000);
+    return()=>clearInterval(t);
+  },[idx]);
+  const t=TESTI[idx];
+  return(
+    <section style={{background:'#06090F',padding:'100px 0',position:'relative',overflow:'hidden'}}>
+      <div className="noise" style={{position:'absolute',inset:0,pointerEvents:'none'}}/>
+      <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:800,height:400,background:'radial-gradient(ellipse,rgba(232,160,32,.05) 0%,transparent 70%)',pointerEvents:'none'}}/>
+      <div style={{maxWidth:760,margin:'0 auto',padding:'0 24px',position:'relative',zIndex:1,textAlign:'center'}} className="fu">
+        <div className="sec-label" style={{justifyContent:'center'}}>Testimonios</div>
+        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.8rem,3vw,2.6rem)',fontWeight:800,color:'#EEF2FF',marginBottom:48}}>
+          Lo que dicen nuestros <span className="gt">clientes.</span>
+        </h2>
+        <div style={{transition:'opacity .32s,transform .32s',opacity:fade?1:0,transform:fade?'translateY(0)':'translateY(10px)'}}>
+          <div style={{fontSize:'5rem',color:'rgba(232,160,32,.2)',fontFamily:"'Playfair Display',serif",lineHeight:.7,marginBottom:20}}>"</div>
+          <div style={{display:'flex',justifyContent:'center',gap:4,marginBottom:24}}>
+            {[...Array(5)].map((_,i)=><svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#E8A020"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>)}
+          </div>
+          <p style={{fontFamily:"'Playfair Display',serif",fontStyle:'italic',fontSize:'clamp(1rem,2vw,1.25rem)',color:'rgba(238,242,255,.8)',lineHeight:1.65,marginBottom:32}}>
+            "{t.q}"
+          </p>
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:4}}>
+            <div style={{width:40,height:1,background:'#E8A020',marginBottom:12}}/>
+            <div style={{color:'#EEF2FF',fontWeight:700,fontSize:14,fontFamily:"'DM Sans',sans-serif"}}>{t.name}</div>
+            <div style={{color:'#E8A020',fontSize:12,fontFamily:"'DM Sans',sans-serif"}}>{t.role}</div>
+            <div style={{color:'rgba(238,242,255,.35)',fontSize:11,fontFamily:"'DM Sans',sans-serif"}}>{t.co}</div>
+          </div>
+        </div>
+        {/* Dots */}
+        <div style={{display:'flex',justifyContent:'center',gap:8,marginTop:40,alignItems:'center'}}>
+          <button onClick={()=>go((idx-1+TESTI.length)%TESTI.length)}
+            style={{width:36,height:36,border:'1px solid rgba(255,255,255,.15)',background:'transparent',color:'rgba(255,255,255,.5)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all .2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor='#E8A020';e.currentTarget.style.color='#E8A020';}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.15)';e.currentTarget.style.color='rgba(255,255,255,.5)';}}>
+            <I.chevL/>
+          </button>
+          {TESTI.map((_,i)=>(
+            <button key={i} onClick={()=>go(i)} style={{border:'none',background:'none',cursor:'pointer',padding:4}}>
+              <div style={{borderRadius:4,transition:'all .3s',background:i===idx?'#E8A020':'rgba(255,255,255,.2)',width:i===idx?28:8,height:8}}/>
+            </button>
+          ))}
+          <button onClick={()=>go((idx+1)%TESTI.length)}
+            style={{width:36,height:36,border:'1px solid rgba(255,255,255,.15)',background:'transparent',color:'rgba(255,255,255,.5)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all .2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor='#E8A020';e.currentTarget.style.color='#E8A020';}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.15)';e.currentTarget.style.color='rgba(255,255,255,.5)';}}>
+            <I.chevR/>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════ CONTACT ════════════════════ */
+function Contact(){
+  useFU();
+  const [form,setForm]=useState({nombre:'',email:'',telefono:'',asunto:'',mensaje:''});
+  const [st,setSt]=useState('idle');
+  const submit=async e=>{
+    e.preventDefault();setSt('sending');
+    try{
+      await emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{...form,to_email:'stepsseguros@gmail.com'},EMAILJS_PUBLIC_KEY);
+      setSt('sent');setForm({nombre:'',email:'',telefono:'',asunto:'',mensaje:''});
+    }catch{setSt('error');}
+  };
+  const inp={background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.1)',color:'#EEF2FF',padding:'12px 16px',fontFamily:"'DM Sans',sans-serif",fontSize:14,width:'100%',outline:'none',transition:'border-color .2s,box-shadow .2s'};
+  const fi=e=>{e.target.style.borderColor='rgba(232,160,32,.5)';e.target.style.boxShadow='0 0 0 3px rgba(232,160,32,.1)';};
+  const fb=e=>{e.target.style.borderColor='rgba(255,255,255,.1)';e.target.style.boxShadow='none';};
+  return(
+    <section id="contacto" style={{display:'grid',gridTemplateColumns:'1fr 1fr'}} className="contact-grid">
+      {/* Left */}
+      <div className="noise" style={{background:'linear-gradient(150deg,#050A10 0%,#0B1825 55%,#0d2240 100%)',padding:'80px 48px',position:'relative'}}>
+        <div style={{position:'absolute',right:0,top:'50%',transform:'translateY(-50%)',width:200,height:200,background:'radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%)',pointerEvents:'none'}}/>
+        <div style={{position:'relative',zIndex:1}} className="fu">
+          <div className="sec-label">Contáctanos</div>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(1.8rem,3vw,2.6rem)',fontWeight:800,color:'#EEF2FF',lineHeight:1.15,marginBottom:16}}>
+            Listos para<br/><span className="gt">asesorarte.</span>
+          </h2>
+          <p style={{color:'rgba(238,242,255,.45)',fontSize:14,fontFamily:"'DM Sans',sans-serif",lineHeight:1.7,marginBottom:36,maxWidth:360}}>
+            Nuestro equipo responde en horario de oficina. Escríbenos por WhatsApp para atención inmediata.
+          </p>
+          <div style={{display:'flex',flexDirection:'column',gap:16,marginBottom:32}}>
+            {[{icon:<I.phone/>,txt:'301 687 6767',href:'tel:3016876767'},{icon:<I.mail/>,txt:'stepsseguros@gmail.com',href:'mailto:stepsseguros@gmail.com'}].map(c=>(
+              <a key={c.txt} href={c.href} style={{display:'flex',alignItems:'center',gap:14,textDecoration:'none',transition:'transform .2s'}}
+                onMouseEnter={e=>e.currentTarget.style.transform='translateX(6px)'}
+                onMouseLeave={e=>e.currentTarget.style.transform='translateX(0)'}>
+                <div style={{width:40,height:40,background:'rgba(232,160,32,.1)',border:'1px solid rgba(232,160,32,.2)',display:'flex',alignItems:'center',justifyContent:'center',color:'#E8A020',flexShrink:0}}>{c.icon}</div>
+                <span style={{color:'rgba(238,242,255,.65)',fontSize:14,fontFamily:"'DM Sans',sans-serif"}}>{c.txt}</span>
+              </a>
+            ))}
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <div style={{width:40,height:40,background:'rgba(232,160,32,.1)',border:'1px solid rgba(232,160,32,.2)',display:'flex',alignItems:'center',justifyContent:'center',color:'#E8A020',flexShrink:0}}><I.clock/></div>
+              <div style={{color:'rgba(238,242,255,.55)',fontSize:13,fontFamily:"'DM Sans',sans-serif"}}>
+                <div>Lun–Vie 8:00 am – 5:00 pm</div>
+                <div>Sábado 9:00 am – 1:00 pm</div>
+              </div>
+            </div>
+          </div>
+          <a href="https://wa.me/573016876767" target="_blank" rel="noopener noreferrer" className="btn-gold" style={{display:'inline-flex',background:'#25D366',boxShadow:'0 8px 32px rgba(37,211,102,.25)'}}>
+            <I.wa/> WhatsApp directo
+          </a>
+        </div>
+      </div>
+      {/* Right */}
+      <div style={{background:'#0D1623',padding:'80px 48px'}} className="fu d2">
+        {st==='sent'?(
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',height:'100%',gap:16,textAlign:'center'}}>
+            <div style={{width:64,height:64,border:'2px solid #1A7F5A',display:'flex',alignItems:'center',justifyContent:'center',color:'#1A7F5A',fontSize:24}}><I.check/></div>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.5rem',color:'#EEF2FF'}}>¡Mensaje enviado!</h3>
+            <p style={{color:'rgba(238,242,255,.45)',fontSize:14,fontFamily:"'DM Sans',sans-serif"}}>Nos pondremos en contacto pronto.</p>
+            <button onClick={()=>setSt('idle')} style={{background:'none',border:'none',color:'#E8A020',cursor:'pointer',fontSize:13,fontFamily:"'DM Sans',sans-serif",textDecoration:'underline'}}>Enviar otro</button>
+          </div>
+        ):(
+          <>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.4rem',color:'#EEF2FF',marginBottom:28}}>Envíanos un mensaje</h3>
+            <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:14}}>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
+                <input required value={form.nombre} onChange={e=>setForm({...form,nombre:e.target.value})} placeholder="Nombre *" style={inp} onFocus={fi} onBlur={fb}/>
+                <input required type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="Email *" style={inp} onFocus={fi} onBlur={fb}/>
+              </div>
+              <input value={form.telefono} onChange={e=>setForm({...form,telefono:e.target.value})} placeholder="Teléfono" style={inp} onFocus={fi} onBlur={fb}/>
+              <select value={form.asunto} onChange={e=>setForm({...form,asunto:e.target.value})} style={{...inp,color:form.asunto?'#EEF2FF':'rgba(238,242,255,.35)'}} onFocus={fi} onBlur={fb}>
+                <option value="">Asunto</option>
+                <option>Cotización de seguro</option>
+                <option>Información general</option>
+                <option>Siniestro</option>
+                <option>Renovación de póliza</option>
+                <option>Otro</option>
+              </select>
+              <textarea required rows={4} value={form.mensaje} onChange={e=>setForm({...form,mensaje:e.target.value})} placeholder="Mensaje *" style={{...inp,resize:'none'}} onFocus={fi} onBlur={fb}/>
+              {st==='error'&&<p style={{color:'#ef4444',fontSize:12,fontFamily:"'DM Sans',sans-serif"}}>Error al enviar. Llámanos al 301 687 6767.</p>}
+              <button type="submit" disabled={st==='sending'} className="btn-gold" style={{justifyContent:'center',opacity:st==='sending'?.6:1}}>
+                {st==='sending'?'Enviando...':(<>Enviar mensaje <I.arr/></>)}
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ════════════════════ FOOTER ════════════════════ */
+function Footer({onCotiza}){
+  const [em,setEm]=useState('');
+  const [sub,setSub]=useState(false);
+  return(
+    <footer style={{background:'#040710',borderTop:'1px solid rgba(255,255,255,.06)'}}>
+      <div style={{height:1,background:'linear-gradient(90deg,transparent,#E8A020 30%,#1B4F8A 70%,transparent)'}}/>
+      <div style={{maxWidth:1280,margin:'0 auto',padding:'64px 24px 40px',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:40}}>
+        <div>
+          <Logo size={.85}/>
+          <p style={{color:'rgba(238,242,255,.3)',fontSize:13,fontFamily:"'DM Sans',sans-serif",marginTop:18,lineHeight:1.7}}>Tu tranquilidad, nuestro compromiso. Seguros personalizados para Colombia.</p>
+          <p style={{color:'rgba(238,242,255,.2)',fontSize:11,fontFamily:"'DM Sans',sans-serif",marginTop:10}}>Vigilada Superfinanciera de Colombia</p>
+          <div style={{display:'flex',gap:8,marginTop:16}}>
+            {[<I.fb/>,<I.ig/>].map((ic,i)=>(
+              <a key={i} href="#" style={{width:34,height:34,border:'1px solid rgba(255,255,255,.1)',display:'flex',alignItems:'center',justifyContent:'center',color:'rgba(238,242,255,.4)',transition:'all .2s',textDecoration:'none'}}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor='#E8A020';e.currentTarget.style.color='#E8A020';}}
+                onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.1)';e.currentTarget.style.color='rgba(238,242,255,.4)';}}>
+                {ic}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 style={{color:'rgba(238,242,255,.55)',fontSize:10,fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',fontFamily:"'DM Sans',sans-serif",marginBottom:18}}>Servicios</h4>
+          {['Seguro de Vida','Seguro de Salud','Seguro de Hogar','Seguro de Auto','CENAL','Ciberseguridad'].map(p=>(
+            <button key={p} onClick={onCotiza} style={{display:'flex',alignItems:'center',gap:6,padding:'5px 0',color:'rgba(238,242,255,.35)',fontSize:13,fontFamily:"'DM Sans',sans-serif",background:'none',border:'none',cursor:'pointer',transition:'color .2s',width:'100%',textAlign:'left'}}
+              onMouseEnter={e=>e.currentTarget.style.color='#E8A020'} onMouseLeave={e=>e.currentTarget.style.color='rgba(238,242,255,.35)'}>
+              <I.chevR/>{p}
+            </button>
+          ))}
+        </div>
+        <div>
+          <h4 style={{color:'rgba(238,242,255,.55)',fontSize:10,fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',fontFamily:"'DM Sans',sans-serif",marginBottom:18}}>Navegación</h4>
+          {NAV.map(n=>(
+            <a key={n.h} href={n.h} style={{display:'flex',alignItems:'center',gap:6,padding:'5px 0',color:'rgba(238,242,255,.35)',fontSize:13,fontFamily:"'DM Sans',sans-serif",textDecoration:'none',transition:'color .2s'}}
+              onMouseEnter={e=>e.currentTarget.style.color='#E8A020'} onMouseLeave={e=>e.currentTarget.style.color='rgba(238,242,255,.35)'}>
+              <I.chevR/>{n.l}
+            </a>
+          ))}
+        </div>
+        <div>
+          <h4 style={{color:'rgba(238,242,255,.55)',fontSize:10,fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',fontFamily:"'DM Sans',sans-serif",marginBottom:18}}>Newsletter</h4>
+          <p style={{color:'rgba(238,242,255,.3)',fontSize:12,fontFamily:"'DM Sans',sans-serif",marginBottom:14,lineHeight:1.6}}>Novedades del sector asegurador colombiano.</p>
+          <form onSubmit={e=>{e.preventDefault();setSub(true);setEm('');setTimeout(()=>setSub(false),4000);}} style={{display:'flex'}}>
+            <input type="email" required value={em} onChange={e=>setEm(e.target.value)} placeholder="Tu email"
+              style={{flex:1,background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.1)',borderRight:'none',padding:'10px 14px',color:'#EEF2FF',fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:'none',minWidth:0}}/>
+            <button type="submit" className="btn-gold" style={{padding:'10px 16px',fontSize:13}}><I.arr/></button>
+          </form>
+          {sub&&<p style={{color:'#1A7F5A',fontSize:12,fontFamily:"'DM Sans',sans-serif",marginTop:8,display:'flex',alignItems:'center',gap:4}}><I.check/>¡Suscrito!</p>}
+          <div style={{marginTop:20,display:'flex',flexDirection:'column',gap:8}}>
+            <a href="tel:3016876767" style={{color:'rgba(238,242,255,.3)',fontSize:12,fontFamily:"'DM Sans',sans-serif",textDecoration:'none',display:'flex',alignItems:'center',gap:6,transition:'color .2s'}}
+              onMouseEnter={e=>e.currentTarget.style.color='#E8A020'} onMouseLeave={e=>e.currentTarget.style.color='rgba(238,242,255,.3)'}>
+              <I.phone/>301 687 6767
+            </a>
+            <a href="https://wa.me/573016876767" target="_blank" rel="noopener noreferrer"
+              style={{color:'rgba(37,211,102,.5)',fontSize:12,fontFamily:"'DM Sans',sans-serif",textDecoration:'none',display:'flex',alignItems:'center',gap:6,transition:'color .2s'}}
+              onMouseEnter={e=>e.currentTarget.style.color='#25D366'} onMouseLeave={e=>e.currentTarget.style.color='rgba(37,211,102,.5)'}>
+              <I.wa/>WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style={{borderTop:'1px solid rgba(255,255,255,.05)',padding:'16px 24px',display:'flex',flexWrap:'wrap',alignItems:'center',justifyContent:'space-between',gap:12,maxWidth:1280,margin:'0 auto'}}>
+        <p style={{color:'rgba(238,242,255,.2)',fontSize:12,fontFamily:"'DM Sans',sans-serif"}}>© 2025 Grupo Steps Seguros Ltda. · Todos los derechos reservados</p>
+        <div style={{display:'flex',gap:20}}>
+          {['Términos','Privacidad','Contacto'].map(t=>(
+            <a key={t} href="#" style={{color:'rgba(238,242,255,.2)',fontSize:12,fontFamily:"'DM Sans',sans-serif",textDecoration:'none',transition:'color .2s'}}
+              onMouseEnter={e=>e.currentTarget.style.color='rgba(238,242,255,.6)'} onMouseLeave={e=>e.currentTarget.style.color='rgba(238,242,255,.2)'}>{t}</a>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ════════════════════ MODAL ════════════════════ */
+const SP=['Vida','Salud','Hogar','Auto','Viaje','Mascotas','Educativo','Discapacidad','Arrendamiento','Exequias','Otros'];
+const SE=['Vida Grupo','Salud Colectiva','CENAL','Riesgos Laborales','Propiedad','Ciberseguridad','Transportes','Cumplimiento','D&O','ARL','Agropecuario','Otros'];
+const CDS=['Bogotá','Medellín','Cali','Barranquilla','Cartagena','Bucaramanga','Pereira','Manizales','Ibagué','Cúcuta','Santa Marta','Pasto','Otra'];
+
+function Modal({open,onClose,init}){
+  const [step,setStep]=useState(1);
+  const [tipo,setTipo]=useState('');
+  const [seg,setSeg]=useState('');
+  const [form,setForm]=useState({nombre:'',apellidos:'',cedula:'',telefono:'',email:'',ciudad:'',necesidad:''});
+  const [errs,setErrs]=useState({});
+  const [st,setSt]=useState('idle');
+
+  useEffect(()=>{
+    if(open){
+      document.body.style.overflow='hidden';
+      if(init?.tipo){setTipo(init.tipo);setStep(init.seguro?3:2);setSeg(init.seguro||'');}
+      else{setStep(1);setTipo('');setSeg('');}
+      setSt('idle');setErrs({});
+    }else document.body.style.overflow='';
+    return()=>{document.body.style.overflow='';};
+  },[open]);
+
+  if(!open)return null;
+  const segs=tipo==='empresa'?SE:SP;
+  const val=()=>{
+    const e={};
+    if(!form.nombre.trim())e.nombre='Requerido';
+    if(!form.apellidos.trim())e.apellidos='Requerido';
+    if(!form.cedula.trim())e.cedula='Requerido';
+    if(!form.telefono.trim())e.telefono='Requerido';
+    if(!form.email||!/\S+@\S+\.\S+/.test(form.email))e.email='Email inválido';
+    if(!form.ciudad)e.ciudad='Requerido';
+    return e;
+  };
+  const sub=async e=>{
+    e.preventDefault();
+    const ev=val();
+    if(Object.keys(ev).length){setErrs(ev);return;}
+    setSt('sending');
+    try{await emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{tipo_cliente:tipo==='empresa'?'Empresa':'Persona',tipo_seguro:seg,nombre:form.nombre+' '+form.apellidos,cedula_nit:form.cedula,telefono:form.telefono,email:form.email,ciudad:form.ciudad,necesidad:form.necesidad||'No especificada',to_email:'stepsseguros@gmail.com'},EMAILJS_PUBLIC_KEY);}catch(x){console.warn(x);}
+    window.open('https://www.agentemotor.com/','_blank','noopener');
+    setSt('sent');
+  };
+  const inp2={background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.1)',color:'#EEF2FF',padding:'11px 14px',fontFamily:"'DM Sans',sans-serif",fontSize:13,width:'100%',outline:'none',transition:'border-color .2s,box-shadow .2s'};
+  const fi=e=>{e.target.style.borderColor='rgba(232,160,32,.5)';e.target.style.boxShadow='0 0 0 3px rgba(232,160,32,.08)';};
+  const fb=e=>{e.target.style.borderColor='rgba(255,255,255,.1)';e.target.style.boxShadow='none';};
+
+  return(
+    <div className="modal-bkg" style={{position:'fixed',inset:0,zIndex:100,display:'flex',alignItems:'center',justifyContent:'center',padding:16,background:'rgba(4,7,16,.85)'}}>
+      <div style={{background:'#0B1120',width:'100%',maxWidth:480,maxHeight:'92vh',overflowY:'auto',position:'relative',border:'1px solid rgba(255,255,255,.1)',boxShadow:'0 40px 100px rgba(0,0,0,.7)'}}>
+        {/* Header */}
+        <div style={{padding:'20px 24px',display:'flex',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid rgba(255,255,255,.08)',position:'sticky',top:0,background:'#0B1120',zIndex:10}}>
+          <div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:18,color:'#EEF2FF',fontWeight:700}}>Cotización en línea</h2>
+            <p style={{color:'rgba(238,242,255,.35)',fontSize:11,fontFamily:"'DM Sans',sans-serif",marginTop:2}}>Paso {step} de 3</p>
+          </div>
+          <button onClick={onClose} style={{background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.1)',color:'rgba(238,242,255,.6)',width:34,height:34,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all .2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(232,160,32,.4)';e.currentTarget.style.color='#E8A020';}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.1)';e.currentTarget.style.color='rgba(238,242,255,.6)';}}>
+            <I.x/>
+          </button>
+        </div>
+        {/* Progress */}
+        <div style={{height:2,background:'rgba(255,255,255,.06)'}}>
+          <div style={{height:'100%',background:'linear-gradient(90deg,#E8A020,#F5D76E)',transition:'width .5s',width:step===1?'33%':step===2?'66%':'100%'}}/>
+        </div>
+        {/* Body */}
+        <div style={{padding:24}}>
+          {st==='sent'?(
+            <div style={{textAlign:'center',padding:'32px 0'}}>
+              <div style={{width:56,height:56,border:'2px solid #1A7F5A',display:'flex',alignItems:'center',justifyContent:'center',color:'#1A7F5A',margin:'0 auto 16px'}}><I.check/></div>
+              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.4rem',color:'#EEF2FF',marginBottom:10}}>¡Solicitud recibida!</h3>
+              <p style={{color:'rgba(238,242,255,.45)',fontSize:14,fontFamily:"'DM Sans',sans-serif",lineHeight:1.6,maxWidth:280,margin:'0 auto'}}>Un asesor se comunicará contigo con tu cotización personalizada.</p>
+              <button onClick={onClose} className="btn-gold" style={{marginTop:20,justifyContent:'center'}}>Cerrar</button>
+            </div>
+          ):step===1?(
+            <div>
+              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,color:'#EEF2FF',marginBottom:20}}>¿Para quién es el seguro?</h3>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+                {[{v:'persona',l:'Persona / Familia',e:'👨‍👩‍👧‍👦',d:'Cobertura personal y familiar'},{v:'empresa',l:'Empresa / Cooperativa',e:'🏢',d:'Soluciones corporativas'}].map(o=>(
+                  <button key={o.v} onClick={()=>{setTipo(o.v);setSeg('');setStep(2);}}
+                    style={{border:`1px solid ${tipo===o.v?'rgba(232,160,32,.5)':'rgba(255,255,255,.1)'}`,background:tipo===o.v?'rgba(232,160,32,.08)':'rgba(255,255,255,.03)',padding:20,textAlign:'left',cursor:'pointer',transition:'all .25s'}}
+                    onMouseEnter={e=>e.currentTarget.style.borderColor='rgba(232,160,32,.4)'}
+                    onMouseLeave={e=>e.currentTarget.style.borderColor=tipo===o.v?'rgba(232,160,32,.5)':'rgba(255,255,255,.1)'}>
+                    <div style={{fontSize:'2rem',marginBottom:10}}>{o.e}</div>
+                    <div style={{color:'#EEF2FF',fontSize:13,fontWeight:700,fontFamily:"'DM Sans',sans-serif"}}>{o.l}</div>
+                    <div style={{color:'rgba(238,242,255,.4)',fontSize:11,fontFamily:"'DM Sans',sans-serif",marginTop:4}}>{o.d}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ):step===2?(
+            <div>
+              <button onClick={()=>setStep(1)} style={{display:'flex',alignItems:'center',gap:4,color:'rgba(238,242,255,.45)',fontSize:12,fontFamily:"'DM Sans',sans-serif",background:'none',border:'none',cursor:'pointer',marginBottom:16,padding:0,transition:'color .2s'}}
+                onMouseEnter={e=>e.currentTarget.style.color='#E8A020'} onMouseLeave={e=>e.currentTarget.style.color='rgba(238,242,255,.45)'}>
+                <I.chevL/>Volver
+              </button>
+              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:18,color:'#EEF2FF',marginBottom:16}}>¿Qué seguro necesitas?</h3>
+              <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
+                {segs.map(s=>(
+                  <button key={s} onClick={()=>{setSeg(s);setStep(3);}}
+                    style={{border:`1px solid ${seg===s?'rgba(232,160,32,.5)':'rgba(255,255,255,.1)'}`,background:seg===s?'rgba(232,160,32,.1)':'rgba(255,255,255,.03)',padding:'10px 8px',fontSize:11,fontWeight:700,fontFamily:"'DM Sans',sans-serif",color:seg===s?'#E8A020':'rgba(238,242,255,.65)',cursor:'pointer',transition:'all .2s',letterSpacing:'.03em'}}>
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ):(
+            <form onSubmit={sub}>
+              <button type="button" onClick={()=>setStep(2)} style={{display:'flex',alignItems:'center',gap:4,color:'rgba(238,242,255,.45)',fontSize:12,fontFamily:"'DM Sans',sans-serif",background:'none',border:'none',cursor:'pointer',marginBottom:16,padding:0,transition:'color .2s'}}
+                onMouseEnter={e=>e.currentTarget.style.color='#E8A020'} onMouseLeave={e=>e.currentTarget.style.color='rgba(238,242,255,.45)'}>
+                <I.chevL/>Volver
+              </button>
+              <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:18}}>
+                <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:16,color:'#EEF2FF'}}>Datos de contacto</h3>
+                <span style={{background:'rgba(232,160,32,.12)',border:'1px solid rgba(232,160,32,.25)',color:'#E8A020',fontSize:10,fontWeight:700,fontFamily:"'DM Sans',sans-serif",padding:'3px 10px',letterSpacing:'.06em'}}>{seg}</span>
+              </div>
+              <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+                  <div>
+                    <input required value={form.nombre} onChange={e=>setForm({...form,nombre:e.target.value})} placeholder="Nombre *" style={{...inp2,borderColor:errs.nombre?'#ef4444':undefined}} onFocus={fi} onBlur={fb}/>
+                    {errs.nombre&&<p style={{color:'#ef4444',fontSize:10,marginTop:3,fontFamily:"'DM Sans',sans-serif"}}>{errs.nombre}</p>}
+                  </div>
+                  <div>
+                    <input required value={form.apellidos} onChange={e=>setForm({...form,apellidos:e.target.value})} placeholder="Apellidos *" style={{...inp2,borderColor:errs.apellidos?'#ef4444':undefined}} onFocus={fi} onBlur={fb}/>
+                    {errs.apellidos&&<p style={{color:'#ef4444',fontSize:10,marginTop:3,fontFamily:"'DM Sans',sans-serif"}}>{errs.apellidos}</p>}
+                  </div>
+                </div>
+                <div>
+                  <input required value={form.cedula} onChange={e=>setForm({...form,cedula:e.target.value})} placeholder={`${tipo==='empresa'?'NIT':'Cédula'} *`} style={{...inp2,borderColor:errs.cedula?'#ef4444':undefined}} onFocus={fi} onBlur={fb}/>
+                  {errs.cedula&&<p style={{color:'#ef4444',fontSize:10,marginTop:3,fontFamily:"'DM Sans',sans-serif"}}>{errs.cedula}</p>}
+                </div>
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+                  <div>
+                    <input required value={form.telefono} onChange={e=>setForm({...form,telefono:e.target.value})} placeholder="Celular *" style={{...inp2,borderColor:errs.telefono?'#ef4444':undefined}} onFocus={fi} onBlur={fb}/>
+                    {errs.telefono&&<p style={{color:'#ef4444',fontSize:10,marginTop:3,fontFamily:"'DM Sans',sans-serif"}}>{errs.telefono}</p>}
+                  </div>
+                  <div>
+                    <input required type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} placeholder="Email *" style={{...inp2,borderColor:errs.email?'#ef4444':undefined}} onFocus={fi} onBlur={fb}/>
+                    {errs.email&&<p style={{color:'#ef4444',fontSize:10,marginTop:3,fontFamily:"'DM Sans',sans-serif"}}>{errs.email}</p>}
+                  </div>
+                </div>
+                <div>
+                  <select value={form.ciudad} onChange={e=>setForm({...form,ciudad:e.target.value})} style={{...inp2,color:form.ciudad?'#EEF2FF':'rgba(238,242,255,.35)',borderColor:errs.ciudad?'#ef4444':undefined}} onFocus={fi} onBlur={fb}>
+                    <option value="">Ciudad *</option>
+                    {CDS.map(c=><option key={c} value={c}>{c}</option>)}
+                  </select>
+                  {errs.ciudad&&<p style={{color:'#ef4444',fontSize:10,marginTop:3,fontFamily:"'DM Sans',sans-serif"}}>{errs.ciudad}</p>}
+                </div>
+                <textarea rows={3} value={form.necesidad} onChange={e=>setForm({...form,necesidad:e.target.value})} placeholder="Cuéntanos qué necesitas (opcional)" style={{...inp2,resize:'none'}} onFocus={fi} onBlur={fb}/>
+                <div style={{background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',padding:'10px 14px'}}>
+                  <p style={{color:'rgba(238,242,255,.35)',fontSize:11,fontFamily:"'DM Sans',sans-serif",lineHeight:1.5}}>Un asesor de Steps Seguros te contactará con tu cotización. También abriremos el portal de nuestros aliados.</p>
+                </div>
+                {st==='error'&&<p style={{color:'#ef4444',fontSize:12,fontFamily:"'DM Sans',sans-serif"}}>Error al enviar. Llámanos al 301 687 6767.</p>}
+                <button type="submit" disabled={st==='sending'} className="btn-gold" style={{justifyContent:'center',opacity:st==='sending'?.6:1,marginTop:4}}>
+                  {st==='sending'?'Enviando...':(<>Solicitar cotización <I.arrup/></>)}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════ APP ════════════════════ */
+function App(){
+  const [mOpen,setMOpen]=useState(false);
+  const [mInit,setMInit]=useState(null);
+  const oc=useCallback((init=null)=>{setMInit(init);setMOpen(true);},[]);
+  const cl=useCallback(()=>{setMOpen(false);setMInit(null);},[]);
+  return(
+    <>
+      <Ambient/>
+      <Header onCotiza={()=>oc()}/>
+      <main>
+        <Hero onCotiza={()=>oc()}/>
+        <About/>
+        <Products onCotiza={oc}/>
+        <Stats/>
+        <Aliados/>
+        <Testi/>
+        <Contact/>
+      </main>
+      <Footer onCotiza={()=>oc()}/>
+      <Modal open={mOpen} onClose={cl} init={mInit}/>
+      {/* WhatsApp FAB */}
+      <a href="https://wa.me/573016876767" target="_blank" rel="noopener noreferrer"
+        style={{position:'fixed',bottom:28,right:28,zIndex:40,width:54,height:54,borderRadius:'50%',background:'#25D366',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',boxShadow:'0 4px 24px rgba(37,211,102,.45)',animation:'fl 3.5s ease-in-out infinite',textDecoration:'none',transition:'transform .2s,box-shadow .2s'}}
+        onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.12)';e.currentTarget.style.boxShadow='0 8px 40px rgba(37,211,102,.6)';}}
+        onMouseLeave={e=>{e.currentTarget.style.transform='scale(1)';e.currentTarget.style.boxShadow='0 4px 24px rgba(37,211,102,.45)';}}>
+        <I.wa/>
+      </a>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+<style>
+/* Responsive contact grid */
+@media(max-width:768px){
+  .contact-grid{grid-template-columns:1fr!important}
+}
+/* Responsive bento */
+@media(max-width:900px){
+  .bento-resp div[style*="gridColumn:'1/8'"]{ grid-column: 1/-1 !important }
+}
+</style>
+</body>
+</html>
