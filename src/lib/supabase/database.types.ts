@@ -333,6 +333,21 @@ export type Database = {
         Returns: boolean
       }
       is_super_admin: { Args: Record<PropertyKey, never>; Returns: boolean }
+      update_tenant_branding: {
+        Args: {
+          p_tenant_id: string
+          p_nombre_comercial: string
+          p_whatsapp_number: string
+          p_contact_email: string
+          p_color_primary: string
+          p_color_secondary: string
+          p_color_accent: string
+          p_is_active: boolean
+          p_subdomain: string
+          p_custom_domain: string
+        }
+        Returns: undefined
+      }
       submit_quote_request: {
         Args: {
           p_consent: boolean

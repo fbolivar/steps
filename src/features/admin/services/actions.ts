@@ -116,27 +116,23 @@ export async function updateTenantAction(_prev: AdminState, formData: FormData):
     return { error: 'Solo puedes editar tu propio tenant.' }
   }
 
-  // Campos base editables por tenant_admin y super_admin.
-  const patch: Record<string, unknown> = {
-    nombre_comercial: d.nombre_comercial,
-    whatsapp_number: d.whatsapp_number || null,
-    contact_email: d.contact_email || null,
-    color_primary: d.color_primary,
-    color_secondary: d.color_secondary,
-    color_accent: d.color_accent,
-    is_active: d.is_active === 'true',
-  }
-  // Dominio/subdominio: SOLO super_admin (evita que un tenant_admin secuestre rutas).
-  if (ctx.role === 'super_admin') {
-    patch.custom_domain = d.custom_domain || null
-    patch.subdomain = d.subdomain || null
-  }
-
+  // Se persiste vía RPC SECURITY DEFINER: RLS solo deja escribir tenants a
+  // super_admin, así que un UPDATE directo del tenant_admin sería un no-op
+  // silencioso. La RPC verifica el rol y restringe dominio/subdominio a
+  // super_admin a nivel de columna (evita secuestro de rutas).
   const supabase = await createClient()
-  const { error } = await supabase
-    .from('tenants')
-    .update(patch as never)
-    .eq('id', d.tenant_id)
+  const { error } = await supabase.rpc('update_tenant_branding', {
+    p_tenant_id: d.tenant_id,
+    p_nombre_comercial: d.nombre_comercial,
+    p_whatsapp_number: d.whatsapp_number || '',
+    p_contact_email: d.contact_email || '',
+    p_color_primary: d.color_primary,
+    p_color_secondary: d.color_secondary,
+    p_color_accent: d.color_accent,
+    p_is_active: d.is_active === 'true',
+    p_subdomain: d.subdomain || '',
+    p_custom_domain: d.custom_domain || '',
+  } as never)
 
   if (error) return { error: `No se pudo actualizar: ${error.message}` }
 
