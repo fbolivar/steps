@@ -66,3 +66,6 @@ supabase/.temp
 
 # Andamiaje SaaS Factory (contiene assets con secretos; no versionar)
 .claude/
+
+# TS build cache
+tsconfig.tsbuildinfo

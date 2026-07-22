@@ -1,6 +1,6 @@
 'use server'
 
-import { createHmac } from 'node:crypto'
+import { createHash, createHmac } from 'node:crypto'
 import { headers } from 'next/headers'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
@@ -57,6 +57,11 @@ export async function submitQuoteAction(
   }
   const d = parsed.data
 
+  // Tope defensivo al tamaño del payload de riesgo (evita jsonb enorme).
+  if (JSON.stringify(d.riskPayload).length > 5000) {
+    return { ok: false, error: 'Los datos del riesgo son demasiado extensos.' }
+  }
+
   // Anti-abuso: rate limit por IP (5/min, 20/hora) + captcha (si está configurado).
   const h = await headers()
   const ip = getClientIp(h)
@@ -82,7 +87,12 @@ export async function submitQuoteAction(
     return { ok: false, error: 'El servicio de cotización no está configurado. Intenta más tarde.' }
   }
   const ts = Math.floor(Date.now() / 1000)
-  const sig = createHmac('sha256', secret).update(`${ts}|${d.tenantSlug}`).digest('hex')
+  // La firma liga el cuerpo (mismo formato que la RPC): una firma capturada no
+  // sirve para otro contenido.
+  const bodyHash = createHash('sha256')
+    .update(`${d.insuranceLineSlug}\n${d.segment}\n${d.contactName}\n${d.contactPhone}`)
+    .digest('hex')
+  const sig = createHmac('sha256', secret).update(`${ts}|${d.tenantSlug}|${bodyHash}`).digest('hex')
 
   // 1. Persistir la solicitud vía RPC firmada (anon no puede leer ni forjar la firma).
   const args: SubmitArgs = {
