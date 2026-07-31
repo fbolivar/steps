@@ -41,9 +41,9 @@ export function QuoteForm({
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-accent/25 text-brand-primary">
           <Check className="h-8 w-8" />
         </div>
-        <h2 className="mt-6 text-2xl font-bold text-navy-900">¡Recibimos tu solicitud!</h2>
+        <h2 className="mt-6 text-2xl font-bold text-navy-900">¡Gracias por confiar en nosotros!</h2>
         <p className="mt-3 text-navy-900/70">
-          Un asesor revisará tu caso y te contactará en las próximas horas con la mejor alternativa entre
+          En breve, uno de nuestros asesores se pondrá en contacto contigo para darte la mejor alternativa entre
           nuestras aseguradoras aliadas.
         </p>
         {state.reference && (
@@ -176,9 +176,9 @@ export function QuoteForm({
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="contactDocument" className="mb-1.5 block text-sm font-medium text-navy-900">
-                  Documento (opcional)
+                  Documento
                 </label>
-                <input id="contactDocument" name="contactDocument" className={inputClass} placeholder="C.C." />
+                <input id="contactDocument" name="contactDocument" required className={inputClass} placeholder="C.C." />
               </div>
               <div>
                 <label htmlFor="contactPhone" className="mb-1.5 block text-sm font-medium text-navy-900">
@@ -189,9 +189,9 @@ export function QuoteForm({
             </div>
             <div>
               <label htmlFor="contactEmail" className="mb-1.5 block text-sm font-medium text-navy-900">
-                Correo (opcional)
+                Correo
               </label>
-              <input id="contactEmail" name="contactEmail" type="email" className={inputClass} placeholder="tu@correo.com" />
+              <input id="contactEmail" name="contactEmail" type="email" required className={inputClass} placeholder="tu@correo.com" />
             </div>
 
             <label className="flex items-start gap-3 rounded-xl bg-brand-primary/5 p-4 text-sm text-navy-900/70">
