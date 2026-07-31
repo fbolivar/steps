@@ -1,31 +1,32 @@
 /**
- * Fotos TEMPORALES temáticas de seguros (Unsplash, royalty-free). Verificadas
- * (HTTP 200 image/jpeg). Son marcadores reales para ver el diseño con foto de
- * contexto; el cliente las reemplaza por sus imágenes.
+ * Fotos TEMPORALES temáticas de seguros, servidas LOCALMENTE desde /public/img
+ * (descargadas de Unsplash). Al ser del mismo origen: cargan siempre (sin
+ * throttling de terceros) y cumplen la CSP. El cliente las reemplaza por las
+ * suyas dejando los mismos nombres de archivo en /public/img.
  */
 
-// IDs de Unsplash verificados, agrupados por tema.
-const ID = {
-  family1: '1511895426328-dc8714191300',
-  family2: '1476234251651-f353703a034d',
-  family3: '1609220136736-443140cffec6',
-  handshake: '1521791136064-7986c2920216',
-  advisor: '1600880292203-757bb62b4baf',
-  businesswoman: '1573496359142-b8d87734a5a2',
-  elderly: '1447069387593-a5de0862481e',
-  car: '1503376780353-7e6692767b70',
-  health: '1576091160399-112ba8d25d1d',
-  house: '1560518883-ce09059eeffa',
-  team: '1522071820081-009f0129c71c',
-  office: '1556761175-b413da4baf72',
-  p_man: '1500648767791-00dcc994a43e',
-  p_woman: '1494790108377-be9c29b29330',
-  p_man2: '1507003211169-0a1dd7228f2d',
-  p_woman2: '1438761681033-6461ffad8d80',
+// Claves de archivo disponibles en /public/img (<clave>.jpg).
+const FILES = {
+  family1: 'family1',
+  family2: 'family2',
+  family3: 'family3',
+  handshake: 'handshake',
+  advisor: 'advisor',
+  businesswoman: 'businesswoman',
+  elderly: 'elderly',
+  car: 'car',
+  health: 'health',
+  house: 'house',
+  team: 'team',
+  office: 'office',
+  p_man: 'p_man',
+  p_woman: 'p_woman',
+  p_man2: 'p_man2',
+  p_woman2: 'p_woman2',
 } as const
 
-function unsplash(id: string, w: number, h: number): string {
-  return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&h=${h}&q=70`
+function img(key: keyof typeof FILES): string {
+  return `/img/${FILES[key]}.jpg`
 }
 
 function hash(s: string): number {
@@ -34,29 +35,29 @@ function hash(s: string): number {
   return Math.abs(h)
 }
 
-// Tema por línea de seguro (slug → id). Default: asesoría.
-const LINE_THEME: Record<string, string> = {
-  auto: ID.car,
-  'vehiculos-comerciales': ID.car,
-  salud: ID.health,
-  'salud-colectiva': ID.health,
-  hogar: ID.house,
-  propiedad: ID.house,
-  vida: ID.family1,
-  'vida-empresarial': ID.family3,
-  exequias: ID.family2,
-  'exequias-empresas': ID.family2,
-  educativo: ID.family2,
-  mascotas: ID.family1,
-  viaje: ID.family3,
-  'rc-personas': ID.handshake,
-  'rc-empresas': ID.office,
-  ciberseguridad: ID.office,
-  transportes: ID.car,
+// Tema por línea de seguro (slug → archivo). Default: asesoría.
+const LINE_THEME: Record<string, keyof typeof FILES> = {
+  auto: 'car',
+  'vehiculos-comerciales': 'car',
+  salud: 'health',
+  'salud-colectiva': 'health',
+  hogar: 'house',
+  propiedad: 'house',
+  vida: 'family1',
+  'vida-empresarial': 'family3',
+  exequias: 'family2',
+  'exequias-empresas': 'family2',
+  educativo: 'family2',
+  mascotas: 'family1',
+  viaje: 'family3',
+  'rc-personas': 'handshake',
+  'rc-empresas': 'office',
+  ciberseguridad: 'office',
+  transportes: 'car',
 }
 
-const PORTRAITS = [ID.p_man, ID.p_woman, ID.p_man2, ID.p_woman2]
-const BLOG_IMGS = [ID.office, ID.advisor, ID.health]
+const PORTRAITS: (keyof typeof FILES)[] = ['p_man', 'p_woman', 'p_man2', 'p_woman2']
+const BLOG_IMGS: (keyof typeof FILES)[] = ['office', 'advisor', 'health']
 
 /**
  * Devuelve una foto temática por clave. Enruta por:
@@ -64,24 +65,25 @@ const BLOG_IMGS = [ID.office, ID.advisor, ID.health]
  *  - 'team-…'  → retrato
  *  - 'blog-…'  → imagen editorial
  *  - resto     → asesoría (default)
+ * (los parámetros w/h se conservan por compatibilidad; el archivo es local.)
  */
-export function photo(key: string, w = 1200, h = 800): string {
-  if (LINE_THEME[key]) return unsplash(LINE_THEME[key], w, h)
-  if (key.startsWith('team-')) return unsplash(PORTRAITS[hash(key) % PORTRAITS.length], w, h)
-  if (key.startsWith('blog-')) return unsplash(BLOG_IMGS[hash(key) % BLOG_IMGS.length], w, h)
-  return unsplash(ID.advisor, w, h)
+export function photo(key: string, _w = 1200, _h = 800): string {
+  if (LINE_THEME[key]) return img(LINE_THEME[key])
+  if (key.startsWith('team-')) return img(PORTRAITS[hash(key) % PORTRAITS.length])
+  if (key.startsWith('blog-')) return img(BLOG_IMGS[hash(key) % BLOG_IMGS.length])
+  return img('advisor')
 }
 
 // Slots con nombre (heros, bandas, etc.).
 export const PHOTO = {
-  hero: unsplash(ID.family1, 1600, 900),
-  about: unsplash(ID.family2, 900, 700),
-  advisory: unsplash(ID.advisor, 900, 700),
-  ctaBand: unsplash(ID.elderly, 1600, 700),
-  finalCta: unsplash(ID.family3, 900, 700),
-  contact: unsplash(ID.office, 1600, 700),
-  personas: unsplash(ID.family2, 1600, 700),
-  empresas: unsplash(ID.team, 1600, 700),
-  nosotros: unsplash(ID.handshake, 1600, 700),
-  aliados: unsplash(ID.office, 1600, 700),
+  hero: img('family1'),
+  about: img('family2'),
+  advisory: img('advisor'),
+  ctaBand: img('elderly'),
+  finalCta: img('family3'),
+  contact: img('office'),
+  personas: img('family2'),
+  empresas: img('team'),
+  nosotros: img('handshake'),
+  aliados: img('office'),
 } as const
