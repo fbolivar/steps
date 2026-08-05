@@ -8,9 +8,8 @@ import { Turnstile } from '@/features/quotes/components/turnstile'
 
 type LineOption = { slug: string; name: string; segment: 'personas' | 'empresas' }
 
-const inputClass =
-  'w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-sm text-navy-900 ' +
-  'placeholder:text-navy-900/40 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40'
+// Campo de formulario segun el sistema de marca (ver `.field` en globals.css).
+const inputClass = 'field py-3'
 
 const initialState: QuoteFormState = { ok: false }
 
@@ -38,11 +37,11 @@ export function QuoteForm({
   if (state.ok) {
     return (
       <div className="mx-auto max-w-xl text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-accent/25 text-brand-primary">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-accent text-white shadow-cobalt">
           <Check className="h-8 w-8" />
         </div>
-        <h2 className="mt-6 text-2xl font-bold text-navy-900">¡Gracias por confiar en nosotros!</h2>
-        <p className="mt-3 text-navy-900/70">
+        <h2 className="mt-6 text-3xl text-navy-900">¡Gracias por confiar en nosotros!</h2>
+        <p className="mt-3 text-navy-600">
           En breve, uno de nuestros asesores se pondrá en contacto contigo para darte la mejor alternativa entre
           nuestras aseguradoras aliadas.
         </p>
@@ -72,18 +71,18 @@ export function QuoteForm({
           <li key={s} className="flex items-center gap-2">
             <span
               className={`flex h-7 w-7 items-center justify-center rounded-full ${
-                i <= step ? 'bg-brand-primary text-white' : 'bg-navy-900/10 text-navy-900/50'
+                i <= step ? 'bg-brand-accent text-white' : 'bg-steel text-navy-400'
               }`}
             >
               {i < step ? <Check className="h-4 w-4" /> : i + 1}
             </span>
-            <span className={i <= step ? 'text-navy-900' : 'text-navy-900/40'}>{s}</span>
-            {i < steps.length - 1 && <span className="mx-1 h-px w-6 bg-navy-900/15" />}
+            <span className={i <= step ? 'text-navy-900' : 'text-navy-400'}>{s}</span>
+            {i < steps.length - 1 && <span className="mx-1 h-px w-6 bg-steel" />}
           </li>
         ))}
       </ol>
 
-      <form action={formAction} className="card-triangle p-8">
+      <form action={formAction} className="card-soft p-8">
         {/* Campos ocultos que viajan a la Server Action */}
         <input type="hidden" name="tenantSlug" value={tenantSlug} />
         <input type="hidden" name="segment" value={segment} />
@@ -106,8 +105,8 @@ export function QuoteForm({
                     }}
                     className={`rounded-xl border px-4 py-3 text-sm font-semibold capitalize transition-colors ${
                       segment === seg
-                        ? 'border-brand-primary bg-brand-primary/5 text-brand-primary'
-                        : 'border-navy-900/15 text-navy-900/70 hover:border-brand-primary/40'
+                        ? 'border-brand-accent bg-brand-accent/10 text-brand-accent'
+                        : 'border-steel text-navy-600 hover:border-brand-accent/50'
                     }`}
                   >
                     {seg}
@@ -194,8 +193,8 @@ export function QuoteForm({
               <input id="contactEmail" name="contactEmail" type="email" required className={inputClass} placeholder="tu@correo.com" />
             </div>
 
-            <label className="flex items-start gap-3 rounded-xl bg-brand-primary/5 p-4 text-sm text-navy-900/70">
-              <input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 accent-[color:rgb(var(--brand-primary))]" />
+            <label className="flex items-start gap-3 rounded-xl bg-mist p-4 text-sm text-navy-600">
+              <input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 accent-[color:rgb(var(--brand-accent))]" />
               <span>
                 Autorizo el tratamiento de mis datos personales conforme a la{' '}
                 <Link href="/legal/tratamiento-de-datos" className="font-semibold text-brand-primary underline" target="_blank">
@@ -205,7 +204,7 @@ export function QuoteForm({
               </span>
             </label>
 
-            <p className="flex items-center gap-2 text-xs text-navy-900/50">
+            <p className="flex items-center gap-2 text-xs text-navy-400">
               <ShieldCheck className="h-4 w-4 text-brand-accent" />
               Tu cotización la gestiona un asesor humano. No verás cifras automáticas en pantalla.
             </p>

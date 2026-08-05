@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { Logo } from '@/shared/components/logo'
 import { LoginForm } from '@/features/auth/components/login-form'
-import { Triangle } from '@/shared/components/triangle'
+import { DotGrid } from '@/shared/components/brand-frame'
 import { getActiveTenant } from '@/shared/lib/tenant'
 import { getPortalContext } from '@/features/auth/services/session'
 
@@ -19,13 +19,15 @@ export default async function LoginPage() {
   const tenant = await getActiveTenant()
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-8 shadow-card sm:p-10">
-        <Triangle corner="tr" size={64} color="accent" className="opacity-70" />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-mist px-4">
+      <span aria-hidden="true" className="texture-huellas absolute inset-0 text-brand-primary opacity-[0.05]" />
+      <div className="relative w-full max-w-md overflow-hidden rounded-3xl border border-steel bg-white p-8 shadow-card sm:p-10">
+        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-brand-accent" />
+        <DotGrid className="absolute right-6 top-6" />
         <div className="mb-8">
-          <Logo tenant={tenant} />
-          <h1 className="mt-6 text-2xl font-bold text-navy-900">Portal de agentes</h1>
-          <p className="mt-1 text-sm text-navy-900/60">Ingresa para gestionar tus cotizaciones.</p>
+          <Logo tenant={tenant} variant="vertical" className="mx-auto flex w-fit" />
+          <h1 className="mt-6 text-center text-3xl text-navy-900">Portal de agentes</h1>
+          <p className="mt-1 text-center text-sm text-navy-600">Ingresa para gestionar tus cotizaciones.</p>
         </div>
         <LoginForm />
       </div>

@@ -23,9 +23,8 @@ export function ContactForm({ contactEmail }: { contactEmail: string | null }) {
     setSent(true)
   }
 
-  const inputClass =
-    'w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-sm text-navy-900 ' +
-    'placeholder:text-navy-900/40 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40'
+  // Campo segun el sistema de marca (ver `.field` en globals.css).
+  const inputClass = 'field py-3'
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

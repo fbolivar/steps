@@ -32,10 +32,10 @@ export default async function NosotrosPage() {
             <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">
               Asesoría transparente, del primer día al siniestro.
             </h2>
-            <p className="mt-4 text-navy-900/65">{COMPANY.mision}</p>
+            <p className="mt-4 text-navy-600">{COMPANY.mision}</p>
             <ul className="mt-6 space-y-3">
               {ABOUT_BULLETS.map((b) => (
-                <li key={b} className="flex items-center gap-3 text-navy-900/80">
+                <li key={b} className="flex items-center gap-3 text-navy-700">
                   <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand-accent/15 text-brand-accent">
                     <Check className="h-4 w-4" />
                   </span>
@@ -57,18 +57,18 @@ export default async function NosotrosPage() {
       <Section variant="mist">
         <Container className="grid gap-6 md:grid-cols-2">
           <div className="card-soft p-8">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-accent/10 text-brand-accent">
               <Target className="h-6 w-6" />
             </span>
             <h2 className="mt-5 text-2xl font-bold text-navy-900">Misión</h2>
-            <p className="mt-3 text-navy-900/65">{COMPANY.mision}</p>
+            <p className="mt-3 text-navy-600">{COMPANY.mision}</p>
           </div>
           <div className="card-soft p-8">
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-accent/10 text-brand-accent">
               <Eye className="h-6 w-6" />
             </span>
             <h2 className="mt-5 text-2xl font-bold text-navy-900">Visión</h2>
-            <p className="mt-3 text-navy-900/65">{COMPANY.vision}</p>
+            <p className="mt-3 text-navy-600">{COMPANY.vision}</p>
           </div>
         </Container>
       </Section>
@@ -87,7 +87,7 @@ export default async function NosotrosPage() {
               <div key={f.title} className="card-soft p-6">
                 <Heart className="h-7 w-7 text-brand-accent" />
                 <h3 className="mt-4 text-lg font-semibold text-navy-900">{f.title}</h3>
-                <p className="mt-2 text-sm text-navy-900/60">{f.body}</p>
+                <p className="mt-2 text-sm text-navy-600">{f.body}</p>
               </div>
             ))}
           </div>

@@ -44,17 +44,17 @@ export default async function ContactoPage() {
                 const Icon = it.icon
                 return (
                   <div key={it.label} className="card-soft flex items-start gap-4 p-5">
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary">
+                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-accent/10 text-brand-accent">
                       <Icon className="h-5 w-5" />
                     </span>
                     <div>
                       <p className="text-sm font-semibold text-navy-900">{it.label}</p>
                       {it.href ? (
-                        <a href={it.href} className="text-navy-900/60 hover:text-brand-primary">
+                        <a href={it.href} className="text-navy-600 hover:text-brand-primary">
                           {it.value}
                         </a>
                       ) : (
-                        <p className="text-navy-900/60">{it.value}</p>
+                        <p className="text-navy-600">{it.value}</p>
                       )}
                     </div>
                   </div>
@@ -67,7 +67,7 @@ export default async function ContactoPage() {
 
           <div className="card-soft p-8">
             <h2 className="text-xl font-bold text-navy-900">Envíanos un mensaje</h2>
-            <p className="mt-1 text-sm text-navy-900/55">Te responderemos lo antes posible.</p>
+            <p className="mt-1 text-sm text-navy-600">Te responderemos lo antes posible.</p>
             <div className="mt-5">
               <ContactForm contactEmail={tenant.contact_email} />
             </div>

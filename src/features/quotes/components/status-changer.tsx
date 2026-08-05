@@ -19,7 +19,7 @@ export function StatusChanger({ quoteId, current }: { quoteId: string; current: 
           id="status"
           name="status"
           defaultValue={current}
-          className="flex-1 rounded-xl border border-navy-900/15 bg-white px-4 py-2.5 text-sm text-navy-900 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
+          className="flex-1 rounded-xl border border-steel bg-white px-4 py-2.5 text-sm text-navy-900 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
         >
           {QUOTE_STATUSES.map((s) => (
             <option key={s} value={s}>

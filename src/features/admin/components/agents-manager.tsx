@@ -6,8 +6,7 @@ import { Loader2, Check, UserPlus, Users } from 'lucide-react'
 import { addAgentAction, setAgentAccepting, type AgentActionState } from '@/features/admin/services/agent-actions'
 import type { AgentRow } from '@/features/admin/services/agents'
 
-const input =
-  'w-full rounded-xl border border-navy-900/15 bg-white px-3.5 py-2.5 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40'
+const input = 'field'
 
 export function AgentsManager({ agents }: { agents: AgentRow[] }) {
   const router = useRouter()
@@ -26,7 +25,7 @@ export function AgentsManager({ agents }: { agents: AgentRow[] }) {
   }
 
   return (
-    <section className="rounded-2xl border border-navy-900/10 bg-white p-6">
+    <section className="rounded-2xl border border-steel bg-white p-6">
       <div className="flex items-center justify-between">
         <h2 className="flex items-center gap-2 text-lg font-semibold text-navy-900">
           <Users className="h-5 w-5 text-brand-primary" /> Agentes
@@ -36,12 +35,12 @@ export function AgentsManager({ agents }: { agents: AgentRow[] }) {
         </button>
       </div>
 
-      <ul className="mt-4 divide-y divide-navy-900/5">
+      <ul className="mt-4 divide-y divide-steel">
         {agents.map((a) => (
           <li key={a.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
             <div>
               <p className="font-medium text-navy-900">{a.display_name ?? a.email}</p>
-              <p className="text-xs text-navy-900/50">
+              <p className="text-xs text-navy-400">
                 {a.email} · {a.active_leads_count} lead(s) activos
               </p>
             </div>
@@ -51,7 +50,7 @@ export function AgentsManager({ agents }: { agents: AgentRow[] }) {
               className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
                 a.is_accepting_leads
                   ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                  : 'bg-navy-900/10 text-navy-900/60 hover:bg-navy-900/15'
+                  : 'bg-steel text-navy-600 hover:bg-navy-900/15'
               }`}
             >
               {isPending && pendingId === a.id ? (
@@ -63,7 +62,7 @@ export function AgentsManager({ agents }: { agents: AgentRow[] }) {
             </button>
           </li>
         ))}
-        {agents.length === 0 && <li className="py-4 text-sm text-navy-900/50">Aún no hay agentes en este tenant.</li>}
+        {agents.length === 0 && <li className="py-4 text-sm text-navy-400">Aún no hay agentes en este tenant.</li>}
       </ul>
 
       {showAdd && (

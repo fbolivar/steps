@@ -67,10 +67,17 @@ export const getActiveTenant = cache(async (): Promise<Tenant> => {
 /** Canales RGB "r g b" para inyectar en variables CSS del tenant. */
 export function hexToRgbChannels(hex: string): string {
   const m = hex.replace('#', '').match(/.{1,2}/g)
-  if (!m || m.length < 3) return '26 31 78'
+  if (!m || m.length < 3) return '0 8 49' // #000831 azul profundo
   const [r, g, b] = m.map((x) => parseInt(x, 16))
   return `${r} ${g} ${b}`
 }
+
+/**
+ * Gris azulado del manual STEPS (#D3DDDD). Es el neutro de la plataforma: se
+ * usa para acentos legibles sobre fondos oscuros, bordes y superficies calmas.
+ * La tabla `tenants` aun no lo modela; si algun dia se agrega, basta leerlo aqui.
+ */
+const BRAND_SOFT = '#D3DDDD'
 
 /** Estilo con las variables de marca del tenant, para el <html>. */
 export function tenantBrandStyle(tenant: Tenant): React.CSSProperties {
@@ -78,5 +85,6 @@ export function tenantBrandStyle(tenant: Tenant): React.CSSProperties {
     ['--brand-primary' as string]: hexToRgbChannels(tenant.color_primary),
     ['--brand-secondary' as string]: hexToRgbChannels(tenant.color_secondary),
     ['--brand-accent' as string]: hexToRgbChannels(tenant.color_accent),
+    ['--brand-soft' as string]: hexToRgbChannels(BRAND_SOFT),
   }
 }

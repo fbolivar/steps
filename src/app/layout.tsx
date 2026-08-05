@@ -1,15 +1,19 @@
 import type { Metadata, Viewport } from 'next'
-import { Poppins, Inter } from 'next/font/google'
+import { Bebas_Neue, Montserrat } from 'next/font/google'
 import './globals.css'
 import { getActiveTenant, tenantBrandStyle } from '@/shared/lib/tenant'
 import { PwaRegister } from '@/shared/components/pwa-register'
 
-// Titulares: sans geométrica bold (estilo insurance business). Cuerpo: sans neutra.
-const heading = Poppins({ subsets: ['latin'], weight: ['500', '600', '700', '800'], variable: '--font-heading' })
-const body = Inter({ subsets: ['latin'], variable: '--font-body' })
+/**
+ * Tipografia del manual de identidad:
+ *   Titulares → BEBAS NEUE (la misma del logotipo: condensada, caja alta).
+ *   Cuerpo    → MONTSERRAT (se usa Medium 500 como peso base de lectura).
+ */
+const display = Bebas_Neue({ subsets: ['latin'], weight: '400', variable: '--font-display' })
+const body = Montserrat({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-body' })
 
 export const viewport: Viewport = {
-  themeColor: '#0E3B37',
+  themeColor: '#000831',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -47,7 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const tenant = await getActiveTenant()
 
   return (
-    <html lang="es" className={`${heading.variable} ${body.variable}`} style={tenantBrandStyle(tenant)}>
+    <html lang="es" className={`${display.variable} ${body.variable}`} style={tenantBrandStyle(tenant)}>
       <body>
         {children}
         <PwaRegister />

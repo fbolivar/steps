@@ -16,12 +16,12 @@ export function ProductLineCard({ line }: { line: InsuranceLine }) {
     >
       <ImagePlaceholder src={photo(line.slug, 640, 420)} rounded="rounded-none" className="aspect-[16/10] w-full" />
       <div className="flex flex-1 flex-col p-6">
-        <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary">
+        <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-accent/10 text-brand-accent">
           <ShieldCheck className="h-5 w-5" aria-hidden="true" />
         </span>
         <h3 className="text-lg font-semibold text-navy-900">{line.name}</h3>
         {line.short_description && (
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-navy-900/55">{line.short_description}</p>
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-navy-600">{line.short_description}</p>
         )}
         <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary">
           Conocer más

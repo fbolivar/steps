@@ -4,8 +4,7 @@ import { useActionState, useState } from 'react'
 import { Loader2, Plus, Check } from 'lucide-react'
 import { createTenantAction, type AdminState } from '@/features/admin/services/actions'
 
-const input =
-  'w-full rounded-xl border border-navy-900/15 bg-white px-3.5 py-2.5 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40'
+const input = 'field'
 
 export function CreateTenantForm() {
   const [state, action, pending] = useActionState<AdminState, FormData>(createTenantAction, {})
@@ -20,9 +19,9 @@ export function CreateTenantForm() {
   }
 
   return (
-    <form action={action} className="rounded-2xl border border-navy-900/10 bg-white p-6">
+    <form action={action} className="rounded-2xl border border-steel bg-white p-6">
       <h3 className="text-lg font-semibold text-navy-900">Onboarding de nuevo tenant</h3>
-      <p className="mt-1 text-sm text-navy-900/60">Se crea con el catálogo de líneas por defecto.</p>
+      <p className="mt-1 text-sm text-navy-600">Se crea con el catálogo de líneas por defecto.</p>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <label className="text-sm">

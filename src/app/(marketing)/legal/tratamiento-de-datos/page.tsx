@@ -14,11 +14,11 @@ export default async function DataPolicyPage() {
         <h1 className="text-3xl font-bold text-navy-900 sm:text-4xl">
           Política de tratamiento de datos personales
         </h1>
-        <p className="mt-3 text-sm text-navy-900/50">
+        <p className="mt-3 text-sm text-navy-400">
           En cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013 (Habeas Data).
         </p>
 
-        <div className="mt-10 space-y-8 text-navy-900/80">
+        <div className="mt-10 space-y-8 text-navy-700">
           <section>
             <h2 className="text-xl font-semibold text-navy-900">1. Responsable del tratamiento</h2>
             <p className="mt-2">
@@ -64,7 +64,7 @@ export default async function DataPolicyPage() {
             </p>
           </section>
 
-          <p className="rounded-xl bg-brand-primary/5 p-4 text-sm text-navy-900/60">
+          <p className="rounded-xl bg-brand-primary/5 p-4 text-sm text-navy-600">
             Documento base para revisión legal. Debe ser validado por el área jurídica del cliente antes de la puesta
             en producción y del primer dato real recolectado.
           </p>

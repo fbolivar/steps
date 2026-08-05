@@ -31,7 +31,7 @@ export default async function InboxPage({
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-navy-900">Cotizaciones</h1>
-          <p className="text-sm text-navy-900/60">Gestiona las solicitudes entrantes y su estado.</p>
+          <p className="text-sm text-navy-600">Gestiona las solicitudes entrantes y su estado.</p>
         </div>
       </div>
 
@@ -40,7 +40,7 @@ export default async function InboxPage({
         <Link
           href="/portal"
           className={`rounded-full px-3 py-1.5 text-sm font-medium ${
-            !activeStatus ? 'bg-brand-primary text-white' : 'bg-white text-navy-900/70 hover:bg-navy-900/5'
+            !activeStatus ? 'bg-brand-primary text-white' : 'bg-white text-navy-600 hover:bg-mist'
           }`}
         >
           Todas ({total})
@@ -50,7 +50,7 @@ export default async function InboxPage({
             key={s}
             href={`/portal?estado=${s}`}
             className={`rounded-full px-3 py-1.5 text-sm font-medium ${
-              activeStatus === s ? 'bg-brand-primary text-white' : 'bg-white text-navy-900/70 hover:bg-navy-900/5'
+              activeStatus === s ? 'bg-brand-primary text-white' : 'bg-white text-navy-600 hover:bg-mist'
             }`}
           >
             {STATUS_LABEL[s]} ({counts[s]})
@@ -59,15 +59,15 @@ export default async function InboxPage({
       </div>
 
       {quotes.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-navy-900/15 bg-white p-12 text-center">
+        <div className="rounded-2xl border border-dashed border-steel bg-white p-12 text-center">
           <Inbox className="mx-auto h-10 w-10 text-navy-900/30" />
           <p className="mt-3 font-medium text-navy-900">No hay cotizaciones {activeStatus ? 'en este estado' : 'aún'}.</p>
-          <p className="text-sm text-navy-900/50">Las nuevas solicitudes del sitio aparecerán aquí.</p>
+          <p className="text-sm text-navy-400">Las nuevas solicitudes del sitio aparecerán aquí.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-navy-900/10 bg-white">
+        <div className="overflow-x-auto rounded-2xl border border-steel bg-white">
           <table className="w-full min-w-[560px] text-left text-sm">
-            <thead className="border-b border-navy-900/10 bg-navy-900/[0.02] text-xs uppercase tracking-wide text-navy-900/50">
+            <thead className="border-b border-steel bg-mist text-xs uppercase tracking-wide text-navy-400">
               <tr>
                 <th className="px-5 py-3 font-semibold">Cliente</th>
                 <th className="px-5 py-3 font-semibold">Producto</th>
@@ -77,24 +77,24 @@ export default async function InboxPage({
                 <th className="px-5 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-navy-900/5">
+            <tbody className="divide-y divide-steel">
               {quotes.map((q) => (
                 <tr key={q.id} className="hover:bg-brand-primary/[0.02]">
                   <td className="px-5 py-3">
                     <p className="font-medium text-navy-900">{q.contact_name}</p>
-                    <p className="text-xs text-navy-900/50">{q.contact_phone}</p>
+                    <p className="text-xs text-navy-400">{q.contact_phone}</p>
                   </td>
-                  <td className="px-5 py-3 text-navy-900/70">
+                  <td className="px-5 py-3 text-navy-600">
                     {q.insurance_lines?.name ?? '—'}
-                    <span className="ml-1 text-xs capitalize text-navy-900/40">· {q.segment}</span>
+                    <span className="ml-1 text-xs capitalize text-navy-400">· {q.segment}</span>
                   </td>
-                  <td className="hidden px-5 py-3 text-navy-900/60 sm:table-cell">
+                  <td className="hidden px-5 py-3 text-navy-600 sm:table-cell">
                     {q.agents?.display_name ?? 'Sin asignar'}
                   </td>
                   <td className="px-5 py-3">
                     <StatusBadge status={q.status} />
                   </td>
-                  <td className="hidden px-5 py-3 text-xs text-navy-900/50 md:table-cell">{formatDate(q.created_at)}</td>
+                  <td className="hidden px-5 py-3 text-xs text-navy-400 md:table-cell">{formatDate(q.created_at)}</td>
                   <td className="px-5 py-3 text-right">
                     <Link
                       href={`/portal/cotizaciones/${q.id}`}

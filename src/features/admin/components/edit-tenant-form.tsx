@@ -5,14 +5,13 @@ import { Loader2, Check } from 'lucide-react'
 import { updateTenantAction, type AdminState } from '@/features/admin/services/actions'
 import type { Tables } from '@/lib/supabase/database.types'
 
-const input =
-  'w-full rounded-xl border border-navy-900/15 bg-white px-3.5 py-2.5 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40'
+const input = 'field'
 
 export function EditTenantForm({ tenant, canEditDomain }: { tenant: Tables<'tenants'>; canEditDomain: boolean }) {
   const [state, action, pending] = useActionState<AdminState, FormData>(updateTenantAction, {})
 
   return (
-    <form action={action} className="rounded-2xl border border-navy-900/10 bg-white p-6">
+    <form action={action} className="rounded-2xl border border-steel bg-white p-6">
       <input type="hidden" name="tenant_id" value={tenant.id} />
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm">

@@ -4,9 +4,8 @@ import { useActionState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { loginAction, type LoginState } from '@/features/auth/services/actions'
 
-const inputClass =
-  'w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-sm text-navy-900 ' +
-  'placeholder:text-navy-900/40 focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40'
+// Campo segun el sistema de marca (ver `.field` en globals.css).
+const inputClass = 'field py-3'
 
 export function LoginForm() {
   const [state, action, pending] = useActionState<LoginState, FormData>(loginAction, {})

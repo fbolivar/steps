@@ -77,12 +77,12 @@ export default async function LineDetailPage({
                   <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-accent/20 text-brand-primary">
                     <Check className="h-4 w-4" />
                   </span>
-                  <span className="text-navy-900/80">{b}</span>
+                  <span className="text-navy-700">{b}</span>
                 </li>
               ))}
             </ul>
             {line.body_mdx && (
-              <div className="prose mt-8 max-w-none text-navy-900/80">
+              <div className="prose mt-8 max-w-none text-navy-700">
                 <p>{line.body_mdx}</p>
               </div>
             )}
@@ -90,7 +90,7 @@ export default async function LineDetailPage({
 
           <aside className="card-soft h-fit p-8">
             <h3 className="text-lg font-semibold text-navy-900">Cotiza {line.name}</h3>
-            <p className="mt-2 text-sm text-navy-900/60">
+            <p className="mt-2 text-sm text-navy-600">
               Déjanos tus datos y un asesor te contacta con la mejor alternativa. La cotización la gestiona siempre una
               persona, no un formulario automático.
             </p>

@@ -16,11 +16,11 @@ export default async function EditTenantPage({ params }: { params: Promise<{ ten
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin" className="inline-flex items-center gap-1 text-sm text-navy-900/60 hover:text-brand-primary">
+      <Link href="/admin" className="inline-flex items-center gap-1 text-sm text-navy-600 hover:text-brand-primary">
         <ChevronLeft className="h-4 w-4" /> Volver a tenants
       </Link>
       <h1 className="mt-4 text-2xl font-bold text-navy-900">{tenant.nombre_comercial}</h1>
-      <p className="mb-6 text-sm text-navy-900/50">
+      <p className="mb-6 text-sm text-navy-400">
         Slug: {tenant.slug} · Branding y configuración de marca blanca.
       </p>
       <EditTenantForm tenant={tenant} canEditDomain={ctx.role === 'super_admin'} />

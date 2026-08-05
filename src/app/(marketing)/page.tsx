@@ -16,6 +16,7 @@ import { getInsuranceLines } from '@/features/site/services/content'
 import { WhatsAppButton } from '@/shared/components/whatsapp-button'
 import { Container, Section, Eyebrow } from '@/shared/components/layout-primitives'
 import { ImagePlaceholder } from '@/shared/components/image-placeholder'
+import { BrandCorner, FootprintWatermark } from '@/shared/components/brand-frame'
 import { PHOTO, photo } from '@/shared/lib/photos'
 import {
   PARTNERS,
@@ -45,13 +46,18 @@ export default async function HomePage() {
           src={PHOTO.hero}
           className="absolute inset-0"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-primary/85 to-brand-primary/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-primary/90 to-brand-primary/40" />
+        <FootprintWatermark />
+        <BrandCorner onDark className="right-8 top-8" />
         <Container className="relative py-24 lg:py-36">
           <div className="max-w-2xl animate-fade-up text-white">
             <Eyebrow onDark>Somos {tenant.nombre_comercial}</Eyebrow>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] sm:text-6xl">
+            <h1 className="mt-5 text-6xl leading-[0.95] sm:text-8xl">
               Protección para ti, siempre.
             </h1>
+            <p className="mt-4 font-display text-xl uppercase tracking-display text-brand-soft">
+              Cada paso deja una huella, nosotros la protegemos
+            </p>
             <p className="mt-6 max-w-lg text-lg text-white/75">{COMPANY.mision}</p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link href="/nosotros" className="btn-accent">
@@ -74,8 +80,8 @@ export default async function HomePage() {
           <dl className="grid grid-cols-3 gap-6">
             {TRUST_STATS.map((s) => (
               <div key={s.label}>
-                <dt className="font-heading text-3xl font-extrabold text-brand-accent sm:text-4xl">{s.value}</dt>
-                <dd className="mt-1 text-xs text-navy-900/55">{s.label}</dd>
+                <dt className="font-display text-4xl text-brand-accent sm:text-5xl">{s.value}</dt>
+                <dd className="mt-1 text-xs text-navy-600">{s.label}</dd>
               </div>
             ))}
           </dl>
@@ -89,10 +95,10 @@ export default async function HomePage() {
           <div>
             <Eyebrow>Nosotros</Eyebrow>
             <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">Porque tu tranquilidad importa</h2>
-            <p className="mt-4 text-navy-900/65">{COMPANY.vision}</p>
+            <p className="mt-4 text-navy-600">{COMPANY.vision}</p>
             <ul className="mt-6 space-y-3">
               {ABOUT_BULLETS.map((b) => (
-                <li key={b} className="flex items-center gap-3 text-navy-900/80">
+                <li key={b} className="flex items-center gap-3 text-navy-700">
                   <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand-accent/15 text-brand-accent">
                     <Check className="h-4 w-4" />
                   </span>
@@ -105,7 +111,7 @@ export default async function HomePage() {
                 Conócenos
               </Link>
               <div className="rounded-2xl bg-brand-primary px-6 py-4 text-white">
-                <p className="font-heading text-2xl font-extrabold">+15</p>
+                <p className="font-display text-3xl">+15</p>
                 <p className="text-xs text-white/70">Aseguradoras aliadas</p>
               </div>
             </div>
@@ -121,7 +127,7 @@ export default async function HomePage() {
             <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">
               Seguros confiables, cuando los necesites
             </h2>
-            <p className="mt-4 text-navy-900/60">
+            <p className="mt-4 text-navy-600">
               Comparamos entre más de 15 aseguradoras para encontrar la protección que se ajusta a ti.
             </p>
           </div>
@@ -135,11 +141,11 @@ export default async function HomePage() {
               >
                 <ImagePlaceholder src={photo(line.slug, 400, 400)} className="h-28 w-28 shrink-0" />
                 <div className="flex flex-1 flex-col">
-                  <span className="mb-1 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary/8 text-brand-primary">
+                  <span className="mb-1 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
                     <ShieldCheck className="h-4 w-4" />
                   </span>
                   <h3 className="font-semibold text-navy-900">{line.name}</h3>
-                  <p className="mt-1 line-clamp-2 flex-1 text-sm text-navy-900/55">{line.short_description}</p>
+                  <p className="mt-1 line-clamp-2 flex-1 text-sm text-navy-600">{line.short_description}</p>
                   <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary">
                     Conocer más <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </span>
@@ -162,7 +168,7 @@ export default async function HomePage() {
           <div>
             <Eyebrow>Testimonios</Eyebrow>
             <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">Vidas protegidas, clientes felices</h2>
-            <p className="mt-4 max-w-md text-navy-900/60">
+            <p className="mt-4 max-w-md text-navy-600">
               La confianza de quienes protegemos es nuestro mejor respaldo.
             </p>
             <div className="mt-6 flex items-center gap-3">
@@ -180,24 +186,24 @@ export default async function HomePage() {
                 <Star key={i} className="h-4 w-4 fill-current" />
               ))}
             </div>
-            <p className="mt-4 text-navy-900/80">“{TESTIMONIAL.quote}”</p>
+            <p className="mt-4 text-navy-700">“{TESTIMONIAL.quote}”</p>
             <div className="mt-6 flex items-center gap-3">
               <span className="h-10 w-10 rounded-full bg-brand-primary/15" />
               <div>
                 <p className="text-sm font-semibold text-navy-900">{TESTIMONIAL.author}</p>
-                <p className="text-xs text-navy-900/50">{TESTIMONIAL.role}</p>
+                <p className="text-xs text-navy-400">{TESTIMONIAL.role}</p>
               </div>
             </div>
           </div>
         </Container>
 
         <Container className="mt-14">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy-900/40">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy-400">
             Nuestros aliados aseguradores
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {PARTNERS.slice(0, 8).map((p) => (
-              <span key={p} className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-navy-900/45 shadow-soft">
+              <span key={p} className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-navy-400 shadow-soft">
                 {p}
               </span>
             ))}
@@ -218,8 +224,8 @@ export default async function HomePage() {
                 <ImagePlaceholder src={photo(`team-${m.name}`, 500, 500)} rounded="rounded-none" className="aspect-square w-full" />
                 <div className="p-4">
                   <p className="font-semibold text-navy-900">{m.name}</p>
-                  <p className="text-xs text-navy-900/50">{m.role}</p>
-                  <SocialRow className="mt-3 flex justify-center gap-3 text-navy-900/40" iconClass="h-4 w-4" />
+                  <p className="text-xs text-navy-400">{m.role}</p>
+                  <SocialRow className="mt-3 flex justify-center gap-3 text-navy-400" iconClass="h-4 w-4" />
                 </div>
               </div>
             ))}
@@ -245,20 +251,20 @@ export default async function HomePage() {
           <div>
             <Eyebrow>Cómo trabajamos</Eyebrow>
             <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">Asegurarte es fácil</h2>
-            <p className="mt-4 text-navy-900/60">Tres pasos y un asesor humano de principio a fin.</p>
+            <p className="mt-4 text-navy-600">Tres pasos y un asesor humano de principio a fin.</p>
             <div className="mt-8 space-y-6">
               {PROCESS_STEPS.map((step, i) => {
                 const Icon = STEP_ICONS[i]
                 return (
                   <div key={step.title} className="flex gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-accent/10 text-brand-accent">
                       <Icon className="h-5 w-5" />
                     </span>
                     <div>
                       <h3 className="font-semibold text-navy-900">
                         {i + 1}. {step.title}
                       </h3>
-                      <p className="mt-1 text-sm text-navy-900/60">{step.body}</p>
+                      <p className="mt-1 text-sm text-navy-600">{step.body}</p>
                     </div>
                   </div>
                 )
@@ -271,7 +277,8 @@ export default async function HomePage() {
       {/* ===== CTA BAND (foto) ===== */}
       <section className="relative overflow-hidden">
         <ImagePlaceholder rounded="rounded-none" showLabel={false} src={PHOTO.ctaBand} className="absolute inset-0" />
-        <div className="absolute inset-0 bg-brand-primary/80" />
+        <div className="absolute inset-0 bg-brand-primary/85" />
+        <FootprintWatermark />
         <Container className="relative py-20 text-center text-white">
           <h2 className="mx-auto max-w-2xl text-3xl font-bold sm:text-4xl">
             {tenant.nombre_comercial}, protegiéndote siempre
@@ -314,8 +321,9 @@ export default async function HomePage() {
       {/* ===== FINAL CTA ===== */}
       <Section className="pt-0">
         <Container>
-          <div className="relative overflow-hidden rounded-3xl bg-brand-primary">
-            <div className="grid items-center gap-6 md:grid-cols-2">
+          <div className="brand-gradient relative overflow-hidden rounded-3xl">
+            <FootprintWatermark />
+            <div className="relative grid items-center gap-6 md:grid-cols-2">
               <ImagePlaceholder src={PHOTO.finalCta} showLabel={false} rounded="rounded-none" className="h-full min-h-[220px] w-full" />
               <div className="p-8 text-white sm:p-12">
                 <h2 className="text-3xl font-bold sm:text-4xl">Protege lo que más importa</h2>

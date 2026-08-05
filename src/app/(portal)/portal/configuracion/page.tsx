@@ -18,11 +18,11 @@ export default async function ConfiguracionPage() {
     <div className="mx-auto max-w-3xl space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-navy-900">Configuración de {tenant.nombre_comercial}</h1>
-        <p className="text-sm text-navy-900/60">Marca, contacto y equipo de agentes de tu agencia.</p>
+        <p className="text-sm text-navy-600">Marca, contacto y equipo de agentes de tu agencia.</p>
       </div>
 
       <div>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-navy-900/50">Marca y contacto</h2>
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-navy-400">Marca y contacto</h2>
         {/* El dominio/subdominio solo lo edita super_admin desde /admin. */}
         <EditTenantForm tenant={tenant} canEditDomain={ctx.role === 'super_admin'} />
       </div>

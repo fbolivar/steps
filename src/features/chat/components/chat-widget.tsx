@@ -71,7 +71,7 @@ export function ChatWidget({
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-5 z-50 flex h-[32rem] w-[92vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-navy-900/10 bg-white shadow-card">
+        <div className="fixed bottom-24 right-5 z-50 flex h-[32rem] w-[92vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-steel bg-white shadow-card">
           <header className="flex items-center gap-3 bg-brand-primary px-4 py-3 text-white">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
               <MessageCircle className="h-5 w-5" />
@@ -98,7 +98,7 @@ export function ChatWidget({
             ))}
             {pending && (
               <div className="flex justify-start">
-                <div className="rounded-2xl bg-white px-3.5 py-2 text-sm text-navy-900/50 shadow-sm ring-1 ring-navy-900/5">
+                <div className="rounded-2xl bg-white px-3.5 py-2 text-sm text-navy-400 shadow-sm ring-1 ring-navy-900/5">
                   <Loader2 className="h-4 w-4 animate-spin" />
                 </div>
               </div>
@@ -110,7 +110,7 @@ export function ChatWidget({
               href={waHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-t border-navy-900/5 bg-brand-accent/15 px-4 py-2 text-center text-xs font-semibold text-brand-primary hover:bg-brand-accent/25"
+              className="border-t border-steel bg-brand-accent/15 px-4 py-2 text-center text-xs font-semibold text-brand-primary hover:bg-brand-accent/25"
             >
               ¿Prefieres un asesor humano? Habla por WhatsApp
             </a>
@@ -121,13 +121,13 @@ export function ChatWidget({
               e.preventDefault()
               void send()
             }}
-            className="flex items-center gap-2 border-t border-navy-900/10 p-3"
+            className="flex items-center gap-2 border-t border-steel p-3"
           >
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escribe tu mensaje…"
-              className="flex-1 rounded-full border border-navy-900/15 px-4 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
+              className="flex-1 rounded-full border border-steel px-4 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
             />
             <button
               type="submit"
