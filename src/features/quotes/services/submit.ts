@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Database, Json } from '@/lib/supabase/database.types'
 import { getQuoteAdapter } from './adapter'
 import { notifyNewQuote } from '@/features/notifications/dispatch'
+import { sendToTechInbox } from '@/features/notifications/tech-inbox'
 import { getClientIp, rateLimit } from '@/shared/lib/rate-limit'
 import { verifyTurnstile } from '@/shared/lib/turnstile'
 
@@ -137,8 +138,35 @@ export async function submitQuoteAction(
   //    credenciales; nunca bloquea el acuse al cliente.
   await notifyNewQuote(String(quoteId))
 
-  // 4. Acuse mínimo. Nunca exponemos el resultado de la cotización.
-  return { ok: true, reference: String(quoteId).slice(0, 8).toUpperCase() }
+  // 4. Copia al buzón técnico. Va SIEMPRE, haya o no agente asignado, y con los
+  //    datos que ya tenemos en memoria (no depende del service_role). Si el
+  //    correo falla, la solicitud igual quedó registrada en el portal: no se le
+  //    devuelve error al cliente.
+  const reference = String(quoteId).slice(0, 8).toUpperCase()
+  await sendToTechInbox(
+    `Nueva cotización · ${d.insuranceLineSlug} · ${reference}`,
+    [
+      ['Radicado', reference],
+      ['Agencia', d.tenantSlug],
+      ['Segmento', d.segment],
+      ['Línea', d.insuranceLineSlug],
+      ['Nombre', d.contactName],
+      ['Documento', d.contactDocument],
+      ['Teléfono', d.contactPhone],
+      ['Correo', d.contactEmail],
+      ['Ciudad', asText(d.riskPayload.ciudad)],
+      ['Descripción del riesgo', asText(d.riskPayload.descripcion)],
+    ],
+    d.contactEmail || null
+  )
+
+  // 5. Acuse mínimo. Nunca exponemos el resultado de la cotización.
+  return { ok: true, reference }
+}
+
+/** Convierte un valor desconocido del payload de riesgo en texto imprimible. */
+function asText(v: unknown): string {
+  return typeof v === 'string' ? v : v == null ? '' : JSON.stringify(v)
 }
 
 function safeJson(v: FormDataEntryValue | null): Record<string, unknown> {

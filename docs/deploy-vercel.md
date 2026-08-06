@@ -34,7 +34,8 @@ push + variables de entorno en el panel). El proyecto ya está en
 | `ANTHROPIC_API_KEY` | Chat IA. Sin ella, el chat deriva a WhatsApp. |
 | `CHAT_MODEL` | Modelo del chat (default `claude-opus-4-8`; `claude-haiku-4-5` = económico para FAQ). |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY` | Captcha en el formulario público. |
-| `RESEND_API_KEY` + `NOTIFY_FROM_EMAIL` | Email al agente. |
+| `RESEND_API_KEY` + `NOTIFY_FROM_EMAIL` | **Correo de los formularios.** Sin estas dos, ni el formulario de contacto ni la copia de las cotizaciones salen por correo (la cotización igual queda registrada en el portal; el contacto muestra el correo directo como alternativa). `NOTIFY_FROM_EMAIL` debe usar un dominio verificado en Resend. |
+| `NOTIFY_TECH_EMAIL` | Buzón que recibe contacto y cotizaciones. Default: `tecnico@stepseguros.com`. |
 | `WHATSAPP_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` | Notificación WhatsApp (requiere plantillas Meta para envío en frío). |
 
 ## 3. Dominios (Project → Settings → Domains)
