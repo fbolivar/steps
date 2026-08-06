@@ -18,7 +18,12 @@ export function Header({ tenant }: { tenant: HeaderTenant }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50">
+    /*
+     * Solo la navegacion queda fija. La barra de contacto se va con el scroll:
+     * si tambien fuera sticky, el bloque fijo mediria 122px y el contenido del
+     * hero pasaria por detras cortado a la mitad.
+     */
+    <>
       {/* Barra superior de contacto */}
       <div className="hidden border-b border-white/10 bg-brand-primary text-white/75 lg:block">
         <Container className="flex h-10 items-center justify-between text-xs">
@@ -43,8 +48,8 @@ export function Header({ tenant }: { tenant: HeaderTenant }) {
         </Container>
       </div>
 
-      {/* Nav principal */}
-      <div className="border-b border-steel bg-white/95 backdrop-blur">
+      {/* Nav principal (fija) */}
+      <header className="sticky top-0 z-50 border-b border-steel bg-white/95 backdrop-blur">
         <Container className="flex h-20 items-center justify-between gap-4">
           <Logo tenant={tenant} />
 
@@ -76,27 +81,27 @@ export function Header({ tenant }: { tenant: HeaderTenant }) {
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </Container>
-      </div>
 
-      {open && (
-        <div className="border-t border-steel bg-white md:hidden">
-          <Container className="flex flex-col gap-1 py-4">
-            {NAV_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="rounded-lg px-2 py-2.5 text-sm font-medium text-navy-600 hover:bg-brand-accent/5 hover:text-brand-accent"
-                onClick={() => setOpen(false)}
-              >
-                {l.label}
+        {open && (
+          <div className="border-t border-steel bg-white md:hidden">
+            <Container className="flex flex-col gap-1 py-4">
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="rounded-lg px-2 py-2.5 text-sm font-medium text-navy-600 hover:bg-brand-accent/5 hover:text-brand-accent"
+                  onClick={() => setOpen(false)}
+                >
+                  {l.label}
+                </Link>
+              ))}
+              <Link href="/cotizar" className="btn-primary mt-3" onClick={() => setOpen(false)}>
+                Cotizar ahora
               </Link>
-            ))}
-            <Link href="/cotizar" className="btn-primary mt-3" onClick={() => setOpen(false)}>
-              Cotizar ahora
-            </Link>
-          </Container>
-        </div>
-      )}
-    </header>
+            </Container>
+          </div>
+        )}
+      </header>
+    </>
   )
 }
