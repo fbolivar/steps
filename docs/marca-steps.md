@@ -20,8 +20,11 @@ Tintes derivados (mezclas de los cuatro anteriores, solo para estados de UI):
 `cobalt-100/200/400/600/700`, `navy-400/600/700/800`, `steel-light/dark`,
 `mist` (`#F2F6F6`, gris azulado muy diluido para fondos de sección).
 
-Degradado de marca (`bg-brand-gradient` / clase `.brand-gradient`):
-`#3E74C4 → #2F5AA6 → #000831` en 135°, igual que las portadas del manual.
+Degradado de marca (`bg-brand-gradient` / clase `.brand-gradient`): cobalt →
+azul profundo en 135°, como las portadas y la tarjeta comercial del manual. Se
+construye desde `--brand-accent` y `--brand-primary`, así que **solo contiene
+los dos azules oficiales** y responde al theming del tenant. No introducir
+tonos intermedios que no salgan de esas variables.
 
 **Marca blanca.** `brand-primary`, `brand-secondary` y `brand-accent` se
 resuelven por variables CSS (`--brand-*`) que el layout inyecta desde la fila

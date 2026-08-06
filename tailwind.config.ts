@@ -80,9 +80,15 @@ const config: Config = {
         cobalt: '0 14px 34px -14px rgb(47 90 166 / 0.55)',
       },
       backgroundImage: {
-        /** Degradado de marca (portadas del manual): cobalt → azul profundo. */
-        'brand-gradient': 'linear-gradient(135deg, #3E74C4 0%, #2F5AA6 42%, #000831 100%)',
-        'brand-gradient-soft': 'linear-gradient(135deg, #EAF0F9 0%, #FFFFFF 55%, #F2F6F6 100%)',
+        /**
+         * Degradado de marca (portadas del manual). SOLO usa los dos azules
+         * oficiales y los lee de las variables del tenant: nada de tonos
+         * inventados ni hex fijos.
+         */
+        'brand-gradient':
+          'linear-gradient(135deg, rgb(var(--brand-accent)) 0%, rgb(var(--brand-primary)) 100%)',
+        'brand-gradient-soft':
+          'linear-gradient(135deg, rgb(var(--brand-soft) / 0.55) 0%, #FFFFFF 100%)',
       },
       keyframes: {
         'fade-up': {
