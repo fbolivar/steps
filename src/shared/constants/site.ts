@@ -21,6 +21,14 @@ export const PARTNERS = [
   'Cesce',
   'SBS',
   'Afiancol',
+  'Equidad',
+  'Mapfre',
+  'Confianza',
+  'Previsora',
+  'Grancolombiana',
+  'Colmédica',
+  'Qualitas Assistance',
+  'BMI',
 ] as const
 
 /** Propuesta de valor / textos institucionales (reescritos, tono directo). */
