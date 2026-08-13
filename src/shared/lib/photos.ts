@@ -23,6 +23,14 @@ const FILES = {
   p_woman: 'p_woman',
   p_man2: 'p_man2',
   p_woman2: 'p_woman2',
+  // Añadidas para que ninguna tarjeta de /seguros/personas repita foto.
+  graduation: 'graduation',
+  pets: 'pets',
+  passport: 'passport',
+  airport: 'airport',
+  lilies: 'lilies',
+  keys: 'keys',
+  contract: 'contract',
 } as const
 
 function img(key: keyof typeof FILES): string {
@@ -35,27 +43,39 @@ function hash(s: string): number {
   return Math.abs(h)
 }
 
-// Tema por línea de seguro (slug → archivo). Default: asesoría.
+/**
+ * Tema por línea de seguro (slug → archivo). Default: asesoría.
+ *
+ * Las 13 líneas del segmento PERSONAS tienen cada una su propia foto: en una
+ * cuadrícula, dos tarjetas con la misma imagen se leen como un error de carga
+ * antes que como una decisión. Empresas todavía comparte varias y cae al
+ * default en la mitad de sus líneas.
+ */
 const LINE_THEME: Record<string, keyof typeof FILES> = {
-  auto: 'car',
-  'vehiculos-comerciales': 'car',
-  salud: 'health',
-  'salud-internacional': 'health',
-  'salud-colectiva': 'health',
-  hogar: 'house',
-  propiedad: 'house',
+  // --- Personas (13/13, todas distintas) ---
   vida: 'family1',
-  'vida-empresarial': 'family3',
-  exequias: 'family2',
-  'exequias-empresas': 'family2',
-  educativo: 'family2',
-  mascotas: 'family1',
-  viaje: 'family3',
-  'gestion-patrimonial': 'businesswoman',
+  salud: 'health',
+  'salud-internacional': 'passport',
+  hogar: 'house',
+  auto: 'car',
   'rc-personas': 'handshake',
+  educativo: 'graduation',
+  viaje: 'airport',
+  exequias: 'lilies',
+  mascotas: 'pets',
+  arrendamiento: 'keys',
+  'cumplimiento-p': 'contract',
+  'gestion-patrimonial': 'businesswoman',
+
+  // --- Empresas ---
+  'vida-empresarial': 'family3',
+  'salud-colectiva': 'health',
+  'exequias-empresas': 'family2',
+  'vehiculos-comerciales': 'car',
+  transportes: 'car',
+  propiedad: 'house',
   'rc-empresas': 'office',
   ciberseguridad: 'office',
-  transportes: 'car',
 }
 
 const PORTRAITS: (keyof typeof FILES)[] = ['p_man', 'p_woman', 'p_man2', 'p_woman2']
