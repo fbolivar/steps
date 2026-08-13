@@ -5,7 +5,6 @@ import {
   Check,
   ShieldCheck,
   Phone,
-  Star,
   FileText,
   Settings2,
   ShieldCheck as ShieldStep,
@@ -17,6 +16,7 @@ import { WhatsAppButton } from '@/shared/components/whatsapp-button'
 import { Container, Section, Eyebrow } from '@/shared/components/layout-primitives'
 import { ImagePlaceholder } from '@/shared/components/image-placeholder'
 import { PartnersMarquee } from '@/features/site/components/partners-marquee'
+import { TestimonialsRotator } from '@/features/site/components/testimonials-rotator'
 import { BrandCorner, FootprintWatermark } from '@/shared/components/brand-frame'
 import { PHOTO, photo } from '@/shared/lib/photos'
 import {
@@ -26,7 +26,6 @@ import {
   TRUST_STATS,
   PROCESS_STEPS,
   TEAM,
-  TESTIMONIAL,
   BLOG_POSTS,
 } from '@/shared/constants/site'
 
@@ -181,21 +180,7 @@ export default async function HomePage() {
               <span className="text-sm font-semibold text-navy-900">+ clientes satisfechos</span>
             </div>
           </div>
-          <div className="card-soft relative p-8">
-            <div className="flex gap-1 text-brand-accent">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star key={i} className="h-4 w-4 fill-current" />
-              ))}
-            </div>
-            <p className="mt-4 text-navy-700">“{TESTIMONIAL.quote}”</p>
-            <div className="mt-6 flex items-center gap-3">
-              <span className="h-10 w-10 rounded-full bg-brand-primary/15" />
-              <div>
-                <p className="text-sm font-semibold text-navy-900">{TESTIMONIAL.author}</p>
-                <p className="text-xs text-navy-400">{TESTIMONIAL.role}</p>
-              </div>
-            </div>
-          </div>
+          <TestimonialsRotator />
         </Container>
 
         <div className="mt-14">

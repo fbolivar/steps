@@ -119,12 +119,59 @@ export const TEAM = [
   { name: 'Asesor 4', role: 'Siniestros y soporte' },
 ] as const
 
-export const TESTIMONIAL = {
-  quote:
-    'No pude estar más tranquila con STEPS. Cuando tuve una emergencia, su equipo me acompañó en todo el proceso del reclamo: rápidos, profesionales y muy humanos.',
-  author: 'Cliente satisfecha',
-  role: 'Seguro de salud',
-} as const
+/**
+ * Testimonios. OJO: son textos GENÉRICOS de ejemplo, no citas reales de
+ * clientes. Sirven para que la sección no quede vacía mientras se recogen
+ * testimonios verdaderos; conviene reemplazarlos antes de una campaña.
+ * Por eso los autores son perfiles ("Cliente · Seguro de auto"), no personas
+ * con nombre y apellido.
+ */
+export type Testimonial = { quote: string; author: string; role: string }
+
+export const TESTIMONIALS: readonly Testimonial[] = [
+  {
+    quote:
+      'Cuando tuve la emergencia, su equipo me acompañó en todo el proceso del reclamo: rápidos, claros y muy humanos.',
+    author: 'Cliente',
+    role: 'Seguro de salud',
+  },
+  {
+    quote:
+      'Me explicaron qué cubría y qué no cubría la póliza antes de firmar. Es la primera vez que entiendo lo que estoy contratando.',
+    author: 'Cliente',
+    role: 'Seguro de vida',
+  },
+  {
+    quote:
+      'Compararon varias aseguradoras y me mostraron las diferencias sin presionarme. Terminé pagando menos por mejor cobertura.',
+    author: 'Cliente',
+    role: 'Seguro de auto',
+  },
+  {
+    quote:
+      'Tuve un siniestro en el apartamento un domingo y aun así me respondieron. Saber que hay alguien al otro lado cambia todo.',
+    author: 'Cliente',
+    role: 'Seguro de hogar',
+  },
+  {
+    quote:
+      'Nos armaron el programa de seguros de la empresa por líneas y con un solo interlocutor. Nos ahorró muchísimo tiempo de gestión.',
+    author: 'Cliente empresarial',
+    role: 'Seguros corporativos',
+  },
+  {
+    quote:
+      'Renovar dejó de ser un dolor de cabeza: me avisan con tiempo y me llega la comparación lista para decidir.',
+    author: 'Cliente',
+    role: 'Renovación de póliza',
+  },
+  {
+    quote:
+      'Buscábamos cubrir a nuestra base social y nos propusieron una solución hecha a la medida de la cooperativa.',
+    author: 'Cliente institucional',
+    role: 'Cooperativas',
+  },
+] as const
 
 // Blog — entradas de ejemplo (reemplazables por CMS).
 export const BLOG_POSTS = [
