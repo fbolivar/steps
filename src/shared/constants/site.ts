@@ -15,18 +15,12 @@ export const PARTNERS = [
   'Zurich',
   'AXA Colpatria',
   'Liberty',
-  'Chubb',
-  'Positiva',
   'Seguros del Estado',
   'Seguros Mundial',
   'Aseguradora Solidaria',
-  'Colmena',
   'Cesce',
   'SBS',
-  'Continental Assist',
-  'Assist Card',
   'Afiancol',
-  'Cuídate',
 ] as const
 
 /** Propuesta de valor / textos institucionales (reescritos, tono directo). */
