@@ -17,6 +17,7 @@ import { Container, Section, Eyebrow } from '@/shared/components/layout-primitiv
 import { ImagePlaceholder } from '@/shared/components/image-placeholder'
 import { PartnersMarquee } from '@/features/site/components/partners-marquee'
 import { TestimonialsRotator } from '@/features/site/components/testimonials-rotator'
+import { TeamAvatar } from '@/features/site/components/team-avatar'
 import { BrandCorner, FootprintWatermark } from '@/shared/components/brand-frame'
 import { PHOTO, photo } from '@/shared/lib/photos'
 import {
@@ -212,9 +213,9 @@ export default async function HomePage() {
             <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">Asesoría profesional, trato cercano</h2>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {TEAM.map((m) => (
+            {TEAM.map((m, i) => (
               <div key={m.name} className="card-soft overflow-hidden text-center">
-                <ImagePlaceholder src={photo(`team-${m.name}`, 500, 500)} rounded="rounded-none" className="aspect-square w-full" />
+                <TeamAvatar member={m} index={i} />
                 <div className="p-4">
                   <p className="font-semibold text-navy-900">{m.name}</p>
                   <p className="text-xs text-navy-400">{m.role}</p>

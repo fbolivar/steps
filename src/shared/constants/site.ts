@@ -112,11 +112,22 @@ export const PROCESS_STEPS = [
 ] as const
 
 // Equipo — fotos y datos reales los aporta el cliente.
-export const TEAM = [
-  { name: 'Paula Moreno', role: 'Asesora líder' },
-  { name: 'Asesor 2', role: 'Seguros de personas' },
-  { name: 'Asesor 3', role: 'Seguros empresariales' },
-  { name: 'Asesor 4', role: 'Siniestros y soporte' },
+/**
+ * Equipo. Mientras no haya fotos del personal, cada persona se muestra con un
+ * avatar de marca (sus iniciales sobre el degradado corporativo). Se descarta
+ * a proposito usar retratos de banco de imagenes: serian caras de personas
+ * ajenas presentadas como el equipo de STEPS.
+ *
+ * Cuando lleguen las fotos, basta con anadir `photo: 'archivo.jpg'` (en
+ * /public/img) y <TeamAvatar/> la usa en vez de las iniciales.
+ */
+export type TeamMember = { name: string; role: string; photo?: string }
+
+export const TEAM: readonly TeamMember[] = [
+  { name: 'Paula Moreno', role: 'Asesor Líder' },
+  { name: 'Katherine Buitrago', role: 'Asesor 2' },
+  { name: 'Andrea Bolaños', role: 'Asesor 3' },
+  { name: 'Robert Hernández', role: 'Experto Cumplimiento' },
 ] as const
 
 /**
