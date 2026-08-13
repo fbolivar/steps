@@ -207,6 +207,48 @@
     }
   }
 
+  /*
+   * Rastro de huellas del hero (ver <FootprintTrail/>).
+   *
+   * Cada paso aparece con un pequeno desplazamiento, se sostiene mientras se
+   * completa el rastro y el conjunto se desvanece antes de volver a empezar.
+   * El ciclo es largo (18s) a proposito: debe leerse como un detalle de fondo,
+   * no como algo que reclama atencion.
+   */
+  .huella-paso {
+    opacity: 0;
+    animation: huella-paso 18s ease-in-out infinite;
+    /* La foto tiene zonas claras: sin la sombra, el blanco se pierde ahi. */
+    filter: drop-shadow(0 1px 3px rgb(0 8 49 / 0.45));
+  }
+
+  @keyframes huella-paso {
+    0% {
+      opacity: 0;
+    }
+    /* Entra: sube un poco y se asienta. */
+    6% {
+      opacity: var(--tope, 0.2);
+    }
+    /* Se sostiene mientras terminan de aparecer los demas pasos. */
+    62% {
+      opacity: var(--tope, 0.2);
+    }
+    /* El rastro completo se apaga y el ciclo vuelve a empezar. */
+    78%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Si el sistema pide reducir movimiento, el rastro queda fijo y tenue. */
+  @media (prefers-reduced-motion: reduce) {
+    .huella-paso {
+      animation: none;
+      opacity: var(--tope, 0.2);
+    }
+  }
+
   /* Retícula de puntos del manual (esquina superior derecha de cada lamina). */
   .texture-puntos {
     background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);

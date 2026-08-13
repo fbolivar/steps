@@ -19,6 +19,7 @@ import { PartnersMarquee } from '@/features/site/components/partners-marquee'
 import { TestimonialsRotator } from '@/features/site/components/testimonials-rotator'
 import { TeamAvatar } from '@/features/site/components/team-avatar'
 import { FootprintWatermark } from '@/shared/components/brand-frame'
+import { FootprintTrail } from '@/shared/components/footprint-trail'
 import { PHOTO, photo } from '@/shared/lib/photos'
 import {
   PARTNERS,
@@ -48,6 +49,8 @@ export default async function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-primary/90 to-brand-primary/40" />
         <FootprintWatermark />
+        {/* "Cada paso deja una huella": el rastro avanza hacia el horizonte. */}
+        <FootprintTrail />
         <Container className="relative py-24 lg:py-36">
           <div className="max-w-2xl animate-fade-up text-white">
             <Eyebrow onDark>Somos {tenant.nombre_comercial}</Eyebrow>
