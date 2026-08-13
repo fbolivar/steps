@@ -30,6 +30,23 @@ Todos los publicados se tomaron de la web oficial de cada compañía. Se
 recortaron los márgenes transparentes y se reescalaron a 120 px de alto; no se
 alteró color ni proporción.
 
+## Cuidado con las versiones en blanco
+
+Varias companias publican en su web el logo **en blanco**, pensado para fondos
+oscuros. Sobre estas tarjetas (blancas) queda invisible. Paso con `cesce.svg`,
+que se subio en su version blanca y hubo que reemplazarla por la azul de
+`cesce.es`.
+
+Antes de publicar un SVG, revisa que sus `fill` no sean todos `#FFFFFF`:
+
+```sh
+grep -o -E 'fill[=:][ ]*"?#?[0-9a-fA-F]{3,6}' public/logos/*.svg | sort -u
+```
+
+Ojo: renderizar el SVG con herramientas que ignoran CSS interno puede
+enganar (pinta de negro lo que en el navegador sale blanco). La comprobacion
+fiable es abrir la pagina en un navegador.
+
 ## Formato
 
 - **SVG** preferido (escala sin pérdida y pesa poco).
