@@ -26,7 +26,7 @@ export const PARTNERS: readonly Partner[] = [
   { name: 'AXA Colpatria', logo: 'axa-colpatria.png' },
   { name: 'Liberty', logo: 'liberty.png' },
   { name: 'Seguros del Estado', logo: 'seguros-del-estado.png' },
-  { name: 'Seguros Mundial' }, // pendiente: solo publican la versión en blanco
+  { name: 'Seguros Mundial', logo: 'seguros-mundial.png' },
   { name: 'Aseguradora Solidaria', logo: 'aseguradora-solidaria.svg' },
   { name: 'Cesce', logo: 'cesce.svg' },
   { name: 'SBS', logo: 'sbs.png' },

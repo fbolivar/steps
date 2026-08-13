@@ -13,16 +13,21 @@ se ve roto mientras llegan los que faltan.
 
 ## Estado actual
 
-Publicados (18): afiancol, aseguradora-solidaria, axa-colpatria, bmi, cesce,
+Publicados (19): afiancol, aseguradora-solidaria, axa-colpatria, bmi, cesce,
 colmedica, confianza, equidad, hdi, liberty, mapfre, previsora,
-qualitas-assistance, sbs, seguros-bolivar, seguros-del-estado, sura, zurich.
+qualitas-assistance, sbs, seguros-bolivar, seguros-del-estado,
+seguros-mundial, sura, zurich.
 
-Pendientes (2), hoy en texto:
+Pendiente (1), hoy en texto:
 
 | Aseguradora | Por qué |
 |---|---|
-| Seguros Mundial | Solo publican la versión en blanco, invisible sobre las tarjetas blancas. |
 | Grancolombiana | La compañía está en liquidación y no tiene sitio activo. |
+
+Dos archivos no salieron de la web de la compañía: `zurich.svg` (CDN
+corporativo de Zurich, aportado por el cliente) y `seguros-mundial.png`
+(seeklogo, aportado por el cliente; se verificó que la forma coincide con la
+versión oficial de su web, y trae fondo blanco opaco en vez de transparente).
 
 Todos los publicados se tomaron de la web oficial de cada compañía. Se
 recortaron los márgenes transparentes y se reescalaron a 120 px de alto; no se
