@@ -22,7 +22,7 @@ export const PARTNERS: readonly Partner[] = [
   { name: 'Seguros Bolívar', logo: 'seguros-bolivar.png' },
   { name: 'HDI', logo: 'hdi.svg' },
   { name: 'Sura', logo: 'sura.svg' },
-  { name: 'Zurich' }, // pendiente: su web no publica el archivo en abierto
+  { name: 'Zurich', logo: 'zurich.svg' },
   { name: 'AXA Colpatria', logo: 'axa-colpatria.png' },
   { name: 'Liberty', logo: 'liberty.png' },
   { name: 'Seguros del Estado', logo: 'seguros-del-estado.png' },
