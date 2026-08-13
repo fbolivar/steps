@@ -15,7 +15,7 @@ export const DEFAULT_LINES: SeedLine[] = [
   { slug: 'vida', segment: 'personas', name: 'Vida', short_description: 'Protección económica para tu familia ante lo inesperado.', sort_order: 1 },
   { slug: 'salud', segment: 'personas', name: 'Salud', short_description: 'Atención médica y hospitalaria cuando más importa.', sort_order: 2 },
   { slug: 'hogar', segment: 'personas', name: 'Hogar', short_description: 'Tu vivienda y tu contenido, protegidos.', sort_order: 3 },
-  { slug: 'auto', segment: 'personas', name: 'Auto', short_description: 'Cobertura integral para tu vehículo.', sort_order: 4 },
+  { slug: 'auto', segment: 'personas', name: 'Autos', short_description: 'Cobertura integral para tu vehículo.', sort_order: 4 },
   { slug: 'rc-personas', segment: 'personas', name: 'Responsabilidad Civil', short_description: 'Respaldo ante daños a terceros.', sort_order: 5 },
   { slug: 'viaje', segment: 'personas', name: 'Viaje', short_description: 'Asistencia y cobertura dentro y fuera del país.', sort_order: 6 },
   { slug: 'exequias', segment: 'personas', name: 'Exequias', short_description: 'Servicio exequial para toda la familia.', sort_order: 7 },

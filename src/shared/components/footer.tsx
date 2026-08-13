@@ -10,7 +10,7 @@ import type { Tenant } from '@/shared/lib/tenant'
 const FOOTER_SERVICES = [
   { label: 'Vida', href: '/seguros/personas/vida' },
   { label: 'Salud', href: '/seguros/personas/salud' },
-  { label: 'Auto', href: '/seguros/personas/auto' },
+  { label: 'Autos', href: '/seguros/personas/auto' },
   { label: 'Hogar', href: '/seguros/personas/hogar' },
   { label: 'Empresas', href: '/seguros/empresas' },
 ]
