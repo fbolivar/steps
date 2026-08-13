@@ -23,9 +23,9 @@ export default function AliadosPage() {
             {PARTNERS.map((p) => (
               <div
                 key={p.logo}
-                className="card-soft flex min-h-[112px] items-center justify-center p-6 text-center transition-colors hover:border-brand-accent/40"
+                className="card-soft flex min-h-[136px] items-center justify-center p-5 text-center transition-colors hover:border-brand-accent/40"
               >
-                <PartnerLogo partner={p} imgClassName="max-h-12" />
+                <PartnerLogo partner={p} baseHeight={48} />
               </div>
             ))}
           </div>

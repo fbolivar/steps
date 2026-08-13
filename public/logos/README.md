@@ -47,6 +47,19 @@ Ojo: renderizar el SVG con herramientas que ignoran CSS interno puede
 enganar (pinta de negro lo que en el navegador sale blanco). La comprobacion
 fiable es abrir la pagina en un navegador.
 
+## Tamano visual (campo `ratio`)
+
+Fijar la misma altura para todos hace que los logos compactos (HDI, Cesce) se
+vean diminutos junto a los muy alargados (Mapfre, Previsora): el ojo compara
+SUPERFICIE, no altura. Por eso cada entrada de `PARTNERS` lleva `ratio`
+(ancho/alto del archivo) y `<PartnerLogo/>` le asigna mas o menos alto segun
+ese valor.
+
+Al agregar un logo, mide su proporcion y ponla en `ratio`. Y si el archivo es
+SVG, comprueba que su `viewBox` no traiga aire alrededor del dibujo: el de
+Cesce tenia un 46% de margen vacio y por eso se veia pequeno aunque el alto
+fuera correcto. Recorta el viewBox al contenido antes de publicarlo.
+
 ## Formato
 
 - **SVG** preferido (escala sin pérdida y pesa poco).

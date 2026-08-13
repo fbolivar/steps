@@ -206,9 +206,9 @@ export default async function HomePage() {
             {PARTNERS.slice(0, 8).map((p) => (
               <span
                 key={p.logo}
-                className="flex h-14 items-center rounded-full bg-white px-6 text-sm font-semibold text-navy-400 shadow-soft"
+                className="flex h-16 items-center rounded-full bg-white px-6 text-sm font-semibold text-navy-400 shadow-soft"
               >
-                <PartnerLogo partner={p} imgClassName="max-h-8" />
+                <PartnerLogo partner={p} baseHeight={30} />
               </span>
             ))}
           </div>

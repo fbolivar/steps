@@ -16,29 +16,38 @@ export const NAV_LINKS = [
  * listado nunca se ve roto. Publicar un logotipo es dejar el archivo y
  * apuntarlo aquí. Ver `public/logos/README.md`.
  */
-export type Partner = { name: string; logo?: string }
+export type Partner = {
+  name: string
+  logo?: string
+  /**
+   * Proporcion ancho/alto del archivo. La usa <PartnerLogo/> para igualar el
+   * area visual entre logos compactos y alargados. Se mide con:
+   *   node -e "..." | o revisa public/logos/README.md
+   */
+  ratio?: number
+}
 
 export const PARTNERS: readonly Partner[] = [
-  { name: 'Seguros Bolívar', logo: 'seguros-bolivar.png' },
-  { name: 'HDI', logo: 'hdi.svg' },
-  { name: 'Sura', logo: 'sura.svg' },
-  { name: 'Zurich', logo: 'zurich.svg' },
-  { name: 'AXA Colpatria', logo: 'axa-colpatria.png' },
-  { name: 'Liberty', logo: 'liberty.png' },
-  { name: 'Seguros del Estado', logo: 'seguros-del-estado.png' },
-  { name: 'Seguros Mundial', logo: 'seguros-mundial.png' },
-  { name: 'Aseguradora Solidaria', logo: 'aseguradora-solidaria.svg' },
-  { name: 'Cesce', logo: 'cesce.svg' },
-  { name: 'SBS', logo: 'sbs.png' },
-  { name: 'Afiancol', logo: 'afiancol.png' },
-  { name: 'Equidad', logo: 'equidad.png' },
-  { name: 'Mapfre', logo: 'mapfre.png' },
-  { name: 'Confianza', logo: 'confianza.png' },
-  { name: 'Previsora', logo: 'previsora.png' },
-  { name: 'Seguros GranColombia', logo: 'grancolombia.png' },
-  { name: 'Colmédica', logo: 'colmedica.png' },
-  { name: 'Qualitas Assistance', logo: 'qualitas-assistance.png' },
-  { name: 'BMI', logo: 'bmi.png' },
+  { name: 'Seguros Bolívar', logo: 'seguros-bolivar.png', ratio: 3.42 },
+  { name: 'HDI', logo: 'hdi.svg', ratio: 1.47 },
+  { name: 'Sura', logo: 'sura.svg', ratio: 2.9 },
+  { name: 'Zurich', logo: 'zurich.svg', ratio: 4.12 },
+  { name: 'AXA Colpatria', logo: 'axa-colpatria.png', ratio: 1.98 },
+  { name: 'Liberty', logo: 'liberty.png', ratio: 2.0 },
+  { name: 'Seguros del Estado', logo: 'seguros-del-estado.png', ratio: 3.63 },
+  { name: 'Seguros Mundial', logo: 'seguros-mundial.png', ratio: 4.39 },
+  { name: 'Aseguradora Solidaria', logo: 'aseguradora-solidaria.svg', ratio: 3.2 },
+  { name: 'Cesce', logo: 'cesce.svg', ratio: 2.63 },
+  { name: 'SBS', logo: 'sbs.png', ratio: 2.91 },
+  { name: 'Afiancol', logo: 'afiancol.png', ratio: 2.98 },
+  { name: 'Equidad', logo: 'equidad.png', ratio: 2.79 },
+  { name: 'Mapfre', logo: 'mapfre.png', ratio: 6.62 },
+  { name: 'Confianza', logo: 'confianza.png', ratio: 3.21 },
+  { name: 'Previsora', logo: 'previsora.png', ratio: 5.94 },
+  { name: 'Seguros GranColombia', logo: 'grancolombia.png', ratio: 4.74 },
+  { name: 'Colmédica', logo: 'colmedica.png', ratio: 5.48 },
+  { name: 'Qualitas Assistance', logo: 'qualitas-assistance.png', ratio: 2.39 },
+  { name: 'BMI', logo: 'bmi.png', ratio: 2.52 },
 ] as const
 
 /** Propuesta de valor / textos institucionales (reescritos, tono directo). */
