@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { z } from 'zod'
 import { TECH_INBOX, sendToTechInbox, techMailEnabled } from '@/features/notifications/tech-inbox'
 import { getClientIp, rateLimit } from '@/shared/lib/rate-limit'
+import { verifyTurnstile } from '@/shared/lib/turnstile'
 
 /**
  * Mensajes del formulario público de contacto. Se envían al buzón técnico.
@@ -58,6 +59,14 @@ export async function submitContactAction(
   ])
   if (!okMin || !okHour) {
     return { ok: false, error: 'Demasiados mensajes seguidos. Intenta de nuevo en unos minutos.' }
+  }
+
+  // Captcha, igual que en el cotizador. Sin TURNSTILE_SECRET_KEY la verificación
+  // deja pasar (gating para desarrollo): el formulario queda protegido solo por
+  // el honeypot y el rate limit hasta que se carguen las claves en Vercel.
+  const captchaToken = (formData.get('cf-turnstile-response') as string | null) ?? null
+  if (!(await verifyTurnstile(captchaToken, ip))) {
+    return { ok: false, error: 'No pudimos verificar que eres una persona. Recarga la página e inténtalo de nuevo.' }
   }
 
   if (!techMailEnabled()) {

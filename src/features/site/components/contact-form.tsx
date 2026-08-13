@@ -3,6 +3,7 @@
 import { useActionState } from 'react'
 import { Check, Loader2 } from 'lucide-react'
 import { submitContactAction, type ContactFormState } from '@/features/site/services/contact'
+import { Turnstile } from '@/shared/components/turnstile'
 
 /**
  * Formulario de contacto. Envía el mensaje al buzón técnico mediante una Server
@@ -75,6 +76,9 @@ export function ContactForm({ contactEmail }: { contactEmail: string | null }) {
         aria-hidden="true"
         className="hidden"
       />
+
+      {/* Captcha. No pinta nada si no hay site key configurada. */}
+      <Turnstile />
 
       {state.error && (
         <p className="text-sm text-red-600">

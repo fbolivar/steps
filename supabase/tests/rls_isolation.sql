@@ -179,6 +179,15 @@ begin
     raise exception 'FUGA: anon lee % fila(s) de public.tenant_members', n;
   end if;
   raise notice 'ok   anon no lee agents ni tenant_members';
+
+  -- El tenant `demo` está desactivado (migración 0015). `tenants_public_read` es
+  -- `(is_active or has_tenant_access(id))`, así que un visitante no debe poder
+  -- resolverlo: sin fila, `demo.<dominio>` no sirve sitio alguno.
+  select count(*) into n from public.tenants where slug = 'demo';
+  if n <> 0 then
+    raise exception 'FALLO: anon todavía resuelve el tenant demo; sigue expuesto en producción';
+  end if;
+  raise notice 'ok   anon no resuelve el tenant demo (desactivado)';
 end $$;
 
 reset role;

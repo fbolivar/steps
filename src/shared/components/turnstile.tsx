@@ -3,9 +3,15 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * Widget de Cloudflare Turnstile. Se renderiza solo si hay site key configurada
- * (NEXT_PUBLIC_TURNSTILE_SITE_KEY). Cloudflare inyecta un input oculto
- * `cf-turnstile-response` dentro del form con el token, que viaja en el submit.
+ * Widget de Cloudflare Turnstile.
+ *
+ * Vive en `shared` porque lo usan dos formularios públicos: el de cotización y
+ * el de contacto. Antes estaba dentro de la feature de cotizaciones, cuando era
+ * el único que lo necesitaba.
+ *
+ * Se renderiza solo si hay site key configurada (NEXT_PUBLIC_TURNSTILE_SITE_KEY).
+ * Cloudflare inyecta un input oculto `cf-turnstile-response` dentro del form con
+ * el token, que viaja en el submit y se verifica en servidor.
  */
 export function Turnstile() {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY

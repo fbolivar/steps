@@ -4,7 +4,7 @@ import { useActionState, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Check, ChevronRight, ChevronLeft, ShieldCheck, Loader2 } from 'lucide-react'
 import { submitQuoteAction, type QuoteFormState } from '@/features/quotes/services/submit'
-import { Turnstile } from '@/features/quotes/components/turnstile'
+import { Turnstile } from '@/shared/components/turnstile'
 
 type LineOption = { slug: string; name: string; segment: 'personas' | 'empresas' }
 
