@@ -35,6 +35,12 @@ export function TestimonialsRotator() {
       const j = Math.floor(Math.random() * (i + 1))
       ;[idx[i], idx[j]] = [idx[j], idx[i]]
     }
+    // El linter desaconseja setState síncrono dentro de un efecto porque suele
+    // delatar estado derivable en el render. Aquí es deliberado y no hay
+    // alternativa: el orden debe ser aleatorio SOLO en el navegador. Barajar en
+    // el render haría que servidor y cliente produjeran HTML distinto y React
+    // descartaría la hidratación. Se ejecuta una vez, al montar.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOrden(idx)
     animar.current = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   }, [])

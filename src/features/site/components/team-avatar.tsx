@@ -33,8 +33,10 @@ function iniciales(nombre: string): string {
 
 export function TeamAvatar({ member, index }: { member: TeamMember; index: number }) {
   if (member.photo) {
-    // eslint-disable-next-line @next/next/no-img-element
     return (
+      // Foto real del equipo servida desde /public: <Image/> no aporta aquí
+      // (no hay CDN externo ni redimensionado) y añadiría dependencia de runtime.
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={`/img/${member.photo}`}
         alt={member.name}
