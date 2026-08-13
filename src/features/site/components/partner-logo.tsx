@@ -37,10 +37,18 @@ export function PartnerLogo({
   className,
   /** Altura de referencia en px; cada logo se ajusta alrededor de ella. */
   baseHeight = 48,
+  /**
+   * Carga inmediata en vez de diferida. Obligatorio dentro del carrusel: sus
+   * logos viven en una pista horizontal que el navegador da por fuera de
+   * pantalla, asi que con `lazy` no se descargan nunca (se comprobo: del
+   * tercero en adelante quedaban con naturalWidth 0).
+   */
+  eager = false,
 }: {
   partner: Partner
   className?: string
   baseHeight?: number
+  eager?: boolean
 }) {
   const [failed, setFailed] = useState(false)
 
@@ -53,7 +61,8 @@ export function PartnerLogo({
     <img
       src={`/logos/${partner.logo}`}
       alt={partner.name}
-      loading="lazy"
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
       onError={() => setFailed(true)}
       style={{ height: Math.round(baseHeight * heightFactor(partner.ratio)) }}
       className={cn('w-auto max-w-full object-contain', className)}

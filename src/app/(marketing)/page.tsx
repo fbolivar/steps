@@ -16,7 +16,7 @@ import { getInsuranceLines } from '@/features/site/services/content'
 import { WhatsAppButton } from '@/shared/components/whatsapp-button'
 import { Container, Section, Eyebrow } from '@/shared/components/layout-primitives'
 import { ImagePlaceholder } from '@/shared/components/image-placeholder'
-import { PartnerLogo } from '@/features/site/components/partner-logo'
+import { PartnersMarquee } from '@/features/site/components/partners-marquee'
 import { BrandCorner, FootprintWatermark } from '@/shared/components/brand-frame'
 import { PHOTO, photo } from '@/shared/lib/photos'
 import {
@@ -198,21 +198,25 @@ export default async function HomePage() {
           </div>
         </Container>
 
-        <Container className="mt-14">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy-400">
-            Nuestros aliados aseguradores
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {PARTNERS.slice(0, 8).map((p) => (
-              <span
-                key={p.logo}
-                className="flex h-16 items-center rounded-full bg-white px-6 text-sm font-semibold text-navy-400 shadow-soft"
-              >
-                <PartnerLogo partner={p} baseHeight={30} />
-              </span>
-            ))}
+        <div className="mt-14">
+          <Container>
+            <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy-400">
+              Nuestros aliados aseguradores
+            </p>
+          </Container>
+          {/* A ancho completo: el carrusel se ve mejor sin los márgenes del contenedor. */}
+          <div className="mt-6">
+            <PartnersMarquee />
           </div>
-        </Container>
+          <Container className="mt-6 text-center">
+            <Link
+              href="/aliados"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-brand-accent hover:underline"
+            >
+              Ver las {PARTNERS.length} aseguradoras <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </Container>
+        </div>
       </Section>
 
       {/* ===== TEAM ===== */}

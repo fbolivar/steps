@@ -134,6 +134,79 @@
     mask-repeat: repeat;
   }
 
+  /*
+   * Carrusel continuo de logotipos (ver <PartnersMarquee/>).
+   *
+   * La pista lleva la lista dos veces y se desplaza exactamente la mitad, de
+   * modo que al reiniciar el fotograma coincide con el inicial y el bucle no
+   * tiene costura. Los bordes se desvanecen con una mascara para que los logos
+   * no aparezcan ni desaparezcan de golpe.
+   */
+  .marquee {
+    @apply relative overflow-hidden;
+    /* En movil el desvanecido es corto: si no, se come casi toda la fila. */
+    --fade: 2.5rem;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--fade),
+      #000 calc(100% - var(--fade)),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--fade),
+      #000 calc(100% - var(--fade)),
+      transparent
+    );
+  }
+  @media (min-width: 640px) {
+    .marquee {
+      --fade: 6rem;
+    }
+  }
+  .marquee__track {
+    @apply flex w-max items-center gap-4;
+    animation: marquee-scroll 55s linear infinite;
+  }
+  /* Pausa al pasar el cursor o al llegar con el teclado: permite leer un logo. */
+  .marquee:hover .marquee__track,
+  .marquee:focus-within .marquee__track {
+    animation-play-state: paused;
+  }
+  /* Ancho minimo, no fijo: los logos muy alargados ensanchan su capsula en vez
+     de quedar apretados contra los bordes. */
+  .marquee__item {
+    @apply flex h-20 min-w-[11rem] shrink-0 items-center justify-center rounded-full
+           border border-steel bg-white px-7 shadow-soft;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      /* La mitad exacta: donde arranca la copia. */
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /*
+   * Accesibilidad: si el sistema pide reducir movimiento, no se anima nada y
+   * la fila queda desplazable a mano.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      @apply overflow-x-auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .marquee__track {
+      animation: none;
+    }
+  }
+
   /* Retícula de puntos del manual (esquina superior derecha de cada lamina). */
   .texture-puntos {
     background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);
