@@ -1,11 +1,10 @@
 import { Container, Eyebrow } from './layout-primitives'
 import { ImagePlaceholder } from './image-placeholder'
-import { BrandCorner, FootprintWatermark } from './brand-frame'
+import { FootprintWatermark } from './brand-frame'
 
 /**
  * Hero de paginas internas. Sigue las portadas del manual: foto + velo de azul
- * profundo, huellas en marca de agua y el marco en "L" con la reticula de
- * puntos en la esquina superior derecha.
+ * profundo y huellas en marca de agua.
  */
 export function PageHero({
   eyebrow,
@@ -25,7 +24,6 @@ export function PageHero({
       <ImagePlaceholder rounded="rounded-none" showLabel={false} src={photoSrc} className="absolute inset-0" />
       <div className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-primary/92 to-brand-primary/60" />
       <FootprintWatermark />
-      <BrandCorner onDark className="right-8 top-8" />
       <Container className="relative py-20 text-white sm:py-24">
         {children}
         {eyebrow && <Eyebrow onDark>{eyebrow}</Eyebrow>}

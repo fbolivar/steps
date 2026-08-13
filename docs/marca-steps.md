@@ -79,10 +79,6 @@ OG images y entregas a terceros.
 
 ## 4. Motivos gráficos
 
-- `<BrandCorner />` — marco en "L" cobalt + retícula de puntos 2×6 (2 filas
-  cobalt, 2 azul profundo, 2 gris azulado). Es la firma que aparece en la
-  esquina superior derecha de cada lámina del manual. Se usa en héroes.
-- `<DotGrid />` — solo la retícula.
 - `<FootprintWatermark />` / clase `.texture-huellas` — huellas del isotipo en
   trazo, repetidas como marca de agua. Implementada con `mask-image`, de modo
   que toma el color del texto (`currentColor`) y sirve sobre fondo claro u
@@ -90,6 +86,10 @@ OG images y entregas a terceros.
 - `.texture-puntos` — retícula de puntos como fondo repetible.
 
 El motivo de triángulo del diseño anterior se retiró: no existe en el manual.
+
+El marco en "L" con la retícula de puntos —la firma de esquina de cada lámina
+del manual— también se retiró del sitio: sobre las fotos de los héroes
+ensuciaba la imagen. Queda en el historial de git por si se recupera.
 
 ---
 
