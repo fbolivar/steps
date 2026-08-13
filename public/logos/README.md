@@ -6,21 +6,28 @@ basta con dejar el archivo aquí con el nombre exacto.
 
 ## Nombres de archivo esperados
 
-El nombre sale del campo `logo` de `PARTNERS` en
-`src/shared/constants/site.ts`:
+El archivo se declara en el campo `logo` de `PARTNERS`
+(`src/shared/constants/site.ts`), **con extensión**. Si una aseguradora no
+tiene `logo`, su tarjeta muestra el nombre en texto; por eso el listado nunca
+se ve roto mientras llegan los que faltan.
 
-```
-seguros-bolivar.svg      hdi.svg                 sura.svg
-zurich.svg               axa-colpatria.svg       liberty.svg
-seguros-del-estado.svg   seguros-mundial.svg     aseguradora-solidaria.svg
-cesce.svg                sbs.svg                 afiancol.svg
-equidad.svg              mapfre.svg              confianza.svg
-previsora.svg            grancolombiana.svg      colmedica.svg
-qualitas-assistance.svg  bmi.svg
-```
+## Estado actual
 
-Si un archivo no existe, la tarjeta muestra el nombre de la aseguradora en
-texto. Por eso el listado nunca se ve roto mientras llegan los logotipos.
+Publicados (17): afiancol, aseguradora-solidaria, axa-colpatria, bmi, cesce,
+colmedica, confianza, equidad, hdi, liberty, mapfre, previsora,
+qualitas-assistance, sbs, seguros-bolivar, seguros-del-estado, sura.
+
+Pendientes (3), hoy en texto:
+
+| Aseguradora | Por qué |
+|---|---|
+| Zurich | Su web colombiana se arma con JavaScript y no publica el archivo en abierto. |
+| Seguros Mundial | Solo publican la versión en blanco, invisible sobre las tarjetas blancas. |
+| Grancolombiana | La compañía está en liquidación y no tiene sitio activo. |
+
+Todos los publicados se tomaron de la web oficial de cada compañía. Se
+recortaron los márgenes transparentes y se reescalaron a 120 px de alto; no se
+alteró color ni proporción.
 
 ## Formato
 

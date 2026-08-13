@@ -11,34 +11,34 @@ export const NAV_LINKS = [
 /**
  * Aseguradoras aliadas.
  *
- * `logo` es el nombre del archivo dentro de `/public/logos` SIN extensión; el
- * sitio busca `<logo>.svg` y, si no existe, muestra el nombre en texto. Para
- * publicar un logotipo basta con dejar el archivo ahí: no hay que tocar código.
- * Ver `public/logos/README.md`.
+ * `logo` es el archivo dentro de `/public/logos` CON extensión. Si se omite —o
+ * si el archivo no carga— la tarjeta muestra el nombre en texto, así el
+ * listado nunca se ve roto. Publicar un logotipo es dejar el archivo y
+ * apuntarlo aquí. Ver `public/logos/README.md`.
  */
-export type Partner = { name: string; logo: string }
+export type Partner = { name: string; logo?: string }
 
 export const PARTNERS: readonly Partner[] = [
-  { name: 'Seguros Bolívar', logo: 'seguros-bolivar' },
-  { name: 'HDI', logo: 'hdi' },
-  { name: 'Sura', logo: 'sura' },
-  { name: 'Zurich', logo: 'zurich' },
-  { name: 'AXA Colpatria', logo: 'axa-colpatria' },
-  { name: 'Liberty', logo: 'liberty' },
-  { name: 'Seguros del Estado', logo: 'seguros-del-estado' },
-  { name: 'Seguros Mundial', logo: 'seguros-mundial' },
-  { name: 'Aseguradora Solidaria', logo: 'aseguradora-solidaria' },
-  { name: 'Cesce', logo: 'cesce' },
-  { name: 'SBS', logo: 'sbs' },
-  { name: 'Afiancol', logo: 'afiancol' },
-  { name: 'Equidad', logo: 'equidad' },
-  { name: 'Mapfre', logo: 'mapfre' },
-  { name: 'Confianza', logo: 'confianza' },
-  { name: 'Previsora', logo: 'previsora' },
-  { name: 'Grancolombiana', logo: 'grancolombiana' },
-  { name: 'Colmédica', logo: 'colmedica' },
-  { name: 'Qualitas Assistance', logo: 'qualitas-assistance' },
-  { name: 'BMI', logo: 'bmi' },
+  { name: 'Seguros Bolívar', logo: 'seguros-bolivar.png' },
+  { name: 'HDI', logo: 'hdi.svg' },
+  { name: 'Sura', logo: 'sura.svg' },
+  { name: 'Zurich' }, // pendiente: su web no publica el archivo en abierto
+  { name: 'AXA Colpatria', logo: 'axa-colpatria.png' },
+  { name: 'Liberty', logo: 'liberty.png' },
+  { name: 'Seguros del Estado', logo: 'seguros-del-estado.png' },
+  { name: 'Seguros Mundial' }, // pendiente: solo publican la versión en blanco
+  { name: 'Aseguradora Solidaria', logo: 'aseguradora-solidaria.svg' },
+  { name: 'Cesce', logo: 'cesce.svg' },
+  { name: 'SBS', logo: 'sbs.png' },
+  { name: 'Afiancol', logo: 'afiancol.png' },
+  { name: 'Equidad', logo: 'equidad.png' },
+  { name: 'Mapfre', logo: 'mapfre.png' },
+  { name: 'Confianza', logo: 'confianza.png' },
+  { name: 'Previsora', logo: 'previsora.png' },
+  { name: 'Grancolombiana' }, // pendiente: la compañía está en liquidación
+  { name: 'Colmédica', logo: 'colmedica.png' },
+  { name: 'Qualitas Assistance', logo: 'qualitas-assistance.png' },
+  { name: 'BMI', logo: 'bmi.png' },
 ] as const
 
 /** Propuesta de valor / textos institucionales (reescritos, tono directo). */
