@@ -70,7 +70,26 @@ export default async function LineDetailPage({
       <Section>
         <Container className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
           <div>
-            <h2 className="text-2xl font-bold text-navy-900">¿Qué incluye trabajar con nosotros?</h2>
+            {/*
+              Resumen del ramo: qué cubre ESTE producto. Solo aparece si la
+              línea lo tiene cargado; los beneficios de abajo son los de la
+              agencia y son iguales para todo el segmento.
+            */}
+            {line.highlights.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-2xl text-navy-900">Resumen del ramo</h2>
+                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {line.highlights.map((h) => (
+                    <li key={h} className="card-soft flex items-start gap-3 p-4">
+                      <span className="mt-1.5 h-2 w-2 shrink-0 bg-brand-accent" />
+                      <span className="text-sm text-navy-700">{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <h2 className="text-2xl text-navy-900">¿Qué incluye trabajar con nosotros?</h2>
             <ul className="mt-6 space-y-4">
               {BENEFITS[segment].map((b) => (
                 <li key={b} className="flex items-start gap-3">

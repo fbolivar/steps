@@ -60,6 +60,7 @@ export type Database = {
         Row: {
           body_mdx: string | null
           created_at: string
+          highlights: string[]
           icon: string | null
           id: string
           is_active: boolean
@@ -74,6 +75,7 @@ export type Database = {
         Insert: {
           body_mdx?: string | null
           created_at?: string
+          highlights?: string[]
           icon?: string | null
           id?: string
           is_active?: boolean
@@ -88,6 +90,7 @@ export type Database = {
         Update: {
           body_mdx?: string | null
           created_at?: string
+          highlights?: string[]
           icon?: string | null
           id?: string
           is_active?: boolean
