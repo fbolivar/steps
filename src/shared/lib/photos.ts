@@ -31,6 +31,21 @@ const FILES = {
   lilies: 'lilies',
   keys: 'keys',
   contract: 'contract',
+  // Ídem para /seguros/empresas.
+  construction: 'construction',
+  environment: 'environment',
+  cyber: 'cyber',
+  blueprints: 'blueprints',
+  van: 'van',
+  building: 'building',
+  boardroom: 'boardroom',
+  safety: 'safety',
+  seal: 'seal',
+  tax: 'tax',
+  truck: 'truck',
+  farm: 'farm',
+  finance: 'finance',
+  payment: 'payment',
 } as const
 
 function img(key: keyof typeof FILES): string {
@@ -46,10 +61,11 @@ function hash(s: string): number {
 /**
  * Tema por línea de seguro (slug → archivo). Default: asesoría.
  *
- * Las 13 líneas del segmento PERSONAS tienen cada una su propia foto: en una
- * cuadrícula, dos tarjetas con la misma imagen se leen como un error de carga
- * antes que como una decisión. Empresas todavía comparte varias y cae al
- * default en la mitad de sus líneas.
+ * Cada línea tiene su propia foto —13 en PERSONAS, 18 en EMPRESAS, todas
+ * distintas— porque en una cuadrícula dos tarjetas con la misma imagen se leen
+ * como un error de carga antes que como una decisión. El default de `photo()`
+ * ya no lo alcanza ninguna línea del catálogo actual; queda como red de
+ * seguridad para líneas nuevas hasta que se les asigne foto.
  */
 const LINE_THEME: Record<string, keyof typeof FILES> = {
   // --- Personas (13/13, todas distintas) ---
@@ -67,15 +83,27 @@ const LINE_THEME: Record<string, keyof typeof FILES> = {
   'cumplimiento-p': 'contract',
   'gestion-patrimonial': 'businesswoman',
 
-  // --- Empresas ---
+  // --- Empresas (18/18, todas distintas) ---
   'vida-empresarial': 'family3',
   'salud-colectiva': 'health',
   'exequias-empresas': 'family2',
-  'vehiculos-comerciales': 'car',
-  transportes: 'car',
-  propiedad: 'house',
+  decenal: 'construction',
+  'rc-ambiental': 'environment',
+  ciberseguridad: 'cyber',
+  'riesgos-ingenieria': 'blueprints',
+  // Furgoneta, no el deportivo de `auto`: son flotas de trabajo.
+  'vehiculos-comerciales': 'van',
   'rc-empresas': 'office',
-  ciberseguridad: 'office',
+  // Edificio corporativo, no la casa de `hogar`.
+  propiedad: 'building',
+  'd-and-o': 'boardroom',
+  'riesgos-laborales': 'safety',
+  'cumplimiento-fianzas': 'seal',
+  'legales-dian': 'tax',
+  transportes: 'truck',
+  agropecuario: 'farm',
+  credito: 'finance',
+  'garantia-pagos': 'payment',
 }
 
 const PORTRAITS: (keyof typeof FILES)[] = ['p_man', 'p_woman', 'p_man2', 'p_woman2']
