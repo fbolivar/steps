@@ -27,7 +27,6 @@ import {
   TRUST_STATS,
   PROCESS_STEPS,
   TEAM,
-  BLOG_POSTS,
 } from '@/shared/constants/site'
 
 const STEP_ICONS = [FileText, Settings2, ShieldStep]
@@ -285,32 +284,6 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
-
-      {/* ===== BLOG ===== */}
-      <Section>
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <Eyebrow>Aprende de seguros</Eyebrow>
-            <h2 className="mt-4 text-3xl font-bold text-navy-900 sm:text-4xl">Consejos claros, decisiones simples</h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {BLOG_POSTS.map((post) => (
-              <article key={post.title} className="card-soft overflow-hidden">
-                <ImagePlaceholder src={photo(`blog-${post.title}`, 640, 400)} rounded="rounded-none" className="aspect-[16/10] w-full" />
-                <div className="p-5">
-                  <p className="text-xs font-medium text-brand-accent">
-                    {post.date} · {post.tag}
-                  </p>
-                  <h3 className="mt-2 font-semibold leading-snug text-navy-900">{post.title}</h3>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary">
-                    Leer más <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </Section>
 
       {/* ===== FINAL CTA ===== */}
       <Section className="pt-0">

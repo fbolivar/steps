@@ -184,9 +184,3 @@ export const TESTIMONIALS: readonly Testimonial[] = [
   },
 ] as const
 
-// Blog — entradas de ejemplo (reemplazables por CMS).
-export const BLOG_POSTS = [
-  { title: '10 consejos esenciales de seguros que deberías conocer', date: 'Mar 9, 2026', tag: 'Guías' },
-  { title: 'Cómo elegir el plan de seguros correcto para tus necesidades', date: 'Mar 9, 2026', tag: 'Consejos' },
-  { title: 'Los mitos más grandes sobre los seguros, desmentidos', date: 'Mar 9, 2026', tag: 'Educación' },
-] as const
