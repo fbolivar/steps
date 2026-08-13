@@ -4,7 +4,7 @@ import { Logo } from './logo'
 import { Container } from './layout-primitives'
 import { SocialRow } from './social-icons'
 import { FootprintWatermark } from './brand-frame'
-import { NAV_LINKS } from '@/shared/constants/site'
+import { FEATURES, NAV_LINKS } from '@/shared/constants/site'
 import type { Tenant } from '@/shared/lib/tenant'
 
 const FOOTER_SERVICES = [
@@ -57,11 +57,13 @@ export function Footer({ tenant }: { tenant: Tenant }) {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/login" className="text-white/60 hover:text-brand-soft">
-                Portal de agentes
-              </Link>
-            </li>
+            {FEATURES.portalLink && (
+              <li>
+                <Link href="/login" className="text-white/60 hover:text-brand-soft">
+                  Portal de agentes
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
 

@@ -6,7 +6,7 @@ import { Menu, X, MapPin, Mail, Phone, ArrowRight, LockKeyhole } from 'lucide-re
 import { Logo } from './logo'
 import { Container } from './layout-primitives'
 import { SocialRow } from './social-icons'
-import { NAV_LINKS } from '@/shared/constants/site'
+import { FEATURES, NAV_LINKS } from '@/shared/constants/site'
 import type { Tenant } from '@/shared/lib/tenant'
 
 type HeaderTenant = Pick<
@@ -46,14 +46,19 @@ export function Header({ tenant }: { tenant: HeaderTenant }) {
           </div>
           <div className="flex items-center gap-5">
             {/* El portal es para el equipo, no para el visitante: va en la barra
-                de servicio, no compitiendo con la navegacion comercial. */}
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-1.5 font-medium hover:text-white"
-            >
-              <LockKeyhole className="h-3.5 w-3.5 text-brand-soft" /> Portal de agentes
-            </Link>
-            <span aria-hidden="true" className="h-3 w-px bg-white/20" />
+                de servicio, no compitiendo con la navegacion comercial. El
+                separador se va con el enlace; si no, queda una raya suelta. */}
+            {FEATURES.portalLink && (
+              <>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-1.5 font-medium hover:text-white"
+                >
+                  <LockKeyhole className="h-3.5 w-3.5 text-brand-soft" /> Portal de agentes
+                </Link>
+                <span aria-hidden="true" className="h-3 w-px bg-white/20" />
+              </>
+            )}
             <SocialRow className="flex items-center gap-3" iconClass="h-3.5 w-3.5" />
           </div>
         </Container>
@@ -111,13 +116,15 @@ export function Header({ tenant }: { tenant: HeaderTenant }) {
               </Link>
               {/* La barra superior no se muestra en movil: el acceso al portal
                   iria a parar solo al pie si no estuviera aqui. */}
-              <Link
-                href="/login"
-                className="mt-3 inline-flex items-center justify-center gap-1.5 border-t border-steel px-2 pt-4 text-sm font-medium text-navy-600 hover:text-brand-accent"
-                onClick={() => setOpen(false)}
-              >
-                <LockKeyhole className="h-4 w-4" /> Portal de agentes
-              </Link>
+              {FEATURES.portalLink && (
+                <Link
+                  href="/login"
+                  className="mt-3 inline-flex items-center justify-center gap-1.5 border-t border-steel px-2 pt-4 text-sm font-medium text-navy-600 hover:text-brand-accent"
+                  onClick={() => setOpen(false)}
+                >
+                  <LockKeyhole className="h-4 w-4" /> Portal de agentes
+                </Link>
+              )}
             </Container>
           </div>
         )}

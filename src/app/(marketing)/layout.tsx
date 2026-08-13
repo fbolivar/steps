@@ -2,6 +2,7 @@ import { Header } from '@/shared/components/header'
 import { Footer } from '@/shared/components/footer'
 import { ChatWidget } from '@/features/chat/components/chat-widget'
 import { getActiveTenant } from '@/shared/lib/tenant'
+import { FEATURES } from '@/shared/constants/site'
 
 export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
   const tenant = await getActiveTenant()
@@ -20,7 +21,9 @@ export default async function MarketingLayout({ children }: { children: React.Re
       />
       <main className="flex-1">{children}</main>
       <Footer tenant={tenant} />
-      <ChatWidget tenantName={tenant.nombre_comercial} whatsappNumber={tenant.whatsapp_number} />
+      {FEATURES.chat && (
+        <ChatWidget tenantName={tenant.nombre_comercial} whatsappNumber={tenant.whatsapp_number} />
+      )}
     </div>
   )
 }

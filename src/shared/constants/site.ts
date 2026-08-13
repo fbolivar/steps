@@ -195,3 +195,28 @@ export const TESTIMONIALS: readonly Testimonial[] = [
   },
 ] as const
 
+
+/**
+ * Interruptores de la interfaz pública.
+ *
+ * Existen para poder apagar una pieza sin borrar su código ni dejarlo
+ * comentado: el código sigue vivo, compilando y bajo el linter, y volver a
+ * encenderlo es cambiar un `false` por `true` aquí. Un bloque comentado, en
+ * cambio, se pudre en silencio hasta que ya no compila.
+ */
+export const FEATURES = {
+  /**
+   * Widget de chat con IA (esquina inferior derecha del sitio público).
+   * Apagado a petición del cliente. El endpoint `/api/chat` sigue existiendo
+   * y funcionando; lo que se oculta es el punto de entrada.
+   */
+  chat: false,
+
+  /**
+   * Enlace «Portal de agentes» en la barra superior, el menú móvil y el pie.
+   * Apagado: el portal es para el equipo interno. `/login` sigue siendo
+   * accesible por URL directa —y ya estaba marcada como noindex—, así que
+   * esto no es una medida de seguridad, solo deja de anunciarlo al visitante.
+   */
+  portalLink: false,
+} as const
