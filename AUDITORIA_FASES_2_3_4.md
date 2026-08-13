@@ -500,7 +500,77 @@ La 2 es la correcta a mediano plazo; la 1 se puede aplicar hoy y es compatible
 con hacer la 2 después. La suite de `rls_isolation.sql` ya contiene la prueba que
 lo detecta, así que servirá de verificación del arreglo.
 
+### 7.6 Fix de escalada de privilegios — aplicado
+
+> Este apartado es el que en el encargo se pidió como «7.1»; va al final para no
+> renumerar los cinco anteriores, que ya estaban escritos y referenciados.
+
+Se aplicó la **opción 1** del apartado anterior, más la 3 (prohibir la
+auto-edición de la propia membresía). La opción 2 queda en backlog, al final.
+
+**Migración:** `supabase/migrations/0014_fix_escalada_super_admin.sql`, registrada
+en producción como `fix_escalada_super_admin` (2026-08-13).
+
+**Qué política cambió.** Se elimina `members_admin_write` —una sola política
+`FOR ALL` sin `WITH CHECK` propio— y se sustituye por cuatro políticas separadas
+por operación, cada una con su `WITH CHECK` explícito:
+
+| Política | Operación | Qué impone |
+|---|---|---|
+| `members_admin_insert` | INSERT | No se puede dar de alta un `super_admin` salvo que quien lo hace ya lo sea; nadie se inserta a sí mismo |
+| `members_admin_update` | UPDATE | Solo filas de otros y que no sean `super_admin`; el resultado tampoco puede serlo |
+| `members_super_update` | UPDATE | Deja a un `super_admin` mantener filas que **ya** son `super_admin`. Un `tenant_admin` nunca la satisface |
+| `members_admin_delete` | DELETE | No se borra la membresía de un `super_admin` desde dentro de un tenant, ni la propia |
+
+La razón de partir el UPDATE en dos políticas: `WITH CHECK` ve la fila **nueva**,
+nunca la vieja, así que «el resultado puede ser `super_admin` solo si la fila ya
+lo era» no cabe en una sola. Al ser permisivas se combinan con `OR`, y la segunda
+exige `is_super_admin()`, que a un `tenant_admin` le da `false`.
+
+Las tres funciones de lectura de rol (`is_super_admin`, `has_tenant_role`,
+`has_tenant_access`) **no se tocaron**: el fallo estaba en la política de
+escritura, no en ellas.
+
+**Compatibilidad.** Ninguna ruta de la aplicación escribe en `tenant_members` con
+la sesión del usuario: `src/features/admin/services/actions.ts:82` y
+`agent-actions.ts:68` usan el cliente service-role, que se salta RLS. El fix no
+rompe ningún flujo existente.
+
+**Antes / después.** Se probó primero en seco —migración y suite dentro de una
+transacción con `ROLLBACK`— y solo después se aplicó a producción.
+
+| Prueba | Antes | Después |
+|---|---|---|
+| 4a · `tenant_admin` se auto-promueve a `super_admin` | ❌ `UPDATE 1` (fuga) | ✅ 0 filas |
+| 4b · `tenant_admin` edita su propia membresía a un rol permitido | *(no existía)* | ✅ 0 filas |
+| 5a · `tenant_admin` cambia el rol de **otro** miembro de su tenant | ✅ 1 fila | ✅ 1 fila (no se rompió) |
+| 5b · `tenant_admin` promueve a **otro** a `super_admin` | *(no existía)* | ✅ 0 filas |
+| Aislamiento entre tenants + `anon` (casos 1–3) | ✅ | ✅ |
+
+El caso 5a es el que evita un fix a medias: cierra el agujero sin cerrar la puerta
+de al lado. Para probarlo, la suite añade un segundo miembro temporal al tenant
+`demo` —que solo tiene uno— y lo revierte con el `ROLLBACK`.
+
+Se verificó tras aplicar que `tenant_members` conserva sus 3 filas y roles
+originales, y que `get_advisors(security)` no reporta ningún hallazgo nuevo.
+
+**Commit del fix en `main`:** _(se registra abajo tras crearlo)_
+
+### 7.7 Backlog — endurecimiento pendiente (no de esta sesión)
+
+**Sacar `super_admin` de `tenant_members` a su propia tabla, sin políticas de
+escritura desde la API** (la opción 2 del apartado 7.5).
+
+Lo aplicado en 7.6 cierra el vector conocido; esto elimina la **clase** de fallo.
+Mientras el rol de plataforma viva en una tabla que los administradores de tenant
+pueden editar, cada política nueva sobre `tenant_members` es una oportunidad de
+reabrirlo, y basta un `WITH CHECK` olvidado para volver al punto de partida.
+
+**Cuándo:** antes de dar de alta el primer tenant revendido real en Fase 4. Hoy el
+único `tenant_admin` ajeno es el del tenant `demo`, de pruebas; el día que un
+intermediario externo tenga ese rol, el margen de error desaparece.
+
 ---
 
-*Bloque 0 cerrado salvo el punto 7.5, que queda a la espera de decisión. No se
+*Bloque 0 cerrado. El hallazgo 7.5 quedó corregido y verificado en 7.6. No se
 avanzó en Fases 2, 3 ni 4.*

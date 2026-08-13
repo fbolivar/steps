@@ -24,6 +24,7 @@ de este directorio, porque aquí se numeran a mano. Esta tabla es el puente:
 | `0011_add_salud_internacional.sql` | `add_salud_internacional` | 2026-08-13 |
 | `0012_add_gestion_patrimonial.sql` | `add_gestion_patrimonial` | 2026-08-13 |
 | `0013_line_highlights.sql` | `add_line_highlights` | 2026-08-13 |
+| `0014_fix_escalada_super_admin.sql` | `fix_escalada_super_admin` | 2026-08-13 |
 
 ### Sobre `quote_round_robin_assignment`
 

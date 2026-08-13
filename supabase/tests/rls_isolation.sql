@@ -200,6 +200,7 @@ set role authenticated;
 do $$
 declare n integer;
 begin
+  -- 4a · Auto-promoción: el vector original (cerrado en la migración 0014).
   begin
     update public.tenant_members
        set role = 'super_admin'
@@ -208,11 +209,77 @@ begin
   exception when insufficient_privilege or check_violation then
     n := 0;
   end;
-
   if n <> 0 then
     raise exception 'FUGA: un tenant_admin de demo se auto-promovió a super_admin (% fila[s]); con eso lee todos los tenants', n;
   end if;
   raise notice 'ok   un tenant_admin no puede auto-promoverse a super_admin';
+
+  -- 4b · Auto-edición: ni siquiera a un rol permitido. Un admin gestiona a los
+  -- demás, no a sí mismo; si puede degradarse también puede maquillar su rastro.
+  begin
+    update public.tenant_members
+       set role = 'agente'
+     where user_id = auth.uid();
+    get diagnostics n = row_count;
+  exception when insufficient_privilege or check_violation then
+    n := 0;
+  end;
+  if n <> 0 then
+    raise exception 'FUGA: un tenant_admin editó su propia membresía (% fila[s])', n;
+  end if;
+  raise notice 'ok   un tenant_admin no puede editar su propia membresía';
+end $$;
+
+reset role;
+
+-- ===========================================================================
+-- CASO 5 · La gestión legítima de roles NO se rompió
+-- ===========================================================================
+-- Un fix de RLS que cierra el agujero cerrando también la puerta de al lado es
+-- un fix a medias: se rompe en producción y alguien lo revierte entero. Estas
+-- pruebas fijan lo que SÍ debe seguir funcionando.
+--
+-- El tenant demo tiene un solo miembro, así que se le añade uno temporal para
+-- tener a quién gestionar. Se inserta como `postgres` (fuera de RLS, igual que
+-- hace la app con el cliente service-role) y desaparece en el ROLLBACK.
+insert into public.tenant_members (tenant_id, user_id, role)
+values (
+  current_setting('test.tenant_demo')::uuid,
+  current_setting('test.user_steps')::uuid,
+  'agente'
+);
+
+set role authenticated;
+
+do $$
+declare n integer; v_otro uuid := current_setting('test.user_steps')::uuid;
+begin
+  -- 5a · Operación legítima: cambiar el rol de OTRO miembro del propio tenant.
+  update public.tenant_members
+     set role = 'editor_contenido'
+   where user_id = v_otro
+     and tenant_id = current_setting('test.tenant_demo')::uuid;
+  get diagnostics n = row_count;
+  if n <> 1 then
+    raise exception 'FALLO: el fix rompió la gestión legítima de roles (% fila[s] afectada[s], se esperaba 1)', n;
+  end if;
+  raise notice 'ok   un tenant_admin sigue gestionando los roles de su tenant';
+
+  -- 5b · Lo que no puede es promover a OTRO a super_admin: sería la misma fuga
+  -- con un cómplice.
+  begin
+    update public.tenant_members
+       set role = 'super_admin'
+     where user_id = v_otro
+       and tenant_id = current_setting('test.tenant_demo')::uuid;
+    get diagnostics n = row_count;
+  exception when insufficient_privilege or check_violation then
+    n := 0;
+  end;
+  if n <> 0 then
+    raise exception 'FUGA: un tenant_admin promovió a otro miembro a super_admin (% fila[s])', n;
+  end if;
+  raise notice 'ok   un tenant_admin no puede promover a nadie a super_admin';
 end $$;
 
 reset role;
