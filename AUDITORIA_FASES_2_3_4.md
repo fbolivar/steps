@@ -554,7 +554,9 @@ de al lado. Para probarlo, la suite añade un segundo miembro temporal al tenant
 Se verificó tras aplicar que `tenant_members` conserva sus 3 filas y roles
 originales, y que `get_advisors(security)` no reporta ningún hallazgo nuevo.
 
-**Commit del fix en `main`:** _(se registra abajo tras crearlo)_
+**Commit del fix en `main`:** `c86f902` — «fix(rls): cerrar la escalada de
+tenant_admin a super_admin». Subido junto con `657af00` (el resto del Bloque 0:
+R1, dominio, credenciales documentadas y la suite de aislamiento).
 
 ### 7.7 Backlog — endurecimiento pendiente (no de esta sesión)
 
