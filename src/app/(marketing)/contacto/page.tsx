@@ -6,6 +6,7 @@ import { Container, Section } from '@/shared/components/layout-primitives'
 import { PageHero } from '@/shared/components/page-hero'
 import { PHOTO } from '@/shared/lib/photos'
 import { ContactForm } from '@/features/site/components/contact-form'
+import { CONTACT_AREAS } from '@/shared/constants/site'
 
 export const metadata: Metadata = { title: 'Contacto' }
 
@@ -60,6 +61,27 @@ export default async function ContactoPage() {
                   </div>
                 )
               })}
+            {/* Buzones por área: cada consulta va directo a quien corresponde. */}
+            <div className="card-soft p-5">
+              <h2 className="text-sm font-semibold text-navy-900">Escríbenos según tu necesidad</h2>
+              <ul className="mt-4 divide-y divide-steel">
+                {CONTACT_AREAS.map((c) => (
+                  <li key={c.email} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-2.5">
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900">
+                      <span className="h-1.5 w-1.5 shrink-0 bg-brand-accent" />
+                      {c.area}
+                    </span>
+                    <a
+                      href={`mailto:${c.email}`}
+                      className="text-sm text-navy-600 underline-offset-4 hover:text-brand-accent hover:underline"
+                    >
+                      {c.email}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div className="pt-2">
               <WhatsAppButton number={tenant.whatsapp_number} />
             </div>

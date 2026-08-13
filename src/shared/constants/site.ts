@@ -76,6 +76,17 @@ export const COMPANY = {
   ],
 } as const
 
+/**
+ * Buzones por area. Se muestran en /contacto para que cada consulta llegue
+ * directo a quien corresponde, sin pasar por un unico correo general.
+ */
+export const CONTACT_AREAS = [
+  { area: 'Gerencia', email: 'gerencia@stepseguros.com' },
+  { area: 'Individuales', email: 'asistente@stepseguros.com' },
+  { area: 'Empresariales', email: 'tecnico@stepseguros.com' },
+  { area: 'Cumplimiento', email: 'cumplimiento@stepseguros.com' },
+] as const
+
 export const SEGMENTS = {
   personas: {
     slug: 'personas',
