@@ -35,7 +35,7 @@ export const PARTNERS: readonly Partner[] = [
   { name: 'Mapfre', logo: 'mapfre.png' },
   { name: 'Confianza', logo: 'confianza.png' },
   { name: 'Previsora', logo: 'previsora.png' },
-  { name: 'Grancolombiana' }, // pendiente: la compañía está en liquidación
+  { name: 'Seguros GranColombia', logo: 'grancolombia.png' },
   { name: 'Colmédica', logo: 'colmedica.png' },
   { name: 'Qualitas Assistance', logo: 'qualitas-assistance.png' },
   { name: 'BMI', logo: 'bmi.png' },
