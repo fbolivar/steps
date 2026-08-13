@@ -21,6 +21,7 @@ export const DEFAULT_LINES: SeedLine[] = [
   { slug: 'viaje', segment: 'personas', name: 'Viaje', short_description: 'Asistencia y cobertura dentro y fuera del país.', sort_order: 6 },
   { slug: 'exequias', segment: 'personas', name: 'Exequias', short_description: 'Servicio exequial para toda la familia.', sort_order: 7 },
   { slug: 'mascotas', segment: 'personas', name: 'Mascotas', short_description: 'Salud y responsabilidad para tu mascota.', sort_order: 8 },
+  { slug: 'gestion-patrimonial', segment: 'personas', name: 'Gestión patrimonial – BMI', short_description: 'Ahorro, protección y planeación del patrimonio familiar.', sort_order: 14 },
   { slug: 'vida-empresarial', segment: 'empresas', name: 'Vida empresarial', short_description: 'Vida grupo para colaboradores.', sort_order: 1 },
   { slug: 'salud-colectiva', segment: 'empresas', name: 'Salud colectiva', short_description: 'Planes de salud para tu equipo.', sort_order: 2 },
   { slug: 'ciberseguridad', segment: 'empresas', name: 'Ciberseguridad', short_description: 'Protección ante incidentes cibernéticos.', sort_order: 3 },

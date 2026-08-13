@@ -51,6 +51,7 @@ const LINE_THEME: Record<string, keyof typeof FILES> = {
   educativo: 'family2',
   mascotas: 'family1',
   viaje: 'family3',
+  'gestion-patrimonial': 'businesswoman',
   'rc-personas': 'handshake',
   'rc-empresas': 'office',
   ciberseguridad: 'office',
