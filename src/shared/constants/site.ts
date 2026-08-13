@@ -8,27 +8,37 @@ export const NAV_LINKS = [
 ] as const
 
 /** Aseguradoras y aliados que representa STEPS (sección 1 del brief). */
-export const PARTNERS = [
-  'Seguros Bolívar',
-  'HDI',
-  'Sura',
-  'Zurich',
-  'AXA Colpatria',
-  'Liberty',
-  'Seguros del Estado',
-  'Seguros Mundial',
-  'Aseguradora Solidaria',
-  'Cesce',
-  'SBS',
-  'Afiancol',
-  'Equidad',
-  'Mapfre',
-  'Confianza',
-  'Previsora',
-  'Grancolombiana',
-  'Colmédica',
-  'Qualitas Assistance',
-  'BMI',
+/**
+ * Aseguradoras aliadas.
+ *
+ * `logo` es el nombre del archivo dentro de `/public/logos` SIN extensión; el
+ * sitio busca `<logo>.svg` y, si no existe, muestra el nombre en texto. Para
+ * publicar un logotipo basta con dejar el archivo ahí: no hay que tocar código.
+ * Ver `public/logos/README.md`.
+ */
+export type Partner = { name: string; logo: string }
+
+export const PARTNERS: readonly Partner[] = [
+  { name: 'Seguros Bolívar', logo: 'seguros-bolivar' },
+  { name: 'HDI', logo: 'hdi' },
+  { name: 'Sura', logo: 'sura' },
+  { name: 'Zurich', logo: 'zurich' },
+  { name: 'AXA Colpatria', logo: 'axa-colpatria' },
+  { name: 'Liberty', logo: 'liberty' },
+  { name: 'Seguros del Estado', logo: 'seguros-del-estado' },
+  { name: 'Seguros Mundial', logo: 'seguros-mundial' },
+  { name: 'Aseguradora Solidaria', logo: 'aseguradora-solidaria' },
+  { name: 'Cesce', logo: 'cesce' },
+  { name: 'SBS', logo: 'sbs' },
+  { name: 'Afiancol', logo: 'afiancol' },
+  { name: 'Equidad', logo: 'equidad' },
+  { name: 'Mapfre', logo: 'mapfre' },
+  { name: 'Confianza', logo: 'confianza' },
+  { name: 'Previsora', logo: 'previsora' },
+  { name: 'Grancolombiana', logo: 'grancolombiana' },
+  { name: 'Colmédica', logo: 'colmedica' },
+  { name: 'Qualitas Assistance', logo: 'qualitas-assistance' },
+  { name: 'BMI', logo: 'bmi' },
 ] as const
 
 /** Propuesta de valor / textos institucionales (reescritos, tono directo). */

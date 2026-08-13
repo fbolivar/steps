@@ -16,6 +16,7 @@ import { getInsuranceLines } from '@/features/site/services/content'
 import { WhatsAppButton } from '@/shared/components/whatsapp-button'
 import { Container, Section, Eyebrow } from '@/shared/components/layout-primitives'
 import { ImagePlaceholder } from '@/shared/components/image-placeholder'
+import { PartnerLogo } from '@/features/site/components/partner-logo'
 import { BrandCorner, FootprintWatermark } from '@/shared/components/brand-frame'
 import { PHOTO, photo } from '@/shared/lib/photos'
 import {
@@ -203,8 +204,11 @@ export default async function HomePage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {PARTNERS.slice(0, 8).map((p) => (
-              <span key={p} className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-navy-400 shadow-soft">
-                {p}
+              <span
+                key={p.logo}
+                className="flex h-14 items-center rounded-full bg-white px-6 text-sm font-semibold text-navy-400 shadow-soft"
+              >
+                <PartnerLogo partner={p} imgClassName="max-h-8" />
               </span>
             ))}
           </div>
