@@ -1,9 +1,11 @@
 import { ImageResponse } from 'next/og'
 
-export const runtime = 'edge'
-
 /**
  * Iconos PWA (PNG): /pwa-icon/192 y /pwa-icon/512.
+ *
+ * Sin `export const runtime`: se queda en el runtime de Node por defecto. Antes
+ * declaraba `edge`, que Next 16 marca como obsoleto y que además impedía
+ * generar estáticamente esta ruta. `ImageResponse` funciona igual en Node.
  *
  * Sigue la lamina "App icon" del manual de identidad: cuadro cobalt blue con
  * el isotipo (la huella) en blanco. El vector es el oficial del manual.
