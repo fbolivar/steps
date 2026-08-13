@@ -31,8 +31,8 @@ push + variables de entorno en el panel). El proyecto ya está en
 | Variable | Para qué |
 |---|---|
 | `SUPABASE_SERVICE_ROLE_KEY` | Notificaciones al agente + crear usuarios/agentes. Supabase → Settings → API → `service_role`. |
-| `ANTHROPIC_API_KEY` | Chat IA. Sin ella, el chat deriva a WhatsApp. |
-| `CHAT_MODEL` | Modelo del chat (default `claude-opus-4-8`; `claude-haiku-4-5` = económico para FAQ). |
+| `ANTHROPIC_API_KEY` | **Chat IA.** Sin ella —o con una clave inválida— el chat deriva a WhatsApp. Se obtiene en console.anthropic.com → API keys. Verifícala antes de desplegar: `curl https://api.anthropic.com/v1/messages -H "x-api-key: $KEY" -H "anthropic-version: 2023-06-01" -H "content-type: application/json" -d '{"model":"claude-opus-5","max_tokens":16,"messages":[{"role":"user","content":"ok"}]}'` — un 401 significa clave inválida. |
+| `CHAT_MODEL` | Modelo del chat. Default `claude-opus-5` ($5/$25 por millón de tokens). `claude-haiku-4-5` ($1/$5) es la opción económica para preguntas frecuentes. |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY` | Captcha en el formulario público. |
 | `RESEND_API_KEY` + `NOTIFY_FROM_EMAIL` | **Correo de los formularios.** Sin estas dos, ni el formulario de contacto ni la copia de las cotizaciones salen por correo (la cotización igual queda registrada en el portal; el contacto muestra el correo directo como alternativa). `NOTIFY_FROM_EMAIL` debe usar un dominio verificado en Resend. |
 | `NOTIFY_TECH_EMAIL` | Buzón que recibe contacto y cotizaciones. Default: `tecnico@stepseguros.com`. |

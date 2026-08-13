@@ -7,9 +7,19 @@ import { getClientIp, rateLimit } from '@/shared/lib/rate-limit'
 
 export const runtime = 'nodejs'
 
-// El asistente es informativo/enrutador: respuestas cortas, sin razonamiento visible.
-const MODEL = process.env.CHAT_MODEL ?? 'claude-opus-4-8'
-const MAX_TOKENS = 1024
+/**
+ * El asistente es informativo/enrutador: respuestas cortas y rapidas.
+ *
+ * Se usa pensamiento adaptativo con esfuerzo bajo: da respuestas de buena
+ * calidad sin la latencia (ni el coste) del esfuerzo alto, y evita que el
+ * modelo escriba su razonamiento dentro de la respuesta visible, cosa que
+ * ocurre al desactivar el pensamiento por completo.
+ *
+ * `MAX_TOKENS` es el tope de pensamiento MAS texto, por eso no va justo.
+ * Para bajar el coste se puede fijar CHAT_MODEL=claude-haiku-4-5.
+ */
+const MODEL = process.env.CHAT_MODEL ?? 'claude-opus-5'
+const MAX_TOKENS = 2048
 const MAX_MESSAGES = 24 // límite de historia por request
 
 const BodySchema = z.object({
@@ -67,7 +77,8 @@ export async function POST(req: Request) {
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: MAX_TOKENS,
-      thinking: { type: 'disabled' },
+      thinking: { type: 'adaptive' },
+      output_config: { effort: 'low' },
       system,
       messages: parsed.messages,
     })
@@ -81,7 +92,11 @@ export async function POST(req: Request) {
     return Response.json({
       reply: reply || 'Disculpa, no pude generar una respuesta. ¿Quieres que te contacte un asesor?',
     })
-  } catch {
+  } catch (error) {
+    // Al usuario se le da una salida humana, pero el motivo real queda en los
+    // logs del servidor: sin esto, una API key vencida y una caida del
+    // proveedor se ven exactamente igual desde fuera.
+    console.error('[chat] fallo al llamar al modelo:', error)
     return Response.json({
       reply:
         'Tuvimos un inconveniente para responder. Un asesor humano puede ayudarte: ' +
