@@ -40,6 +40,7 @@ const LINE_THEME: Record<string, keyof typeof FILES> = {
   auto: 'car',
   'vehiculos-comerciales': 'car',
   salud: 'health',
+  'salud-internacional': 'health',
   'salud-colectiva': 'health',
   hogar: 'house',
   propiedad: 'house',
