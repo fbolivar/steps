@@ -22,9 +22,9 @@ push + variables de entorno en el panel). El proyecto ya está en
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://hfdfbgghkbrvhsreatws.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `sb_publishable_yCfwwh-3-rw8nItXuHtYUw_QF0IA7d9` (publishable, no secreta) |
-| `NEXT_PUBLIC_SITE_URL` | `https://TU_DOMINIO` (ej. `https://stepsseguros.app`) |
+| `NEXT_PUBLIC_SITE_URL` | `https://stepseguros.com` |
 | `NEXT_PUBLIC_DEFAULT_TENANT` | `steps` |
-| `NEXT_PUBLIC_ROOT_DOMAIN` | `stepsseguros.app` (tu dominio raíz, para subdominios de tenants) |
+| `NEXT_PUBLIC_ROOT_DOMAIN` | `stepseguros.com` (dominio raíz, para subdominios de tenants) |
 | `QUOTE_SIGNING_SECRET` | **el valor de tu `.env.local`** (debe COINCIDIR con `app_config.quote_signing_secret` en Supabase). Requerido para el formulario de cotización. |
 
 ### Opcionales (activan features; sin ellas degradan con elegancia)
@@ -39,10 +39,13 @@ push + variables de entorno en el panel). El proyecto ya está en
 | `WHATSAPP_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` | Notificación WhatsApp (requiere plantillas Meta para envío en frío). |
 
 ## 3. Dominios (Project → Settings → Domains)
-1. Agrega tu dominio principal: `stepsseguros.app` (y `www.stepsseguros.app`).
-2. **Subdominios de tenants (marca blanca)**: agrega el **wildcard** `*.stepsseguros.app`.
+1. Agrega el dominio principal: `stepseguros.com` (y `www.stepseguros.com`).
+   > Ojo con la grafía: el dominio es **`stepseguros.com`, con una sola «s»** entre
+   > «step» y «seguros». El manual de marca impreso muestra `stepsseguros.com`
+   > (doble «s»); el dominio bueno es el de una sola.
+2. **Subdominios de tenants (marca blanca)**: agrega el **wildcard** `*.stepseguros.com`.
    - En tu DNS: registro **CNAME `*` → `cname.vercel-dns.com`** (o usa Vercel DNS).
-   - Así `steps.stepsseguros.app`, `demo.stepsseguros.app`, etc. resuelven al tenant por host.
+   - Así `steps.stepseguros.com`, `demo.stepseguros.com`, etc. resuelven al tenant por host.
 3. **Dominio custom por tenant** (ej. `cotiza.otraagencia.com`): agrégalo como dominio
    en el proyecto y setéalo en `tenants.custom_domain` (panel `/admin`).
 

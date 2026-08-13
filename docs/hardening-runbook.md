@@ -29,12 +29,12 @@ rate limit + captcha.
 | Variable | Para qué | Dónde se obtiene |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Chat IA | console.anthropic.com |
-| `CHAT_MODEL` (opcional) | Modelo del chat (default opus-4-8; haiku-4-5 = económico) | — |
+| `CHAT_MODEL` (opcional) | Modelo del chat (default `claude-opus-5`; `claude-haiku-4-5` = económico) | — |
 | `SUPABASE_SERVICE_ROLE_KEY` | Crear/invitar usuarios, notificar al agente | Supabase > Settings > API |
 | `RESEND_API_KEY` + `NOTIFY_FROM_EMAIL` | Email al agente | resend.com |
 | `WHATSAPP_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` | Notificación WhatsApp | Meta Cloud API |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY` | Captcha | dash.cloudflare.com/turnstile |
-| `NEXT_PUBLIC_ROOT_DOMAIN` | Dominio raíz de subdominios | ej. stepsseguros.app |
+| `NEXT_PUBLIC_ROOT_DOMAIN` | Dominio raíz de subdominios | `stepseguros.com` (una sola «s») |
 
 ## 3. Usuarios y contraseñas
 
@@ -63,7 +63,7 @@ Antes de producción, elige uno:
 ## 5. Despliegue (resumen; ver fase de deploy)
 
 - Vercel: proyecto + variables de entorno (todas las de la sección 2).
-- DNS: dominio raíz + **wildcard `*.stepsseguros.app`** para subdominios de
+- DNS: dominio raíz + **wildcard `*.stepseguros.com`** para subdominios de
   tenants; dominios custom por tenant apuntando al proyecto.
 - Supabase: proyecto `steps-seguros` (ya creado, ref hfdfbgghkbrvhsreatws).
 - Revisar `get_advisors` (security/performance) tras cualquier cambio DDL.

@@ -260,7 +260,7 @@ en RLS y en el circuito de cotización (R2), y limpiar los datos de prueba (R3).
 | **Agentemotor** | Hay diseño, **no hay integración**. El adaptador A lanza `Error('API de Agentemotor sin confirmar')`. Existe `docs/agentemotor-checklist.md` con el cuestionario ya redactado para enviarles | Nada que reemplazar: no hay supuestos ocultos. El código es honesto — declara explícitamente qué no sabe |
 | **WhatsApp Business** | Sin confirmar. El notificador **asume** número verificado y envía texto simple, que solo funciona dentro de la ventana de 24 h | El envío `type: text` debe pasar a `type: template` con plantillas aprobadas antes de producción |
 | **"Agente interno"** | Parcialmente asumido. Hay 2 agentes en BD y asignación automática, pero **no está definido con el cliente quién los recibe ni con qué criterio de carga** | Confirmar personas reales, correos y si la asignación es rotativa, por línea de producto o por segmento |
-| **Correo destino** | ✅ **No está hardcodeado.** Sale de la BD (`tecnico@stepseguros.com`) y de `NOTIFY_TECH_EMAIL` | Nada. Pero conviene verificar que ese buzón existe y recibe: el dominio del manual de marca es `stepsseguros.com` (doble s) y el configurado es `stepseguros.com` |
+| **Correo destino** | ✅ **No está hardcodeado.** Sale de la BD (`tecnico@stepseguros.com`) y de `NOTIFY_TECH_EMAIL` | Nada. Discrepancia de grafía resuelta en §7.2: el dominio bueno es `stepseguros.com` (una «s»); el manual impreso muestra `stepsseguros.com` (doble «s»). Falta confirmar que el buzón recibe |
 | **Resend** | No contratado | Cuenta + dominio verificado para el remitente |
 | **Anthropic** | Clave configurada **inválida** (401 verificado) | Clave nueva y saldo en la cuenta |
 
@@ -313,3 +313,194 @@ depende de nosotros"*.
 
 *Auditoría realizada sobre el código y la base de datos de producción. No se
 modificó código durante esta sesión; este documento es el único archivo creado.*
+
+---
+
+## 7. Cierre de Bloque 0
+
+Sesión posterior a la auditoría. Objetivo: dejar los cimientos verificados antes
+de tocar las Fases 2, 3 o 4. Nada de lo aquí descrito avanza esas fases.
+
+### 7.1 R1 — Migraciones huérfanas: **resuelto, con un desfase explicado**
+
+Los números **no cuadran a simple vista y es correcto que no cuadren**:
+
+| | |
+|---|---|
+| Archivos `.sql` en `supabase/migrations/` | **13** |
+| Migraciones registradas en producción | **14** |
+
+La diferencia es `quote_round_robin_assignment`, que **no tiene ni tendrá archivo
+propio, a propósito**. Lo único que hizo fue añadir la asignación automática de
+agente dentro de `submit_quote_request`, y esa función se reescribe entera —con
+asignación incluida— en las migraciones 0005, 0006 y 0007. Un archivo con la
+versión intermedia solo añadiría una definición que las tres siguientes pisan.
+
+Lo que sí importa, y está verificado: **cero objetos huérfanos**. Las 8 tablas y
+9 funciones vivas en producción tienen un archivo que las crea. `harden_functions`
+y `rate_limiting` sí faltaban y ahora existen como `0003_harden_functions.sql` y
+`0004_rate_limiting.sql`, con el cuerpo copiado literal de `pg_get_functiondef`
+y comparado por diff normalizado: idénticos a producción. El mapeo
+archivo ↔ migración registrada queda en `supabase/migrations/README.md`.
+
+Recrear la base desde el repositorio reproduce hoy el esquema de producción.
+
+### 7.2 Dominio: `stepsseguros` → `stepseguros`
+
+El dominio correcto es **`stepseguros.com`, con una sola «s»**. Corregido en:
+
+| Archivo | Qué decía |
+|---|---|
+| `src/proxy.ts:18` | `NEXT_PUBLIC_ROOT_DOMAIN ?? 'stepsseguros.app'` → `'stepseguros.com'` |
+| `src/proxy.ts:64` | comentario del subdominio de plataforma |
+| `.env.local.example:10` | ejemplo de `NEXT_PUBLIC_ROOT_DOMAIN` |
+| `docs/deploy-vercel.md` | `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_ROOT_DOMAIN`, dominio y wildcard DNS |
+| `docs/hardening-runbook.md` | tabla de variables y wildcard DNS |
+
+Nótese que el valor viejo no era solo una «s» de más: era **`.app`**, un dominio
+de plataforma distinto del `.com` real. Los subdominios de marca blanca pasan a
+ser `demo.stepseguros.com`, y el wildcard de DNS a `*.stepseguros.com`.
+
+**Lo que NO se tocó, y por qué:**
+
+- **`stepsseguros@gmail.com`** (en `supabase/migrations/0002_seed_steps_tenant.sql`,
+  `docs/agentemotor-checklist.md` e `index.html`) **no es una errata de dominio**:
+  es una cuenta de Gmail real, y es además el correo con el que Paula entra al
+  portal (existe en `auth.users`). Renombrarla rompería su acceso. Se deja.
+- **`supabase/migrations/0001:49`**, un comentario con el dominio viejo. Es una
+  migración ya aplicada y la convención del repositorio es no editarlas: cambiar
+  hasta un comentario descuadra el checksum frente a la CLI de Supabase. Queda
+  como está, señalado aquí.
+- **`index.html`** es el sitio estático anterior, no forma parte de la app Next.
+
+**Verificado en producción:** el tenant `steps` tiene `contact_email =
+tecnico@stepseguros.com` (grafía correcta), y `NOTIFY_TECH_EMAIL` usa el mismo
+valor por defecto en `src/features/notifications/tech-inbox.ts:16`.
+
+**Advertencia de marca:** el manual de identidad impreso muestra
+`www.stepsseguros.com` y `gerencia@stepsseguros.com`, con doble «s». O el manual
+está mal, o hay que registrar también ese dominio como redirección. Es una
+decisión del cliente, no técnica.
+
+### 7.3 Checklist de variables por servicio
+
+Ninguna requiere código nuevo: **las cuatro ya están declaradas y leídas**. Todas
+degradan con elegancia cuando faltan, que es justo por lo que su ausencia pasa
+inadvertida.
+
+| Servicio | Variable exacta | Estado en el código | Qué se rompe sin ella |
+|---|---|---|---|
+| **Resend** | `RESEND_API_KEY` | Declarada, vacía. Leída en `tech-inbox.ts:22,37` y `adapters.ts:35,38` | No sale ningún correo: ni el formulario de contacto ni la copia de la cotización al buzón técnico. La cotización **sí** queda registrada en el portal |
+| **Resend** | `NOTIFY_FROM_EMAIL` | Declarada, vacía. Mismo par que la anterior | Igual: el envío está condicionado a que **ambas** existan. El dominio del remitente debe estar verificado en Resend |
+| **Resend** | `NOTIFY_TECH_EMAIL` | Opcional, con default `tecnico@stepseguros.com` | Nada: solo cambia el destino |
+| **Anthropic** | `ANTHROPIC_API_KEY` | Declarada, vacía. Leída en `src/app/api/chat/route.ts:61` | El chat degrada a WhatsApp. **Ojo:** una clave *inválida* falla igual que una ausente; verifícala con curl antes del deploy (comando en `docs/deploy-vercel.md`) |
+| **Anthropic** | `CHAT_MODEL` | Opcional, default `claude-opus-5` | Nada |
+| **Supabase** | `SUPABASE_SERVICE_ROLE_KEY` | Declarada, vacía. Leída en `src/lib/supabase/admin.ts:16` | Exactamente dos cosas: (1) las **notificaciones** al agente, que necesitan leer datos saltándose RLS; (2) el **alta de usuarios** — crear el admin de un tenant nuevo desde `/admin` y dar de alta agentes desde `/portal/configuracion`. El resto del sitio, el portal y el cotizador funcionan sin ella |
+| **Turnstile** | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Declarada, vacía. Leída en `src/features/quotes/components/turnstile.tsx:11` | Sin ella el widget **no se renderiza** |
+| **Turnstile** | `TURNSTILE_SECRET_KEY` | Declarada, vacía. Leída en `src/shared/lib/turnstile.ts:8,25` | Sin ella `verifyTurnstile()` **devuelve `true` sin verificar** (gating deliberado para desarrollo). Es decir: el captcha no protege nada hasta que se carguen las dos |
+
+**Frontend de Turnstile: sí, ya está enganchado** — `<Turnstile/>` se renderiza en
+`src/features/quotes/components/quote-form.tsx:213`, inyecta
+`cf-turnstile-response` en el form y `submit.ts:77-78` lo verifica en servidor.
+No hay que escribir nada; basta con cargar las dos claves.
+
+**Hueco detectado:** el **formulario de contacto no tiene captcha**. Solo lo tiene
+el de cotización. No es un bloqueo de Bloque 0, pero conviene anotarlo.
+
+**Claves quemadas en código: ninguna.** Todos los secretos salen de `process.env`.
+El único acoplamiento a vigilar es `QUOTE_SIGNING_SECRET`, que **debe coincidir**
+con `app_config.quote_signing_secret` en Supabase: si se rota uno sin el otro, el
+cotizador público deja de aceptar envíos.
+
+### 7.4 Pruebas de aislamiento entre tenants
+
+Nuevas en el repositorio:
+
+- `supabase/tests/rls_isolation.sql` — la suite.
+- `scripts/run-rls-tests.mjs` + `npm run test:rls` — ejecutor multiplataforma.
+
+No necesitan contraseñas ni sesiones reales: suplantan a un usuario poniendo su
+`sub` en `request.jwt.claims` y cambiando a rol `authenticated`, que es lo mismo
+que hace PostgREST ante un JWT. Todo corre en una transacción que termina en
+`ROLLBACK`, así que es seguro ejecutarlas contra producción.
+
+Un detalle que hace o rompe este tipo de prueba: como `postgres` es **dueño** de
+las tablas, RLS no se le aplica. Sin el `set role` explícito, las cinco pruebas
+pasarían en falso.
+
+| Prueba | Resultado |
+|---|---|
+| Usuario `demo` no ve `quote_requests`, `agents` ni `tenant_members` de `steps` | ✅ |
+| `is_super_admin()`, `has_tenant_access()` y `has_tenant_role()` no conceden nada de `steps` al usuario `demo` | ✅ |
+| Usuario `demo` no ve líneas **despublicadas** de `steps` | ✅ |
+| Usuario `steps` no ve `quote_requests`, `agents` ni `tenant_members` de `demo` (simetría) | ✅ |
+| `anon` no lee **ninguna** cotización de ningún tenant | ✅ |
+| `anon` no lee `agents` ni `tenant_members` | ✅ |
+| Un `tenant_admin` no puede auto-promoverse a `super_admin` | ❌ **FALLA — ver 7.5** |
+
+Sobre el catálogo: `insurance_lines` **es público a propósito** cuando
+`is_active` — lo pinta el sitio de marketing sin sesión. La prueba verifica lo
+que sí debe estar cerrado: lo despublicado de otro tenant.
+
+### 7.5 🔴 Hallazgo: escalada de privilegios de `tenant_admin` a `super_admin`
+
+**Confirmado empíricamente**, no deducido de leer políticas. Ejecutado dentro de
+transacción con `ROLLBACK`; se verificó después que `tenant_members` quedó
+intacta (3 filas, roles originales).
+
+**Qué pasa.** Un `tenant_admin` puede actualizar su propia fila en
+`tenant_members` y ponerse `role = 'super_admin'`. La sentencia afecta 1 fila y
+tiene éxito.
+
+**Por qué.** La política `members_admin_write` (`FOR ALL`) usa como `USING`:
+
+```sql
+has_tenant_role(tenant_id, ARRAY['tenant_admin'])
+```
+
+y **no declara `WITH CHECK` propio**, de modo que Postgres reutiliza el mismo
+`USING` para validar la fila resultante. La comprobación pregunta *«¿mandas en
+este tenant?»* pero **nunca pregunta *«a qué rol la estás cambiando»***. La fila
+nueva sigue perteneciendo al mismo tenant, así que pasa el filtro.
+
+**Por qué es grave.** `is_super_admin()` no mira el tenant:
+
+```sql
+select exists (select 1 from tenant_members
+  where user_id = auth.uid() and role = 'super_admin' and is_active);
+```
+
+Le basta **una** fila con ese rol, en cualquier tenant. Y `has_tenant_access()`
+y `has_tenant_role()` empiezan las dos con `is_super_admin() or ...`. Es decir:
+el rol se escribe desde dentro de un tenant, pero se lee a nivel de plataforma.
+Un administrador de un tenant cualquiera queda con lectura y escritura sobre
+**todos** los tenants, cotizaciones incluidas.
+
+**Impacto real hoy:** contenido. El único `tenant_admin` que no controlamos es el
+del tenant `demo`, de pruebas. **El riesgo es de futuro y es el del modelo de
+negocio**: en el momento en que el cliente revenda la plataforma a otro
+intermediario, ese intermediario será `tenant_admin` de su propio tenant — y con
+esto podría leer la cartera de todos los demás. Choca de frente con el requisito
+duro del proyecto.
+
+**No se corrigió.** Instrucción explícita de detenerse y acordar el alcance antes
+de tocar RLS en producción. Opciones para esa conversación, de menor a mayor
+alcance:
+
+1. **Añadir `WITH CHECK` a `members_admin_write`** que prohíba escribir
+   `role = 'super_admin'` salvo si `is_super_admin()` ya era cierto. Cambio
+   mínimo, ataja el vector concreto.
+2. **Sacar `super_admin` de `tenant_members`** a su propia tabla, sin políticas
+   de escritura desde la API. Elimina la clase entera de fallo: el rol de
+   plataforma deja de vivir en una tabla que los tenants pueden editar.
+3. Además de lo anterior, **impedir que un admin edite su propia fila** de
+   membresía (los cambios de rol propios pasan por otro admin).
+
+La 2 es la correcta a mediano plazo; la 1 se puede aplicar hoy y es compatible
+con hacer la 2 después. La suite de `rls_isolation.sql` ya contiene la prueba que
+lo detecta, así que servirá de verificación del arreglo.
+
+---
+
+*Bloque 0 cerrado salvo el punto 7.5, que queda a la espera de decisión. No se
+avanzó en Fases 2, 3 ni 4.*

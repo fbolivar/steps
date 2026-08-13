@@ -15,7 +15,7 @@ type CookieToSet = { name: string; value: string; options?: CookieOptions }
  *    el portal de agentes tengan cookies de sesión válidas.
  */
 
-const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? 'stepsseguros.app'
+const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? 'stepseguros.com'
 const DEFAULT_TENANT = process.env.NEXT_PUBLIC_DEFAULT_TENANT ?? 'steps'
 const IS_PROD = process.env.NODE_ENV === 'production'
 
@@ -61,7 +61,7 @@ function computeTenantHint(hostname: string): string {
     return !sub || sub === 'www' ? DEFAULT_TENANT : sub
   }
 
-  // Subdominio de la plataforma: <slug>.stepsseguros.app
+  // Subdominio de la plataforma: <slug>.stepseguros.com
   if (host.endsWith(`.${ROOT_DOMAIN}`)) {
     const sub = host.slice(0, -1 * (ROOT_DOMAIN.length + 1))
     if (!sub || sub === 'www') return DEFAULT_TENANT
